@@ -1,0 +1,4 @@
+<?fife type="object"?>
+<object id="house-1" namespace="zsc" blocking="1" static="1">
+	<image source="west.png" direction="270" />
+</object>

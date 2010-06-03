@@ -1,0 +1,5 @@
+<HBox opaque='1'>
+	<Label name="Title" text="Demo"/>
+	<Label name="FPS" min_size="175" text="fps:"/>
+	<Button name="quitButton" text="Quit"/>
+</HBox>

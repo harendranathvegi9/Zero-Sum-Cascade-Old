@@ -1,0 +1,4 @@
+<?fife type="object"?>
+<object id="firmany:002" namespace="zsc-tiles" blocking="1" static="1">
+	<image source="0.png" direction="0" y_offset="-75" />
+</object>

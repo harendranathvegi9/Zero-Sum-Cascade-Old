@@ -1,0 +1,7 @@
+<?fife type="object"?>
+<object blocking="1" id="actor:mrplaceholder" namespace="zsc-people" static="0">
+	<image direction="45" source="000.png" x_offset="0" y_offset="-20" />
+	<image direction="135" source="090.png" x_offset="0" y_offset="-20" />
+	<image direction="225" source="180.png" x_offset="0" y_offset="-20" />
+	<image direction="315" source="270.png" x_offset="0" y_offset="-20" />
+</object>

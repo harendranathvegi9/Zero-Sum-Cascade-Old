@@ -1,0 +1,4 @@
+<?fife type="object"?>
+<object id="zsc-test" namespace="zsc" blocking="0" static="1">
+	<image source="1.png" direction="0" />
+</object>
