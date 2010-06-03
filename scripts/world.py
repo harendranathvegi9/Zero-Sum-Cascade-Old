@@ -87,12 +87,20 @@ class World(EventListenerBase):
 	def _loadGui(type, guifile):
 		if type == 'MAIN':
 			self._mainmenu = pychan.loadXML('gui/' + guifile + '.xml')
+			guiinit = __import__('scripts.gui.' + guifile)
+			guiinit.run()
 		elif type == 'HUD':
 			self._hud = pychan.loadXML('gui/' + guifile + '.xml')
+			guiinit = __import__('scripts.gui.' + guifile)
+			guiinit.run()
 		elif type == 'PAUSE':
 			self._pause = pychan.loadXML('gui/' + guifile + '.xml')
+			guiinit = __import__('scripts.gui.' + guifile)
+			guiinit.run()
 		elif type == 'LOAD':
 			self._loadingmenu = pychan.loadXML('gui/' + guifile + '.xml')
+			guiinit = __import__('scripts.gui.' + guifile)
+			guiinit.run()
 		else:
 			pass
 	
