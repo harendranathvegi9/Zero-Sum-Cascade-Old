@@ -1,5 +1,7 @@
 quit, exit - closes the game
+hide - closes the console but doesn't clear it
 close - closes the console
 help - shows the helpfile
 help console - shows a list of console commands
 help keymap - shows a list of keybindings
+clear, empty - clear the console

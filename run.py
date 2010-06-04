@@ -21,12 +21,25 @@ from scripts import world
 # Import the settings library
 from fife.extensions.fife_settings import Setting
 
+# Import the settings file and name the application
 TDS = Setting(app_name="zsc-demo-1",
               settings_file="./settings.xml", 
               settings_gui_xml="")
 
 class ApplicationListener(EventListenerBase):
+	"""
+	ApplicationListener Class
+	Inherits from EventListenerBase, handles keypresses, commands and the console.
+	"""
 	def __init__(self, engine, world):
+		"""
+		__init___ Function
+		Starts the application listener
+		
+		Keyword Arguments
+		engine - A pointer to fife.engine
+		world - A World object
+		"""
 		super(ApplicationListener, self).__init__(engine,regKeys=True,regCmd=True, regMouse=False, regConsole=True, regWidget=True)
 		self._engine = engine
 		self._world = world
@@ -34,6 +47,10 @@ class ApplicationListener(EventListenerBase):
 		self._console = self._engine.getGuiManager().getConsole
 		
 	def keyPressed(self, evt):
+		"""
+		keyPressed Function
+		Handles keypresses (simple, ain't it?)
+		"""
 		keyval = evt.getKey().getValue()
 		keystr = evt.getKey().getAsString().lower()
 		consumed = False
@@ -60,7 +77,10 @@ class ApplicationListener(EventListenerBase):
 		if command.lower() in ('quit', 'exit'):
 			self._quit = True
 			result = 'quitting'
+		elif command.lower() in ('hide'):
+			self._console().toggleShowHide()
 		elif command.lower() in ('close'):
+			self._console().clear()
 			self._console().toggleShowHide()
 		elif command.lower() in ('help'):
 			self._console().println(open('misc/help.txt','r').read())
@@ -78,6 +98,9 @@ class ApplicationListener(EventListenerBase):
 			filename = 'screenshot' + str(time.time()) + '.png'
 			self._engine.getRenderBackend().captureScreen('screenshots/' + filename)
 			result = 'Screenshot ' + filename + ' taken'
+		elif command.lower() in ('clear', 'empty'):
+			self._console().clear()
+			result = 'Console cleared'
 		else:
 			result = 'Command not found'
 		return result
