@@ -67,12 +67,14 @@ class ApplicationListener(EventListenerBase):
 			self._console().toggleShowHide()
 			self.onConsoleCommand('help')
 
-	def onCommand(self, command):
-		self._quit = (command.getCommandType() == fife.CMD_QUIT_GAME)
-		if self._quit:
-			command.consume()
-
 	def onConsoleCommand(self, command):
+		"""
+		onConsoleCommand Function
+		Takes the input from the user from the console and checks it for a command
+		
+		Keyword Arguments
+		command - String, a command
+		"""
 		result = ''
 		if command.lower() in ('quit', 'exit'):
 			self._quit = True
@@ -95,6 +97,7 @@ class ApplicationListener(EventListenerBase):
 			self._console().println(open('misc/press.txt','r').read())
 			result = "-- End of help --"
 		elif command.lower() in ('takescreenshot'):
+			# Takes the current timestamp and makes a filename from it
 			filename = 'screenshot' + str(time.time()) + '.png'
 			self._engine.getRenderBackend().captureScreen('screenshots/' + filename)
 			result = 'Screenshot ' + filename + ' taken'
@@ -106,31 +109,37 @@ class ApplicationListener(EventListenerBase):
 		return result
 
 class mainApplication(ApplicationBase):
+	"""
+	mainApplication Class
+	The game it's self. Starts everything.
+	"""
 	def __init__(self):
 		super(mainApplication,self).__init__()
 		
+		# Start a new instance of a World object
 		self._world = world.World(self, self.engine, TDS)
+		
+		# Start a new listener object
 		self._listener = ApplicationListener(self.engine, self._world)
 		
+		# TODO: Add loading a map based on the settings file.
+		# Load a map
 		self._world._loadMap('maps/zsc-test-4.xml', 'LEVEL')
-		
-	def requestQuit(self):
-		cmd = fife.Command()
-		cmd.setSource(None)
-		cmd.setCommandType(fife.CMD_QUIT_GAME)
-		self.engine.getEventManager().dispatchCommand(cmd)
 		
 			
 	def createListener(self):
 		pass # already created in constructor
 
 	def _pump(self):
+		# Check to see if anything tried to quit
 		if self._listener._quit:
 			self.breakRequested = True
-		#else:
-		#	self._world.pump()
 			
 def main():
+	"""
+	main Function
+	Runs when the script is started. Simply starts mainApplication.
+	"""
 	app = mainApplication()
 	app.run()
 if __name__ == '__main__':
