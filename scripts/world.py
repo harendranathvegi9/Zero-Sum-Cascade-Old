@@ -48,10 +48,28 @@ from fife.extensions.soundmanager import SoundManager
 from scripts.common.eventlistenerbase import EventListenerBase
 from fife.extensions.loaders import loadMapFile, loadImportFile
 
+# World class. Starts the world.
 class World(EventListenerBase):
+	"""
+	World Class
+	Sets up the map, gui, soundmanager and calls the Actor class to deal with actors
+	
+	Keyword Arguments
+	EventListenerBase - World inherits from EventListenerBase
+	"""
 	def __init__(self, app, engine, setting):
+		"""
+		__init__ Function
+		Starts an instance of the World class
+		
+		Keyword Arguments
+		app - A pointer to the main application
+		engine - A pointer to fife.engine
+		setting - A pointer to a fife settings XML file
+		"""
 		super(World, self).__init__(engine, regKeys=True, regCmd=False, regMouse=True)
 
+		# Throw values into their variables
 		self._applictaion = app
 		self._engine = engine
 		self._setting = setting
@@ -75,17 +93,28 @@ class World(EventListenerBase):
 		self._starttime = 0
 		self._gamestate = 'STOPPED'
 		
+		# Start pychan
 		pychan.init(self._engine)
 		
+		# Set all GUI types to empty
 		self._hud = None
 		self._mainmenu = None
 		self._pausemenu = None
 		self._loadingmenu = None
 		
+		# Start the sound manager
 		self._soundmanager = self._engine.getSoundManager()
 		self._soundmanager.init()
 		
 	def _loadGui(self, type, guifile):
+		"""
+		_loadGui Function
+		Loads a pychan GUI file to one of the four GUI slots, then loads a python package to run to initilise the gui
+		
+		Keyword Arguments
+		type - String, the type of GUI being loaded
+		guifile - String, name of the pychan file being loaded
+		"""
 		if type == 'MAIN':
 			self._mainmenu = pychan.loadXML('gui/' + guifile + '.xml')
 			guiinit = __import__('scripts.gui.' + guifile)
@@ -106,6 +135,10 @@ class World(EventListenerBase):
 			pass
 	
 	def _hideAllGuis(self):
+		"""
+		_hideAllGuis Function
+		Hides any active GUI elements
+		"""
 		if self._hud != None:
 			self._hud.hide()
 		if self._mainmenu != None:
@@ -116,6 +149,14 @@ class World(EventListenerBase):
 			self._loadingmenu.hide()
 
 	def _loadLevelMapCallback(self, action, percentdone):
+		"""
+		_loadLevelMapCallback Function
+		Acts as a callback for level loading.
+		
+		Keyword Arguments
+		action - String, what has just been loaded
+		percentdone - Float, percentage loaded
+		"""
 		if percentdone == 1:
 			self._gamestate = 'LOADED'
 			self._hideAllGuis()
@@ -125,6 +166,14 @@ class World(EventListenerBase):
 			print str(percentdone) + "% loaded"
 	
 	def _loadMenuMapCallback(self, action, percentdone):
+		"""
+		_loadMenuMapCallback Function
+		Acts as a callback for level loading.
+		
+		Keyword Arguments
+		action - String, what has just been loaded
+		percentdone - Float, percentage loaded
+		"""
 		if percentdone == 1:
 			self._gamestate = 'LOADED'
 			self._hideAllGuis()
@@ -134,22 +183,44 @@ class World(EventListenerBase):
 			print str(percentdone) + "% loaded"
 
 	def _loadMap(self, filename, purpose):
+		"""
+		_loadMap Function
+		Deletes the old map and loads a new one. Also initilises cameras.
+		
+		Keyword Arguments
+		filename - String, path to the map file
+		purpose - String, LEVEL or MENU
+		"""
 		self._model.deleteMap(self._map)
 		self._map = None
 		
 		if purpose == 'LEVEL':
+			# Load the map
 			self._map = loadMapFile(filename, self._engine, self._loadLevelMapCallback)
+			# Hide any active GUIs
 			self._hideAllGuis()
+			
+			# If the loading menu is loaded, show it
 			if self._loadingmenu != None:
 				self._loadingmenu.show()
 		elif purpose == 'MENU':
+			# Load the map
 			self._map = loadMapFile(filename, self._engine, self._loadMenuMapCallback)
+			# Hide any active GUIs
 			self._hideAllGuis()
+			
+			# If the loading menu is loaded, show it
 			if self._loadingmenu != None:
 				self._loadingmenu.show()
 		
+		# Start (or clear) the camera array
 		self._cameras = {}
+		
+		# For each camera in the map
 		for cam in self._map.getCameras():
+			# Get the camera ID
 			camera_id = cam.getId()
+			# Add the camera with that ID to the array
 			self._cameras[camera_id] = cam
+			# Reset the camera
 			cam.resetRenderers()
