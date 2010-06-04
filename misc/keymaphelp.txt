@@ -1,0 +1,4 @@
+F1 - Show help
+F10 - Toggle Console
+F12 - Take a Screenshot
+ESC - Exit

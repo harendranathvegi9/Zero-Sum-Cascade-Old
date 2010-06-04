@@ -1,0 +1,5 @@
+Welcome to Zero Sum Cascade
+
+For help using the console, type 'help console'
+To see all keybindings, type 'help keybindings'
+To close the console, type 'close'

@@ -1,0 +1,5 @@
+quit, exit - closes the game
+close - closes the console
+help - shows the helpfile
+help console - shows a list of console commands
+help keymap - shows a list of keybindings

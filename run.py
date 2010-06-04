@@ -2,7 +2,7 @@
 
 # -*- coding: utf-8 -*-
 
-import sys, os, re, math, random, shutil
+import sys, os, re, math, random, shutil, time
 
 # Tell Python where to find FIFE
 fife_path = os.path.join('..','..','engine','python')
@@ -31,6 +31,7 @@ class ApplicationListener(EventListenerBase):
 		self._engine = engine
 		self._world = world
 		self._quit = False
+		self._console = self._engine.getGuiManager().getConsole
 		
 	def keyPressed(self, evt):
 		keyval = evt.getKey().getValue()
@@ -40,13 +41,46 @@ class ApplicationListener(EventListenerBase):
 			self._quit = True
 			evt.consume()
 		elif keyval == fife.Key.F10:
-			self._engine.getGuiManager().getConsole().toggleShowHide()
+			self._console().toggleShowHide()
 			evt.consume()
+		elif keyval == fife.Key.F12:
+			self.onConsoleCommand('takescreenshot')
+			evt.consume()
+		elif keyval == fife.Key.F1:
+			self._console().toggleShowHide()
+			self.onConsoleCommand('help')
 
 	def onCommand(self, command):
 		self._quit = (command.getCommandType() == fife.CMD_QUIT_GAME)
 		if self._quit:
 			command.consume()
+
+	def onConsoleCommand(self, command):
+		result = ''
+		if command.lower() in ('quit', 'exit'):
+			self._quit = True
+			result = 'quitting'
+		elif command.lower() in ('close'):
+			self._console().toggleShowHide()
+		elif command.lower() in ('help'):
+			self._console().println(open('misc/help.txt','r').read())
+			result = "-- End of help --"
+		elif command.lower() in ('help console'):
+			self._console().println(open('misc/consolehelp.txt','r').read())
+			result = "-- End of help --"
+		elif command.lower() in ('help keymap'):
+			self._console().println(open('misc/keymaphelp.txt','r').read())
+			result = "-- End of help --"
+		elif command.lower() in ('help press'):
+			self._console().println(open('misc/press.txt','r').read())
+			result = "-- End of help --"
+		elif command.lower() in ('takescreenshot'):
+			filename = 'screenshot' + str(time.time()) + '.png'
+			self._engine.getRenderBackend().captureScreen('screenshots/' + filename)
+			result = 'Screenshot ' + filename + ' taken'
+		else:
+			result = 'Command not found'
+		return result
 
 class mainApplication(ApplicationBase):
 	def __init__(self):

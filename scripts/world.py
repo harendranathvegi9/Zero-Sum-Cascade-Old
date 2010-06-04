@@ -82,7 +82,8 @@ class World(EventListenerBase):
 		self._pausemenu = None
 		self._loadingmenu = None
 		
-		self._soundmanager = SoundManager(self._engine)
+		self._soundmanager = self._engine.getSoundManager()
+		self._soundmanager.init()
 		
 	def _loadGui(self, type, guifile):
 		if type == 'MAIN':
