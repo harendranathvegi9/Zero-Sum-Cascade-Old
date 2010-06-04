@@ -41,6 +41,7 @@ import math, random
 
 # Import FIFE libraries
 from fife.extensions import pychan
+from fife.extensions.pychan import autoposition
 from fife.extensions.pychan import widgets
 from fife.extensions.soundmanager import SoundManager
 
@@ -106,7 +107,7 @@ class World(EventListenerBase):
 		self._soundmanager = self._engine.getSoundManager()
 		self._soundmanager.init()
 		
-	def _loadGui(self, type, guifile):
+	def _loadGui(self, type, guifile, imports):
 		"""
 		_loadGui Function
 		Loads a pychan GUI file to one of the four GUI slots, then loads a python package to run to initilise the gui
@@ -114,25 +115,31 @@ class World(EventListenerBase):
 		Keyword Arguments
 		type - String, the type of GUI being loaded
 		guifile - String, name of the pychan file being loaded
+		imports - Boolean
 		"""
 		if type == 'MAIN':
 			self._mainmenu = pychan.loadXML('gui/' + guifile + '.xml')
-			guiinit = __import__('scripts.gui.' + guifile)
-			guiinit.run()
+			if imports:
+				guiinit = __import__('scripts.gui.' + guifile)
+				guiinit.run()
 		elif type == 'HUD':
 			self._hud = pychan.loadXML('gui/' + guifile + '.xml')
-			guiinit = __import__('scripts.gui.' + guifile)
-			guiinit.run()
+			if imports:
+				guiinit = __import__('scripts.gui.' + guifile)
+				guiinit.run()
 		elif type == 'PAUSE':
 			self._pause = pychan.loadXML('gui/' + guifile + '.xml')
-			guiinit = __import__('scripts.gui.' + guifile)
-			guiinit.run()
+			if imports:
+				guiinit = __import__('scripts.gui.' + guifile)
+				guiinit.run()
 		elif type == 'LOAD':
 			self._loadingmenu = pychan.loadXML('gui/' + guifile + '.xml')
-			guiinit = __import__('scripts.gui.' + guifile)
-			guiinit.run()
+			if imports:
+				guiinit = __import__('scripts.gui.' + guifile)
+				guiinit.run()
 		else:
 			pass
+		print type + " GUI Loaded"
 	
 	def _hideAllGuis(self):
 		"""
@@ -157,13 +164,17 @@ class World(EventListenerBase):
 		action - String, what has just been loaded
 		percentdone - Float, percentage loaded
 		"""
+		self._engine.pump()
 		if percentdone == 1:
 			self._gamestate = 'LOADED'
 			self._hideAllGuis()
+			print "GUI hidden"
 			if self._hud != None:
 				self._hud.show()
 		else:
 			print str(percentdone) + "% loaded"
+			loaded = self._loadingmenu.findChild(name="loading")
+			loaded.text = str(math.floor(percentdone * 100)) + '% Loaded'			
 	
 	def _loadMenuMapCallback(self, action, percentdone):
 		"""
@@ -174,6 +185,7 @@ class World(EventListenerBase):
 		action - String, what has just been loaded
 		percentdone - Float, percentage loaded
 		"""
+		self._engine.pump()
 		if percentdone == 1:
 			self._gamestate = 'LOADED'
 			self._hideAllGuis()
@@ -181,6 +193,8 @@ class World(EventListenerBase):
 				self._mainmenu.show()
 		else:
 			print str(percentdone) + "% loaded"
+			loaded = self._loadingmenu.findChild(name="loading")
+			loaded.text = str(math.floor(percentdone * 100)) + '% Loaded'
 
 	def _loadMap(self, filename, purpose):
 		"""
@@ -195,19 +209,29 @@ class World(EventListenerBase):
 		self._map = None
 		
 		if purpose == 'LEVEL':
-			# Load the map
-			self._map = loadMapFile(filename, self._engine, self._loadLevelMapCallback)
 			# Hide any active GUIs
 			self._hideAllGuis()
+			
+			self._engine.pump()
 			
 			# If the loading menu is loaded, show it
 			if self._loadingmenu != None:
 				self._loadingmenu.show()
-		elif purpose == 'MENU':
+				loadwindow = self._loadingmenu.findChild(name="loadwindow")
+				autoposition.placeWidget(loadwindow, 'automatic')
+				print "GUI shown"
+			
 			# Load the map
-			self._map = loadMapFile(filename, self._engine, self._loadMenuMapCallback)
+			self._map = loadMapFile(filename, self._engine, self._loadLevelMapCallback)
+			
+		elif purpose == 'MENU':
 			# Hide any active GUIs
 			self._hideAllGuis()
+			
+			# Load the map
+			self._map = loadMapFile(filename, self._engine, self._loadMenuMapCallback)
+			
+			self._engine.pump()
 			
 			# If the loading menu is loaded, show it
 			if self._loadingmenu != None:

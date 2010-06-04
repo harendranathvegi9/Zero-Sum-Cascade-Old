@@ -122,15 +122,21 @@ class mainApplication(ApplicationBase):
 		# Start a new listener object
 		self._listener = ApplicationListener(self.engine, self._world)
 		
+		# Load GUI
+		self._world._loadGui('LOAD', 'loading-1', False)
+		
 		# TODO: Add loading a map based on the settings file.
 		# Load a map
-		self._world._loadMap('maps/zsc-test-4.xml', 'LEVEL')
-		
+		self._world._loadMap('maps/zsc-test-4.xml', 'LEVEL')	
 			
 	def createListener(self):
 		pass # already created in constructor
 
 	def _pump(self):
+		"""
+		_pump Function
+		Overwrites the default _pump function and is executed every frame.
+		"""
 		# Check to see if anything tried to quit
 		if self._listener._quit:
 			self.breakRequested = True
