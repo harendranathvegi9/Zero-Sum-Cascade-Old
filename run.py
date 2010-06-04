@@ -13,6 +13,7 @@ if os.path.isdir(fife_path) and fife_path not in sys.path:
 from fife import fife
 print "Using the FIFE python module found here: ", os.path.dirname(fife.__file__)
 from fife.extensions.basicapplication import ApplicationBase
+from scripts.common.eventlistenerbase import EventListenerBase
 
 # Import the world (yes, all of it)
 from scripts import world
@@ -24,7 +25,7 @@ TDS = Setting(app_name="zsc-demo-1",
               settings_file="./settings.xml", 
               settings_gui_xml="")
 
-class ApplicationListener(eventlistenerbase.EventListenerBase):
+class ApplicationListener(EventListenerBase):
 	def __init__(self, engine, world):
 		super(ApplicationListener, self).__init__(engine,regKeys=True,regCmd=True, regMouse=False, regConsole=True, regWidget=True)
 		self._engine = engine
@@ -36,7 +37,10 @@ class ApplicationListener(eventlistenerbase.EventListenerBase):
 		keystr = evt.getKey().getAsString().lower()
 		consumed = False
 		if keyval == fife.Key.ESCAPE:
-			self._world.showMainMenu()
+			self._quit = True
+			evt.consume()
+		elif keyval == fife.Key.F10:
+			self._engine.getGuiManager().getConsole().toggleShowHide()
 			evt.consume()
 
 	def onCommand(self, command):
@@ -51,6 +55,8 @@ class mainApplication(ApplicationBase):
 		self._world = world.World(self, self.engine, TDS)
 		self._listener = ApplicationListener(self.engine, self._world)
 		
+		self._world._loadMap('maps/zsc-test-4.xml', 'LEVEL')
+		
 	def requestQuit(self):
 		cmd = fife.Command()
 		cmd.setSource(None)
@@ -64,5 +70,11 @@ class mainApplication(ApplicationBase):
 	def _pump(self):
 		if self._listener._quit:
 			self.breakRequested = True
-		else:
-			self._world.pump()
+		#else:
+		#	self._world.pump()
+			
+def main():
+	app = mainApplication()
+	app.run()
+if __name__ == '__main__':
+	main()

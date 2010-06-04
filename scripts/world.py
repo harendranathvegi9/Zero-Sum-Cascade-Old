@@ -84,7 +84,7 @@ class World(EventListenerBase):
 		
 		self._soundmanager = SoundManager(self._engine)
 		
-	def _loadGui(type, guifile):
+	def _loadGui(self, type, guifile):
 		if type == 'MAIN':
 			self._mainmenu = pychan.loadXML('gui/' + guifile + '.xml')
 			guiinit = __import__('scripts.gui.' + guifile)
@@ -104,7 +104,7 @@ class World(EventListenerBase):
 		else:
 			pass
 	
-	def _hideAllGuis():
+	def _hideAllGuis(self):
 		if self._hud != None:
 			self._hud.hide()
 		if self._mainmenu != None:
@@ -114,25 +114,41 @@ class World(EventListenerBase):
 		if self._loadingmenu != None:
 			self._loadingmenu.hide()
 
-	def _loadLevelMapCallback():
-		self._gamestate = 'LOADED'
-		_hideAllGuis()
-		self._hud.show()
+	def _loadLevelMapCallback(self, action, percentdone):
+		if percentdone == 1:
+			self._gamestate = 'LOADED'
+			self._hideAllGuis()
+			if self._hud != None:
+				self._hud.show()
+		else:
+			print str(percentdone) + "% loaded"
 	
-	def _loadMenuMapCallback():
-		self._gamestate = 'LOADED'
-		_hideAllGuis()
-		self._mainmenu.show()
+	def _loadMenuMapCallback(self, action, percentdone):
+		if percentdone == 1:
+			self._gamestate = 'LOADED'
+			self._hideAllGuis()
+			if self._mainmenu != None:
+				self._mainmenu.show()
+		else:
+			print str(percentdone) + "% loaded"
 
-	def _loadMap(filename, purpose):
+	def _loadMap(self, filename, purpose):
 		self._model.deleteMap(self._map)
 		self._map = None
 		
 		if purpose == 'LEVEL':
-			self._map = loadMapFile(filename, engine, _loadLevelMapCallback)
-			_hideAllGuis()
-			self._loadingmenu.show()
+			self._map = loadMapFile(filename, self._engine, self._loadLevelMapCallback)
+			self._hideAllGuis()
+			if self._loadingmenu != None:
+				self._loadingmenu.show()
 		elif purpose == 'MENU':
-			self._map = loadMapFile(filename, engine, _loadMenuMapCallback)
-			_hideAllGuis()
-			self._loadingmenu.show()
+			self._map = loadMapFile(filename, self._engine, self._loadMenuMapCallback)
+			self._hideAllGuis()
+			if self._loadingmenu != None:
+				self._loadingmenu.show()
+		
+		self._cameras = {}
+		for cam in self._map.getCameras():
+			camera_id = cam.getId()
+			self._cameras[camera_id] = cam
+			cam.resetRenderers()
