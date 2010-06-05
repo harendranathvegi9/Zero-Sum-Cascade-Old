@@ -45,8 +45,10 @@ from fife.extensions.pychan import autoposition
 from fife.extensions.pychan import widgets
 from fife.extensions.soundmanager import SoundManager
 
-# Import eventListenerBase and the maploader
+# Import eventListenerBase, agentbase and the maploader
 from scripts.common.eventlistenerbase import EventListenerBase
+from scripts import agentbase
+from scripts.agents.player import Player
 from fife.extensions.loaders import loadMapFile, loadImportFile
 
 # World class. Starts the world.
@@ -85,7 +87,8 @@ class World(EventListenerBase):
 		                   'CTRL': False, 
 		                   'SPACE': False,
 				   'Q': False,
-				   'E': False,} 
+				   'E': False,}
+		self._cameras = {}
 		self._pump_ctr = 0
 		self._map = None
 		self._scene = None
@@ -93,6 +96,7 @@ class World(EventListenerBase):
 		self._pausedtime = 0
 		self._starttime = 0
 		self._gamestate = 'STOPPED'
+		self._player = None
 		
 		# Start pychan
 		pychan.init(self._engine)
@@ -164,13 +168,18 @@ class World(EventListenerBase):
 		action - String, what has just been loaded
 		percentdone - Float, percentage loaded
 		"""
+		# You have to pump the engine, else it doesn't render anything
+		# until the map has loaded
 		self._engine.pump()
+		
+		# If it's loaded, hide the loading screen and load the HUD
 		if percentdone == 1:
 			self._gamestate = 'LOADED'
 			self._hideAllGuis()
 			print "GUI hidden"
 			if self._hud != None:
-				self._hud.show()
+				self._hud.show()	
+		# Otherwise set the loading screens percentage label
 		else:
 			print str(percentdone) + "% loaded"
 			loaded = self._loadingmenu.findChild(name="loading")
@@ -185,12 +194,17 @@ class World(EventListenerBase):
 		action - String, what has just been loaded
 		percentdone - Float, percentage loaded
 		"""
+		# You have to pump the engine, else it doesn't render anything
+		# until the map has loaded
 		self._engine.pump()
+		
+		# If it's loaded, hide the loading screen and load the menu
 		if percentdone == 1:
 			self._gamestate = 'LOADED'
 			self._hideAllGuis()
 			if self._mainmenu != None:
 				self._mainmenu.show()
+		# Otherwise set the loading screens percentage label
 		else:
 			print str(percentdone) + "% loaded"
 			loaded = self._loadingmenu.findChild(name="loading")
@@ -212,6 +226,7 @@ class World(EventListenerBase):
 			# Hide any active GUIs
 			self._hideAllGuis()
 			
+			# Pump the engine to force it to move to a new frame
 			self._engine.pump()
 			
 			# If the loading menu is loaded, show it
@@ -228,14 +243,18 @@ class World(EventListenerBase):
 			# Hide any active GUIs
 			self._hideAllGuis()
 			
-			# Load the map
-			self._map = loadMapFile(filename, self._engine, self._loadMenuMapCallback)
-			
+			# Pump the engine to force it to move to a new frame
 			self._engine.pump()
 			
 			# If the loading menu is loaded, show it
 			if self._loadingmenu != None:
 				self._loadingmenu.show()
+				loadwindow = self._loadingmenu.findChild(name="loadwindow")
+				autoposition.placeWidget(loadwindow, 'automatic')
+				print "GUI shown"
+				
+			# Load the map
+			self._map = loadMapFile(filename, self._engine, self._loadMenuMapCallback)
 		
 		# Start (or clear) the camera array
 		self._cameras = {}
@@ -248,3 +267,36 @@ class World(EventListenerBase):
 			self._cameras[camera_id] = cam
 			# Reset the camera
 			cam.resetRenderers()
+			
+	def _getLocationAt(self, clickpoint, layer):
+		"""
+		Query the main camera for the Map location (on the agent layer)
+		that a screen point refers to.
+		"""
+		print "Got Clicky"
+		target_mapcoord = self._cameras['main'].toMapCoordinates(clickpoint, False)
+		print "Got mapcoord"
+		target_mapcoord.z = 0
+		print "Added zeta coord"
+		location = fife.Location(layer)
+		print "Got layer"
+		location.setMapCoordinates(target_mapcoord)
+		print "Finalised mapcoord"
+		return location
+			
+	def mousePressed(self, evt):
+		print "Clicky"
+		if evt.isConsumedByWidgets():
+			return
+		print "Not consumed"
+		clickpoint = fife.ScreenPoint(evt.getX(), evt.getY())
+		print "Got clicky chord"
+		if (evt.getButton() == fife.MouseEvent.LEFT):
+			print "Run player run!"
+			self._player.run(self._getLocationAt(clickpoint, self._map.getLayer('player')))
+			
+	def _startPlayerActor(self):
+		self._player = Player(self._setting, self._model, "actor-pc", self._map.getLayer('player'))
+		self._cameras['main'].attach(self._player._agent)
+		if self._cameras['main'].getAttached() == None:
+			print "Attach Failed"

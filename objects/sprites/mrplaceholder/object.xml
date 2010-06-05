@@ -4,4 +4,10 @@
 	<image direction="135" source="090.png" x_offset="0" y_offset="-20" />
 	<image direction="225" source="180.png" x_offset="0" y_offset="-20" />
 	<image direction="315" source="270.png" x_offset="0" y_offset="-20" />
+	<action id="walk">
+		<animation id="walk" source="animation.xml" direction="45" />
+		<animation id="walk" source="animation.xml" direction="135" />
+		<animation id="walk" source="animation.xml" direction="225" />
+		<animation id="walk" source="animation.xml" direction="315" />
+	</action>
 </object>

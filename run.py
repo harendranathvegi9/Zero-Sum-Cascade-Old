@@ -15,7 +15,7 @@ print "Using the FIFE python module found here: ", os.path.dirname(fife.__file__
 from fife.extensions.basicapplication import ApplicationBase
 from scripts.common.eventlistenerbase import EventListenerBase
 
-# Import the world (yes, all of it)
+# Import the world library
 from scripts import world
 
 # Import the settings library
@@ -127,8 +127,10 @@ class mainApplication(ApplicationBase):
 		
 		# TODO: Add loading a map based on the settings file.
 		# Load a map
-		self._world._loadMap('maps/zsc-test-4.xml', 'LEVEL')	
-			
+		self._world._loadMap('maps/zsc-test-4.xml', 'LEVEL')
+		
+		self._world._startPlayerActor()
+
 	def createListener(self):
 		pass # already created in constructor
 
