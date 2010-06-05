@@ -143,7 +143,6 @@ class World(EventListenerBase):
 				guiinit.run()
 		else:
 			pass
-		print type + " GUI Loaded"
 	
 	def _hideAllGuis(self):
 		"""
@@ -176,7 +175,6 @@ class World(EventListenerBase):
 		if percentdone == 1:
 			self._gamestate = 'LOADED'
 			self._hideAllGuis()
-			print "GUI hidden"
 			if self._hud != None:
 				self._hud.show()	
 		# Otherwise set the loading screens percentage label
@@ -234,7 +232,6 @@ class World(EventListenerBase):
 				self._loadingmenu.show()
 				loadwindow = self._loadingmenu.findChild(name="loadwindow")
 				autoposition.placeWidget(loadwindow, 'automatic')
-				print "GUI shown"
 			
 			# Load the map
 			self._map = loadMapFile(filename, self._engine, self._loadLevelMapCallback)
@@ -251,7 +248,6 @@ class World(EventListenerBase):
 				self._loadingmenu.show()
 				loadwindow = self._loadingmenu.findChild(name="loadwindow")
 				autoposition.placeWidget(loadwindow, 'automatic')
-				print "GUI shown"
 				
 			# Load the map
 			self._map = loadMapFile(filename, self._engine, self._loadMenuMapCallback)
@@ -273,26 +269,17 @@ class World(EventListenerBase):
 		Query the main camera for the Map location (on the agent layer)
 		that a screen point refers to.
 		"""
-		print "Got Clicky"
 		target_mapcoord = self._cameras['main'].toMapCoordinates(clickpoint, False)
-		print "Got mapcoord"
 		target_mapcoord.z = 0
-		print "Added zeta coord"
 		location = fife.Location(layer)
-		print "Got layer"
 		location.setMapCoordinates(target_mapcoord)
-		print "Finalised mapcoord"
 		return location
 			
 	def mousePressed(self, evt):
-		print "Clicky"
 		if evt.isConsumedByWidgets():
 			return
-		print "Not consumed"
 		clickpoint = fife.ScreenPoint(evt.getX(), evt.getY())
-		print "Got clicky chord"
 		if (evt.getButton() == fife.MouseEvent.LEFT):
-			print "Run player run!"
 			self._player.run(self._getLocationAt(clickpoint, self._map.getLayer('player')))
 			
 	def _startPlayerActor(self):
