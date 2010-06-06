@@ -143,6 +143,9 @@ class mainApplication(ApplicationBase):
 		if self._listener._quit:
 			self.breakRequested = True
 			
+		if self._world._cameras['main'].getAttached() == None:
+			self._world._cameras['main'].setLocation(self._world._player._agent.getLocation())
+			
 def main():
 	"""
 	main Function
