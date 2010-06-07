@@ -125,9 +125,14 @@ class mainApplication(ApplicationBase):
 		# Load GUI
 		self._world._loadGui('LOAD', 'loading-1', False)
 		
+		
+		
 		# TODO: Add loading a map based on the settings file.
 		# Load a map
 		self._world._loadMap('maps/zsc-test-4.xml', 'LEVEL')
+		
+		self._world._sounds._setAmbient('music/forestAmbient1.ogg', True)
+		self._world._sounds._startClip('ambient')
 		
 		self._world._startPlayerActor()
 

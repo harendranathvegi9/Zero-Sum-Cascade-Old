@@ -49,6 +49,7 @@ from fife.extensions.soundmanager import SoundManager
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
 from scripts.agents.player import Player
+from scripts import musicmanager
 from fife.extensions.loaders import loadMapFile, loadImportFile
 
 # World class. Starts the world.
@@ -108,8 +109,8 @@ class World(EventListenerBase):
 		self._loadingmenu = None
 		
 		# Start the sound manager
-		self._soundmanager = self._engine.getSoundManager()
-		self._soundmanager.init()
+		self._soundmanager = SoundManager(self._engine)
+		self._sounds = musicmanager.MusicManager(self._engine, self._soundmanager)
 		
 	def _loadGui(self, type, guifile, imports):
 		"""
