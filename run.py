@@ -104,6 +104,15 @@ class ApplicationListener(EventListenerBase):
 		elif command.lower() in ('clear', 'empty'):
 			self._console().clear()
 			result = 'Console cleared'
+		elif command.lower() in ('stopsounds'):
+			self._world._sounds._stopAllClips()
+			result = 'Sounds stopped'
+		elif command.lower() in ('startambient'):
+			self._world._sounds._startClip('ambient')
+			result = 'ambient music started'
+		elif command.lower() in ('startmusic'):
+			self._world._sounds._startClip('music')
+			result = 'ambient music started'
 		else:
 			result = 'Command not found'
 		return result
@@ -132,7 +141,6 @@ class mainApplication(ApplicationBase):
 		self._world._loadMap('maps/zsc-test-4.xml', 'LEVEL')
 		
 		self._world._sounds._setAmbient('music/forestAmbient1.ogg', True)
-		self._world._sounds._startClip('ambient')
 		
 		self._world._startPlayerActor()
 

@@ -48,11 +48,13 @@ class MusicManager():
 		
 	def _setAmbient(self, file, play):
 		self._emitters['ambient'] = self._soundmanager.createSoundEmitter(file)
+		self._emitters['ambient']._setLooping(True)
 		if play:
 			self._emitters['ambient'].play()
 			
 	def _setMusic(self, file, play):
 		self._emitters['music'] = self._soundmanager.createSoundEmitter(file)
+		self._emitters['ambient']._setLooping(True)
 		if play:
 			self._emitters['music'].play()
 		
@@ -66,9 +68,10 @@ class MusicManager():
 		
 	def _stopAllClips(self):
 		for sound in self._emitters:
-			sound.stop()
+			self._stopClip(sound)
 
-	def _loadClip(self, clip, file, play):
+	def _loadClip(self, clip, file, looping, play):
 		self._emitters[clip] = self._soundmanager.createSoundEmitter(file)
+		self._emitters[clip]._setLooping(looping)
 		if play:
 			self._emitters[clip].play()
