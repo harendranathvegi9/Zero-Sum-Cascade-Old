@@ -1,4 +1,4 @@
 <?fife type="object"?>
-<object id="house-1" namespace="zsc" blocking="1" static="1">
+<object id="house-1" namespace="zsc" blocking="1" static="1" x_offset="-15.0" y_offset="8.0">
 	<image source="west.png" direction="270" />
 </object>

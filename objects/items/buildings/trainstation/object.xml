@@ -1,0 +1,5 @@
+<?fife type="object"?>
+<object id="trainstation-1" namespace="zsc" blocking="1" static="1" x_offset="0.0" y_offset="0.0">
+	<image source="0.png" direction="270" />
+</object>
+
