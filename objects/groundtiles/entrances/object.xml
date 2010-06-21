@@ -1,0 +1,13 @@
+<?fife type="object"?>
+<object blocking="0" id="waypoint:entrance" namespace="zsc-tiles" static="1">
+	<image direction="45" source="1.png" x_offset="0" y_offset="0" />
+	<image direction="135" source="2.png" x_offset="0" y_offset="0" />
+	<image direction="225" source="3.png" x_offset="0" y_offset="0" />
+	<image direction="315" source="4.png" x_offset="0" y_offset="0" />
+	<action id="walk">
+		<animation id="active" source="active/animation1.xml" direction="45" />
+		<animation id="active" source="active/animation2.xml" direction="135" />
+		<animation id="active" source="active/animation3.xml" direction="225" />
+		<animation id="active" source="active/animation4.xml" direction="315" />
+	</action>
+</object>
