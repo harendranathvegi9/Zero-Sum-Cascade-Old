@@ -59,8 +59,5 @@ class Player(Agent):
 		#self._agent.act('stand', self.agent.getFacingLocation())
 		
 	def run(self, location):
-		print "Running!"
 		self._state = _STATE_RUN
-		print "Trying to run!"
 		self._agent.move('walk', location, 1)
-		print "I'm running!"

@@ -229,9 +229,12 @@ class World(EventListenerBase):
 		
 		if self._mapsettings.get("map", "dynamicnpcs", False):
 			self._npclist = self._mapsettings.get("map", "npclist", False)
-				if self._npclist != False:
-					for name, location in self._npclist.iteritems():
-						self._npcs[name] = NPC(self._setting, self._model, name, 'player', True, False, )
+			if self._npclist != False:
+				i = 0
+				for name, id in self._npclist.iteritems():
+					self._npcs[i] = NPC(self._setting, self._model, id, 'player', True, False)
+					self._npcs[i]
+					i = i + 1
 		
 		if purpose == 'LEVEL':
 			# Hide any active GUIs

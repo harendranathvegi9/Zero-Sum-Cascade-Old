@@ -38,17 +38,44 @@ if os.path.isdir(fife_path) and fife_path not in sys.path:
 # Import the engine
 from fife import fife
 from scripts.agentbase import Agent
+from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 
 _STATE_NONE, _STATE_IDLE, _STATE_RUN, _STATE_ACTION, _STATE_TALK = xrange(5)
 
 class NPC(Agent):
-	def __init__(self, settings, model, agentName, layer, uniqInMap=True, exists=False, location=None):
-		if exists:
-			super(Player, self).__init__(settings, model, agentName, layer, uniqInMap)
-		else:
-			self._fifeobject = self._model.getObject(agentName, "ZSC:DyanamicAgentModels")
-			self._agent = self._layer.createInstance(self._fifeobject, location, agentName)
-			fife.InstanceVisual.create(self._agent)
-			self._agent.thisown = 0
-			super(Player, self).__init__(settings, model, agentName, layer)
+	def __init__(self, settings, model, agentName, layer, uniqInMap=True):
+		super(Player, self).__init__(settings, model, agentName, layer, uniqInMap)
 		self._state = _STATE_NONE
+		self._name = ""
+		self._availableActions = { 'walk': False,
+					   'run': False,
+					   'talk': False,
+					   'die': False,
+					   'explode': False,
+					   'holdgun': False,
+					   'firegun': False,
+					   'beshot': False,
+					   'walkgun': False,
+					   'rungun': False,
+					   'diegun': False,
+					   'beshotgun': False,
+					   'holdpistol': False,
+					   'aimpistolleft': False,
+					   'aimpistolright': False,
+					   'firepistolleft': False,
+					   'firepistolright': False,
+					   'walkpistol': False,
+					   'runpistol': False,
+					   'diepistol': False,
+					   'beshotpistol': False,
+					   'teleportstart': False,
+					   'teleportend': False,
+					   'glitch': False }
+		
+	def _loadNPC(self, name):
+		npcFile = SimpleXMLSerializer(filename="npcs/" + name + ".xml")
+		actions = npcFile.get("npc", "actions", None)
+		actions = npcFile._deserializeDict(actions)
+		for action, bool in actions:
+			self._availableActions[action] = bool
+			
