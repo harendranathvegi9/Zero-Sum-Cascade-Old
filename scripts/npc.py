@@ -46,9 +46,9 @@ class NPC(Agent):
 		if exists:
 			super(Player, self).__init__(settings, model, agentName, layer, uniqInMap)
 		else:
-			super(Player, self).__init__(settings, model, agentName, layer)
 			self._fifeobject = self._model.getObject(agentName, "ZSC:DyanamicAgentModels")
 			self._agent = self._layer.createInstance(self._fifeobject, location, agentName)
 			fife.InstanceVisual.create(self._agent)
 			self._agent.thisown = 0
+			super(Player, self).__init__(settings, model, agentName, layer)
 		self._state = _STATE_NONE

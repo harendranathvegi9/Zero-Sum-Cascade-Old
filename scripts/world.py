@@ -44,12 +44,13 @@ from fife.extensions import pychan
 from fife.extensions.pychan import autoposition
 from fife.extensions.pychan import widgets
 from fife.extensions.soundmanager import SoundManager
+from fife.extensions.fife_settings import Setting
 
 # Import eventListenerBase, agentbase and the maploader
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
 from scripts.agents.player import Player
-from scripts import musicmanager
+from scripts import musicmanager, npc
 from fife.extensions.loaders import loadMapFile, loadImportFile
 
 # World class. Starts the world.
@@ -90,6 +91,8 @@ class World(EventListenerBase):
 				   'Q': False,
 				   'E': False,}
 		self._cameras = {}
+		self._npcs = {}
+		self._npclist = None
 		self._pump_ctr = 0
 		self._map = None
 		self._scene = None
@@ -220,6 +223,15 @@ class World(EventListenerBase):
 		"""
 		self._model.deleteMap(self._map)
 		self._map = None
+		self._npcs = {}
+		self._npclist = False
+		self._mapsettings = Setting(settings_file=filename +".config")
+		
+		if self._mapsettings.get("map", "dynamicnpcs", False):
+			self._npclist = self._mapsettings.get("map", "npclist", False)
+				if self._npclist != False:
+					for name, location in self._npclist.iteritems():
+						self._npcs[name] = NPC(self._setting, self._model, name, 'player', True, False, )
 		
 		if purpose == 'LEVEL':
 			# Hide any active GUIs
