@@ -46,18 +46,41 @@ class Event(self):
 		self._eventname = self._file.get("event", "name", len(tracker._events))
 		self._status = 'INACTIVE'
 		self._type = self._file.get("event", "type", "dummy")
-		if self._type = "dummy":
+		
+		if self._type == "dummy":
 			pass
-		elif self._type = "trip":
-			pass
-		elif self._type = "areatrip"
-			pass
-		elif self._type = "door":
-			pass
-		elif self._type = "plot":
-			pass
-		else:
-			pass
+			self._status = 'FULFILLED'
+		if self._type == "trip":
+			self._target = self._file.get("event", "target", None)
+			self._location = fife.Location('player')
+			self._location.setMapCoordinates(fife.ModelCoodinate(self._file.get("event", "x", 0),self._file.get("event", "y", 0), 0))
+		if self._type == "areatrip":
+			self._target = self._file.get("event", "target", None)
+			self._xmin = self._file.get("event", "xmin", 0)
+			self._xmax = self._file.get("event", "xmax", 0)
+			self._ymin = self._file.get("event", "ymin", 0)
+			self._ymax = self._file.get("event", "ymax", 0)
+		if self._type == "door":
+			self._target = self._file.get("event", "target", None)
+			self._location = fife.Location('player')
+			self._location.setMapCoordinates(fife.ModelCoodinate(self._file.get("event", "x", 0),self._file.get("event", "y", 0), 0))
+		if self._type == "plot":
+			self._subtype = self._file.get("event", "subtype", "dummy")
+			if self._subtype == "dummy":
+				pass
+				self._status = 'FULFILLED'
+			if self._subtype == "trip":
+				self._target = self._file.get("event", "target", None)
+				self._x = self._file.get("event", "x", 0)
+				self._y = self._file.get("event", "y", 0)
+			if self._subtype == "areatrip":
+				self._target = self._file.get("event", "target", None)
+				self._xmin = self._file.get("event", "xmin", 0)
+				self._xmax = self._file.get("event", "xmax", 0)
+				self._ymin = self._file.get("event", "ymin", 0)
+				self._ymax = self._file.get("event", "ymax", 0)
+		
+		self._action = self._file.get("event", "action", _eventfufilled)
 
 class EventTracker(self):
 	def __init__(self, engine, model, musicmanager):
