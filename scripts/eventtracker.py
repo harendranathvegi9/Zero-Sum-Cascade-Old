@@ -44,6 +44,20 @@ class Event(self):
 	def __init__(self, eventfile, tracker):
 		self._file = SimpleXMLSerializer(filename=eventfile)
 		self._eventname = self._file.get("event", "name", len(tracker._events))
+		self._status = 'INACTIVE'
+		self._type = self._file.get("event", "type", "dummy")
+		if self._type = "dummy":
+			pass
+		elif self._type = "trip":
+			pass
+		elif self._type = "areatrip"
+			pass
+		elif self._type = "door":
+			pass
+		elif self._type = "plot":
+			pass
+		else:
+			pass
 
 class EventTracker(self):
 	def __init__(self, engine, model, musicmanager):
