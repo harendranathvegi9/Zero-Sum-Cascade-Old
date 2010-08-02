@@ -80,14 +80,25 @@ class Event(self):
 				self._ymin = self._file.get("event", "ymin", 0)
 				self._ymax = self._file.get("event", "ymax", 0)
 		
-		self._action = self._file.get("event", "action", _eventfufilled)
+		action = self._file.get("event", "action", "none")
+		if action == "play":
+			tracker._eventmusic[self._eventname] = ThreePartMusic(self._file.get("event", "musicintro", ""), self._file.get("event", "musicloop", ""), self._file.get("event", "musicend", ""), True, tracker._musicmanager._soundmanager)
+			self._action = tracker._eventmusic(self._eventname)._play
+			self._noactioncallbacks = 0
+			self._actioncallbacks = {}
+		elif action == "swapmap":
+			self._action = tracker._world._loadmap
+			self._noactioncallbacks = 2
+			self._actioncallbacks = {'0': self._file.get("event", "newmap", ""),
+						 '1': 'LEVEL'}
 
 class EventTracker(self):
-	def __init__(self, engine, model, musicmanager):
+	def __init__(self, engine, model, musicmanager, world):
 		self._events = {}
 		self._engine = engine
 		self._model = model
 		self._musicmanager = musicmanager
+		self._world = world
 		self._eventmusic = {}
 	
 	def _addEvent(self, eventfile):
