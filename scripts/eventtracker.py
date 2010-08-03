@@ -81,16 +81,37 @@ class Event(self):
 				self._ymax = self._file.get("event", "ymax", 0)
 		
 		action = self._file.get("event", "action", "none")
-		if action == "play":
+		if action == "eventmusic":
 			tracker._eventmusic[self._eventname] = ThreePartMusic(self._file.get("event", "musicintro", ""), self._file.get("event", "musicloop", ""), self._file.get("event", "musicend", ""), True, tracker._musicmanager._soundmanager)
 			self._action = tracker._eventmusic(self._eventname)._play
 			self._noactioncallbacks = 0
 			self._actioncallbacks = {}
+		elif action == "playsound":
+			self._action = tracker._musicmanager._startClip
+			self._noactioncallbacks = 1
+			self._actioncallbacks = {'0': self._file.get("event", "clip", "default")}
+		elif action == "stopsound":
+			self._action = tracker._musicmanager._startClip
+			self._noactioncallbacks = 1
+			self._actioncallbacks = {'0': self._file.get("event", "clip", "default")}
 		elif action == "swapmap":
 			self._action = tracker._world._loadmap
 			self._noactioncallbacks = 2
 			self._actioncallbacks = {'0': self._file.get("event", "newmap", ""),
 						 '1': 'LEVEL'}
+		elif action == "movenpc":
+			self._action = tracker._world._npcs[self._file.get("event", "npc", "")].run
+			self._noactioncallbacks = 1
+			self._actioncallbacks = {'0': fife.Location(tracker._world._map.getLayer('player')).setLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
+		elif action == "moveplayer":
+			self._action = tracker._world._player.run
+			self._noactioncallbacks = 1
+			self._actioncallbacks = {'0': fife.Location(tracker._world._map.getLayer('player')).setLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
+		elif action == "npcaction":
+			reaction = self._file.get("event", "clip", "default")
+			if tracker._world._npcs[self._file.get("event", "npc", "")]._availableActions[reaction]:
+				self._action = tracker._world._npcs[self._file.get("event", "npc", "")]._action[reaction]
+				self._noactioncallbacks = 0
 
 class EventTracker(self):
 	def __init__(self, engine, model, musicmanager, world):

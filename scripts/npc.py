@@ -71,6 +71,30 @@ class NPC(Agent):
 					   'teleportstart': False,
 					   'teleportend': False,
 					   'glitch': False }
+		self._action = { 'walk': walk,
+				 'run': run,
+				 'talk': talk,
+				 'die': die,
+				 'explode': explode,
+				 'holdgun': idle,
+				 'firegun': fire,
+				 'beshot': beshot,
+				 'walkgun': walk,
+				 'rungun': run,
+				 'diegun': die,
+				 'beshotgun': beshot,
+				 'holdpistol': idle,
+				 'aimpistolleft': aimleft,
+				 'aimpistolright': aimright,
+				 'firepistolleft': fireleft,
+				 'firepistolright': fireright,
+				 'walkpistol': walk,
+				 'runpistol': run,
+				 'diepistol': die,
+				 'beshotpistol': beshot,
+				 'teleportstart': teleportstart,
+				 'teleportend': teleportend,
+				 'glitch': glitch }
 		
 	def _loadNPC(self, name):
 		npcFile = SimpleXMLSerializer(filename="npcs/" + name + ".xml")
@@ -79,3 +103,14 @@ class NPC(Agent):
 		for action, bool in actions:
 			self._availableActions[action] = bool
 			
+			
+	def onInstanceActionFinished(self, instance, action):
+		self._idle()
+		
+	def _idle(self):
+		self._state = _STATE_IDLE
+		#self._agent.act('stand', self.agent.getFacingLocation())
+		
+	def run(self, location):
+		self._state = _STATE_RUN
+		self._agent.move('walk', location, 1)
