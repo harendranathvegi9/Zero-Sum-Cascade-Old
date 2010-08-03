@@ -227,14 +227,7 @@ class World(EventListenerBase):
 		self._npclist = False
 		self._mapsettings = Setting(settings_file=filename +".config")
 		
-		if self._mapsettings.get("map", "dynamicnpcs", False):
-			self._npclist = self._mapsettings.get("map", "npclist", False)
-			if self._npclist != False:
-				i = 0
-				for name, id in self._npclist.iteritems():
-					self._npcs[i] = NPC(self._setting, self._model, id, 'player', True, False)
-					self._npcs[i]
-					i = i + 1
+		
 		
 		if purpose == 'LEVEL':
 			# Hide any active GUIs
@@ -251,6 +244,16 @@ class World(EventListenerBase):
 			
 			# Load the map
 			self._map = loadMapFile(filename, self._engine, self._loadLevelMapCallback)
+			
+			if self._mapsettings.get("map", "dynamicnpcs", False):
+				self._npclist = self._mapsettings.get("map", "npclist", False)
+				if self._npclist != False:
+					i = 0
+					for name, id in self._npclist.iteritems():
+						self._npcs[i] = NPC(self._setting, self._model, id, 'player', True, False)
+						self._npcs[i]
+						i = i + 1
+			
 			
 		elif purpose == 'MENU':
 			# Hide any active GUIs
