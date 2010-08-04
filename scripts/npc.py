@@ -37,8 +37,10 @@ if os.path.isdir(fife_path) and fife_path not in sys.path:
 
 # Import the engine
 from fife import fife
-from scripts.agentbase import Agent
+
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
+
+from scripts.agentbase import Agent
 
 _STATE_NONE, _STATE_IDLE, _STATE_RUN, _STATE_ACTION, _STATE_TALK = xrange(5)
 

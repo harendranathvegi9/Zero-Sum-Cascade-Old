@@ -46,12 +46,14 @@ from fife.extensions.pychan import widgets
 from fife.extensions.soundmanager import SoundManager
 from fife.extensions.fife_settings import Setting
 
+
 # Import eventListenerBase, agentbase and the maploader
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
 from scripts.agents.player import Player
 from scripts import musicmanager, npc
 from fife.extensions.loaders import loadMapFile, loadImportFile
+from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 
 # World class. Starts the world.
 class World(EventListenerBase):
@@ -225,7 +227,7 @@ class World(EventListenerBase):
 		self._map = None
 		self._npcs = {}
 		self._npclist = False
-		self._mapsettings = Setting(settings_file=filename +".config")
+		self._mapsettings = SimpleXMLSerializer(filename=filename +".config")
 		
 		
 		
