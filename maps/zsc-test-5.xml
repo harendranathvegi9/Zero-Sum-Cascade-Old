@@ -1636,6 +1636,14 @@
 			<i x="12.0" o="blocking:001" z="0.0" y="-5.0" r="0"></i>
 			<i x="13.0" o="blocking:001" z="0.0" y="-5.0" r="0"></i>
 			<i r="45" id="actor-pc" z="0.0" x="-1.0" o="actor:mrplaceholder" y="-10.0" ns="zsc-people"></i>
+                        <i r="45" id="actor-bob" z="0.0" x="-3.0" o="actor:mrplaceholder" y="-12.0" ns="zsc-people"></i>
+                        <i r="45" id="actor-jim" z="0.0" x="-5.0" o="actor:mrplaceholder" y="-14.0" ns="zsc-people"></i>
+                        <i r="45" id="actor-alex" z="0.0" x="-7.0" o="actor:mrplaceholder" y="-16.0" ns="zsc-people"></i>
+                        <i r="45" id="actor-andy" z="0.0" x="-3.0" o="actor:mrplaceholder" y="-10.0" ns="zsc-people"></i>
+                        <i r="45" id="actor-dean" z="0.0" x="-5.0" o="actor:mrplaceholder" y="-12.0" ns="zsc-people"></i>
+                        <i r="45" id="actor-mark" z="0.0" x="-7.0" o="actor:mrplaceholder" y="-14.0" ns="zsc-people"></i>
+                        <i r="45" id="actor-sam" z="0.0" x="-9.0" o="actor:mrplaceholder" y="-16.0" ns="zsc-people"></i>
+                        <i r="45" id="actor-will" z="0.0" x="-5.0" o="actor:mrplaceholder" y="-10.0" ns="zsc-people"></i>
 		</instances>
 	</layer>
 	<camera tilt="-54.8" id="main" ref_layer_id="ground" ref_cell_height="72" rotation="45.0" ref_cell_width="128" zoom="1.0">

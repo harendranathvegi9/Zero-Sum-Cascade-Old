@@ -247,16 +247,6 @@ class World(EventListenerBase):
 			# Load the map
 			self._map = loadMapFile(filename, self._engine, self._loadLevelMapCallback)
 			
-			if self._mapsettings.get("map", "dynamicnpcs", False):
-				self._npclist = self._mapsettings.get("map", "npclist", False)
-				if self._npclist != False:
-					i = 0
-					for name, id in self._npclist.iteritems():
-						self._npcs[i] = NPC(self._setting, self._model, id, 'player', True, False)
-						self._npcs[i]
-						i = i + 1
-			
-			
 		elif purpose == 'MENU':
 			# Hide any active GUIs
 			self._hideAllGuis()
@@ -284,6 +274,12 @@ class World(EventListenerBase):
 			self._cameras[camera_id] = cam
 			# Reset the camera
 			cam.resetRenderers()
+			
+		if self._mapsettings.get("map", "dynamicnpcs", False):
+			self._npclist = self._mapsettings._deserializeDict(self._mapsettings.get("map", "npclist", False))
+			if self._npclist != False:
+				for id, name in self._npclist.iteritems():
+					self._npcs[name] = npc.NPC(self._setting, self._model, id, self._map.getLayer('player'), True, name)
 			
 	def _getLocationAt(self, clickpoint, layer):
 		"""

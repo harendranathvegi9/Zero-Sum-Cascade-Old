@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Settings>
+  <Module name="npc">
+    <Setting name="actionchance" type="int">8</Setting>
+    <Setting name="actions" type="str">run : True ; glitch : False</Setting>
+  </Module>
+</Settings>

@@ -45,10 +45,11 @@ from scripts.agentbase import Agent
 _STATE_NONE, _STATE_IDLE, _STATE_RUN, _STATE_ACTION, _STATE_TALK = xrange(5)
 
 class NPC(Agent):
-	def __init__(self, settings, model, agentName, layer, uniqInMap=True):
-		super(Player, self).__init__(settings, model, agentName, layer, uniqInMap)
+	def __init__(self, settings, model, agentName, layer, uniqInMap=True, name=""):
+		super(NPC, self).__init__(settings, model, agentName, layer, uniqInMap)
 		self._state = _STATE_NONE
-		self._name = ""
+		self._name = name
+		self._layer = layer
 		self._availableActions = { 'walk': False,
 					   'run': False,
 					   'talk': False,
@@ -73,46 +74,96 @@ class NPC(Agent):
 					   'teleportstart': False,
 					   'teleportend': False,
 					   'glitch': False }
-		self._action = { 'walk': walk,
-				 'run': run,
-				 'talk': talk,
-				 'die': die,
-				 'explode': explode,
-				 'holdgun': idle,
-				 'firegun': fire,
-				 'beshot': beshot,
-				 'walkgun': walk,
-				 'rungun': run,
-				 'diegun': die,
-				 'beshotgun': beshot,
-				 'holdpistol': idle,
-				 'aimpistolleft': aimleft,
-				 'aimpistolright': aimright,
-				 'firepistolleft': fireleft,
-				 'firepistolright': fireright,
-				 'walkpistol': walk,
-				 'runpistol': run,
-				 'diepistol': die,
-				 'beshotpistol': beshot,
-				 'teleportstart': teleportstart,
-				 'teleportend': teleportend,
-				 'glitch': glitch }
+		self._action = { 'walk': self.walk,
+				 'run': self.run,
+				 'talk': self.talk,
+				 'die': self.die,
+				 'explode': self.explode,
+				 'holdgun': self._idle,
+				 'firegun': self.fire,
+				 'beshot': self.beshot,
+				 'walkgun': self.walk,
+				 'rungun': self.run,
+				 'diegun': self.die,
+				 'beshotgun': self.beshot,
+				 'holdpistol': self._idle,
+				 'aimpistolleft': self.aimleft,
+				 'aimpistolright': self.aimright,
+				 'firepistolleft': self.fireleft,
+				 'firepistolright': self.fireright,
+				 'walkpistol': self.walk,
+				 'runpistol': self.run,
+				 'diepistol': self.die,
+				 'beshotpistol': self.beshot,
+				 'teleportstart': self.teleportstart,
+				 'teleportend': self.teleportend,
+				 'glitch': self.glitch }
+		self._loadNPC(self._name)
 		
 	def _loadNPC(self, name):
-		npcFile = SimpleXMLSerializer(filename="npcs/" + name + ".xml")
-		actions = npcFile.get("npc", "actions", None)
-		actions = npcFile._deserializeDict(actions)
-		for action, bool in actions:
+		self._npcFile = SimpleXMLSerializer(filename="npcs/" + name + ".xml")
+		actionstr = self._npcFile.get("npc", "actions", None)
+		actions = self._npcFile._deserializeDict(actionstr)
+		print actions
+		for action, bool in actions.iteritems():
 			self._availableActions[action] = bool
-			
+		self._actionchance = self._npcFile.get("npc", "actionchance", 0)
+		self._idle()
 			
 	def onInstanceActionFinished(self, instance, action):
 		self._idle()
 		
 	def _idle(self):
 		self._state = _STATE_IDLE
-		#self._agent.act('stand', self.agent.getFacingLocation())
+		#chance = random.randint(1,10)
+		#if chance < self._actionchance:
+		#print self._name + " is idling"
+		if True:
+			location = fife.Location()
+			location.setLayer(self._layer)
+			location.setExactLayerCoordinates(fife.ExactModelCoordinate(random.randint(-20,20), random.randint(-20,20)))
+			self.run(location)
 		
 	def run(self, location):
 		self._state = _STATE_RUN
+		print self._name + " is running"
 		self._agent.move('walk', location, 1)
+		
+	def walk(self):
+		pass
+		
+	def talk(self):
+		pass
+	
+	def die(self):
+		pass
+	
+	def explode(self):
+		pass
+	
+	def beshot(self):
+		pass
+	
+	def aimleft(self):
+		pass
+	
+	def aimright(self):
+		pass
+	
+	def fire(self):
+		pass
+	
+	def fireleft(self):
+		pass
+	
+	def fireright(self):
+		pass
+	
+	def teleportstart(self):
+		pass
+	
+	def teleportend(self):
+		pass
+	
+	def glitch(self):
+		pass
