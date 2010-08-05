@@ -66,6 +66,10 @@ class ApplicationListener(EventListenerBase):
 		elif keyval == fife.Key.F1:
 			self._console().toggleShowHide()
 			self.onConsoleCommand('help')
+		elif keyval == fife.Key.F2:
+			print "F2 pressed"
+			r = self._world._cameras['main'].getRenderer('CoordinateRenderer')
+			r.setEnabled(not r.isEnabled())
 
 	def onConsoleCommand(self, command):
 		"""
@@ -116,6 +120,11 @@ class ApplicationListener(EventListenerBase):
 		else:
 			result = 'Command not found'
 		return result
+	
+	def onCommand(self, command):
+		self._quit = (command.getCommandType() == fife.CMD_QUIT_GAME)
+		if self._quit:
+			command.consume()
 
 class mainApplication(ApplicationBase):
 	"""

@@ -275,15 +275,22 @@ class World(EventListenerBase):
 			# Reset the camera
 			cam.resetRenderers()
 			
+		# Start co-ordinate renderer
+		renderer = self._cameras['main'].getRenderer('CoordinateRenderer')
+		renderer.clearActiveLayers()
+		renderer.addActiveLayer(self._map.getLayer("coords"))
+			
+		if self._mapsettings.get("map", "usewaypoints", False):
+			self._waypoints = self._mapsettings._deserializeList(self._mapsettings.get("map", "waypoints", ""))
+		else:
+			self._waypoints = None
+		
 		if self._mapsettings.get("map", "dynamicnpcs", False):
 			self._npclist = self._mapsettings._deserializeDict(self._mapsettings.get("map", "npclist", False))
 			if self._npclist != False:
 				for id, name in self._npclist.iteritems():
-					self._npcs[name] = npc.NPC(self._setting, self._model, id, self._map.getLayer('player'), self._map, True, name)
-		if self_mapsettings.get("map", "usewaypoints", False):
-			self._waypoints = self._mapsettings._deserializeList(self._mapsettings.get("map", "waypoints", ""))
-		else:
-			self._waypoints = None
+					self._npcs[name] = npc.NPC(self._setting, self._model, id, self._map.getLayer('player'), self, True, name)
+		
 			
 	def _getLocationAt(self, clickpoint, layer):
 		"""

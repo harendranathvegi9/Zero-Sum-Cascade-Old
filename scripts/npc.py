@@ -45,7 +45,7 @@ from scripts.agentbase import Agent
 _STATE_NONE, _STATE_IDLE, _STATE_RUN, _STATE_ACTION, _STATE_TALK = xrange(5)
 
 class NPC(Agent):
-	def __init__(self, settings, model, agentName, layer, map, uniqInMap=True, name=""):
+	def __init__(self, settings, model, agentName, layer, world, uniqInMap=True, name=""):
 		super(NPC, self).__init__(settings, model, agentName, layer, uniqInMap)
 		self._state = _STATE_NONE
 		self._name = name
@@ -98,7 +98,7 @@ class NPC(Agent):
 				 'teleportstart': self.teleportstart,
 				 'teleportend': self.teleportend,
 				 'glitch': self.glitch }
-		self._map = map
+		self._world = world
 		self._loadNPC(self._name)
 		
 	def _loadNPC(self, name):
@@ -119,12 +119,12 @@ class NPC(Agent):
 		self._waypointmove()
 		
 	def _waypointmove(self):
-		no = random.randint(0, len(self._map._waypoints) - 1)
-		point = self._map._waypoints[no]
+		no = random.randint(0, len(self._world._waypoints) - 1)
+		point = self._world._waypoints[no]
 		x, point, y = point.partition(',')
 		location = fife.Location()
 		location.setLayer(self._layer)
-		location.setExactLayerCoordinates(fife.ExactModelCoordinate(x + random.randint(-1,1), y + random.randint(-1,1)))
+		location.setExactLayerCoordinates(fife.ExactModelCoordinate(int(x) + random.randint(-1,1), int(y) + random.randint(-1,1)))
 		self.run(location)
 		
 	def run(self, location):

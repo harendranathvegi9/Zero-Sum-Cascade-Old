@@ -1646,6 +1646,10 @@
                         <i r="45" id="actor-will" z="0.0" x="-5.0" o="actor:mrplaceholder" y="-10.0" ns="zsc-people"></i>
 		</instances>
 	</layer>
+      	<layer grid_type="square" id="coords" x_scale="0.5" x_offset="0.0" y_offset="0.0" pathing="cell_edges_only" y_scale="0.5" rotation="0.0" transparency="0">
+            <instances>
+            </instances>
+        </layer>
 	<camera tilt="-54.8" id="main" ref_layer_id="ground" ref_cell_height="72" rotation="45.0" ref_cell_width="128" zoom="1.0">
 	</camera>
 </map>
