@@ -47,13 +47,18 @@ class Event(self):
 		self._status = 'INACTIVE'
 		self._type = self._file.get("event", "type", "dummy")
 		
+		if self._file.get("event", "active", False):
+			self._status = 'ACTIVE'
+			
+		self._activates = self._file.get("event", "activates", "none")
+		
 		if self._type == "dummy":
 			pass
 			self._status = 'FULFILLED'
 		if self._type == "trip":
 			self._target = self._file.get("event", "target", None)
-			self._location = fife.Location('player')
-			self._location.setMapCoordinates(fife.ModelCoodinate(self._file.get("event", "x", 0),self._file.get("event", "y", 0), 0))
+			self._x = self._file.get("event", "x", 0)
+			self._y = self._file.get("event", "y", 0)
 		if self._type == "areatrip":
 			self._target = self._file.get("event", "target", None)
 			self._xmin = self._file.get("event", "xmin", 0)
@@ -61,9 +66,8 @@ class Event(self):
 			self._ymin = self._file.get("event", "ymin", 0)
 			self._ymax = self._file.get("event", "ymax", 0)
 		if self._type == "door":
-			self._target = self._file.get("event", "target", None)
-			self._location = fife.Location('player')
-			self._location.setMapCoordinates(fife.ModelCoodinate(self._file.get("event", "x", 0),self._file.get("event", "y", 0), 0))
+			self._x = self._file.get("event", "x", 0)
+			self._y = self._file.get("event", "y", 0)
 		if self._type == "plot":
 			self._subtype = self._file.get("event", "subtype", "dummy")
 			if self._subtype == "dummy":
@@ -112,6 +116,48 @@ class Event(self):
 			if tracker._world._npcs[self._file.get("event", "npc", "")]._availableActions[reaction]:
 				self._action = tracker._world._npcs[self._file.get("event", "npc", "")]._action[reaction]
 				self._noactioncallbacks = 0
+		elif action == "playeraction":
+			reaction = self._file.get("event", "clip", "default")
+			if tracker._world._npcs[self._file.get("event", "npc", "")]._availableActions[reaction]:
+				self._action = tracker._world._player._action[reaction]
+				self._noactioncallbacks = 0
+		
+	def _evaluate():
+		if self._type == "plot":
+			type = self._subtype
+		else:
+			type = self._type
+		if type == "trip":
+			if self._target == "player":
+				if tracker._world._player._agent.getLocation().getMapCoordinates() == fife.ExactModelCoordinates(self._x, self._y):
+					if self._noactioncallbacks == 0:
+						self._action()
+					elif self._noactioncallbacks == 1:
+						self._action(self._actioncallbacks[0])
+					elif self._noactioncallbacks == 2:
+						self._action(self._actioncallbacks[0], self._actioncallbacks[1])
+					elif self._noactioncallbacks == 3:
+						self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
+					self._status = 'FULFILLED'
+					if self._activates != "None":
+						tracker._events[self._activates]._status = 'ACTIVE'
+			else:
+				if tracker._world._npcs[self._target]._agent.getLocation().getMapCoordinates() == fife.ExactModelCoordinates(self._x, self._y):
+					if self._noactioncallbacks == 0:
+						self._action()
+					elif self._noactioncallbacks == 1:
+						self._action(self._actioncallbacks[0])
+					elif self._noactioncallbacks == 2:
+						self._action(self._actioncallbacks[0], self._actioncallbacks[1])
+					elif self._noactioncallbacks == 3:
+						self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
+					self._status = 'FULFILLED'
+					if self._activates != "None":
+						tracker._events[self._activates]._status = 'ACTIVE'
+		elif type == "areatrip":
+			pass
+		elif type == "door":
+			pass
 
 class EventTracker(self):
 	def __init__(self, engine, model, musicmanager, world):
