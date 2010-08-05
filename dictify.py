@@ -22,7 +22,8 @@ dict = {}
 loop = True
 
 while loop:
-    dict[raw_input("Key: ")] = raw_input("Value: ")
+    key = raw_input("Key: ")
+    dict[key] = raw_input("Value: ")
     print "Add more? Y/n"
     if raw_input() == "n":
         loop = False

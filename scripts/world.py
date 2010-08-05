@@ -279,7 +279,11 @@ class World(EventListenerBase):
 			self._npclist = self._mapsettings._deserializeDict(self._mapsettings.get("map", "npclist", False))
 			if self._npclist != False:
 				for id, name in self._npclist.iteritems():
-					self._npcs[name] = npc.NPC(self._setting, self._model, id, self._map.getLayer('player'), True, name)
+					self._npcs[name] = npc.NPC(self._setting, self._model, id, self._map.getLayer('player'), self._map, True, name)
+		if self_mapsettings.get("map", "usewaypoints", False):
+			self._waypoints = self._mapsettings._deserializeList(self._mapsettings.get("map", "waypoints", ""))
+		else:
+			self._waypoints = None
 			
 	def _getLocationAt(self, clickpoint, layer):
 		"""

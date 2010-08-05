@@ -45,7 +45,7 @@ from scripts.agentbase import Agent
 _STATE_NONE, _STATE_IDLE, _STATE_RUN, _STATE_ACTION, _STATE_TALK = xrange(5)
 
 class NPC(Agent):
-	def __init__(self, settings, model, agentName, layer, uniqInMap=True, name=""):
+	def __init__(self, settings, model, agentName, layer, map, uniqInMap=True, name=""):
 		super(NPC, self).__init__(settings, model, agentName, layer, uniqInMap)
 		self._state = _STATE_NONE
 		self._name = name
@@ -98,6 +98,7 @@ class NPC(Agent):
 				 'teleportstart': self.teleportstart,
 				 'teleportend': self.teleportend,
 				 'glitch': self.glitch }
+		self._map = map
 		self._loadNPC(self._name)
 		
 	def _loadNPC(self, name):
@@ -115,14 +116,16 @@ class NPC(Agent):
 		
 	def _idle(self):
 		self._state = _STATE_IDLE
-		#chance = random.randint(1,10)
-		#if chance < self._actionchance:
-		#print self._name + " is idling"
-		if True:
-			location = fife.Location()
-			location.setLayer(self._layer)
-			location.setExactLayerCoordinates(fife.ExactModelCoordinate(random.randint(-20,20), random.randint(-20,20)))
-			self.run(location)
+		self._waypointmove()
+		
+	def _waypointmove(self):
+		no = random.randint(0, len(self._map._waypoints) - 1)
+		point = self._map._waypoints[no]
+		x, point, y = point.partition(',')
+		location = fife.Location()
+		location.setLayer(self._layer)
+		location.setExactLayerCoordinates(fife.ExactModelCoordinate(x + random.randint(-1,1), y + random.randint(-1,1)))
+		self.run(location)
 		
 	def run(self, location):
 		self._state = _STATE_RUN
