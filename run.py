@@ -2,15 +2,37 @@
 
 # -*- coding: utf-8 -*-
 
-import sys, os, re, math, random, shutil, time
+import sys, os, re, math, random, shutil, time, getopt
 
-# Tell Python where to find FIFE
-fife_path = os.path.join('engine','python')
-if os.path.isdir(fife_path) and fife_path not in sys.path:
-	sys.path.insert(0,fife_path)
+# Check to see if the user wants to supply FIFE themselves
+argv = sys.argv[1:]
+local = False
+try:
+	opts, args = getopt.getopt(argv, "l", "use-local")
+except:
+	pass
+for opt, arg in opts:
+	if opt in ("-l", "--use-local"):
+		local = True
+	else:
+		local = False
+
 
 # Import FIFE
-from fife import fife
+if local:
+	try:
+		from fife import fife
+	except:
+		fife_path = os.path.join('engine','python')
+		if os.path.isdir(fife_path) and fife_path not in sys.path:
+			sys.path.insert(0,fife_path)
+		from fife import fife
+else:
+	fife_path = os.path.join('engine','python')
+	if os.path.isdir(fife_path) and fife_path not in sys.path:
+		sys.path.insert(0,fife_path)
+	from fife import fife
+
 print "Using the FIFE python module found here: ", os.path.dirname(fife.__file__)
 from fife.extensions.basicapplication import ApplicationBase
 from scripts.common.eventlistenerbase import EventListenerBase

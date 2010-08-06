@@ -106,11 +106,11 @@ class Event(self):
 		elif action == "movenpc":
 			self._action = tracker._world._npcs[self._file.get("event", "npc", "")].run
 			self._noactioncallbacks = 1
-			self._actioncallbacks = {'0': fife.Location(tracker._world._map.getLayer('player')).setLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
+			self._actioncallbacks = {'0': fife.Location(tracker._world._map.getLayer('player')).setExactLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
 		elif action == "moveplayer":
 			self._action = tracker._world._player.run
 			self._noactioncallbacks = 1
-			self._actioncallbacks = {'0': fife.Location(tracker._world._map.getLayer('player')).setLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
+			self._actioncallbacks = {'0': fife.Location(tracker._world._map.getLayer('player')).setExactLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
 		elif action == "npcaction":
 			reaction = self._file.get("event", "clip", "default")
 			if tracker._world._npcs[self._file.get("event", "npc", "")]._availableActions[reaction]:
@@ -129,7 +129,7 @@ class Event(self):
 			type = self._type
 		if type == "trip":
 			if self._target == "player":
-				if tracker._world._player._agent.getLocation().getMapCoordinates() == fife.ExactModelCoordinates(self._x, self._y):
+				if tracker._world._player._agent.getLocation().getExactLayerCoordinates() == fife.ExactModelCoordinates(self._x, self._y):
 					if self._noactioncallbacks == 0:
 						self._action()
 					elif self._noactioncallbacks == 1:
@@ -142,7 +142,7 @@ class Event(self):
 					if self._activates != "None":
 						tracker._events[self._activates]._status = 'ACTIVE'
 			else:
-				if tracker._world._npcs[self._target]._agent.getLocation().getMapCoordinates() == fife.ExactModelCoordinates(self._x, self._y):
+				if tracker._world._npcs[self._target]._agent.getLocation().getExactLayerCoordinates() == fife.ExactModelCoordinates(self._x, self._y):
 					if self._noactioncallbacks == 0:
 						self._action()
 					elif self._noactioncallbacks == 1:
@@ -174,3 +174,8 @@ class EventTracker(self):
 	
 	def _deleteEvent(self, event):
 		del self._events[event]
+		
+	def _evaluateEvents(self, all=False):
+		for name, event in self._events.iteritems():
+			if event._status == 'ACTIVE' or all:
+				event._evaluate()

@@ -312,6 +312,7 @@ class World(EventListenerBase):
 			
 	def _startPlayerActor(self):
 		self._player = Player(self._setting, self._model, "actor-pc", self._map.getLayer('player'))
+		self._cameras['main'].setLocation(self._player._agent.getLocation())
 		self._cameras['main'].attach(self._map.getLayer('player').getInstance("actor-pc"))
 		if self._cameras['main'].getAttached() == None:
 			print "Attach Failed"
