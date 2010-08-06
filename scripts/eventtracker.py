@@ -40,12 +40,13 @@ from fife import fife
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 from musicmanager import ThreePartMusic
 
-class Event(self):
+class Event():
 	def __init__(self, eventfile, tracker):
 		self._file = SimpleXMLSerializer(filename=eventfile)
 		self._eventname = self._file.get("event", "name", len(tracker._events))
 		self._status = 'INACTIVE'
 		self._type = self._file.get("event", "type", "dummy")
+		self._tracker = tracker
 		
 		if self._file.get("event", "active", False):
 			self._status = 'ACTIVE'
@@ -93,24 +94,24 @@ class Event(self):
 		elif action == "playsound":
 			self._action = tracker._musicmanager._startClip
 			self._noactioncallbacks = 1
-			self._actioncallbacks = {'0': self._file.get("event", "clip", "default")}
+			self._actioncallbacks = {0: self._file.get("event", "clip", "default")}
 		elif action == "stopsound":
 			self._action = tracker._musicmanager._startClip
 			self._noactioncallbacks = 1
-			self._actioncallbacks = {'0': self._file.get("event", "clip", "default")}
+			self._actioncallbacks = {0: self._file.get("event", "clip", "default")}
 		elif action == "swapmap":
 			self._action = tracker._world._loadmap
 			self._noactioncallbacks = 2
-			self._actioncallbacks = {'0': self._file.get("event", "newmap", ""),
-						 '1': 'LEVEL'}
+			self._actioncallbacks = {0: self._file.get("event", "newmap", ""),
+						 1: 'LEVEL'}
 		elif action == "movenpc":
 			self._action = tracker._world._npcs[self._file.get("event", "npc", "")].run
 			self._noactioncallbacks = 1
-			self._actioncallbacks = {'0': fife.Location(tracker._world._map.getLayer('player')).setExactLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
+			self._actioncallbacks = {0: fife.Location(tracker._world._map.getLayer('player')).setExactLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
 		elif action == "moveplayer":
 			self._action = tracker._world._player.run
 			self._noactioncallbacks = 1
-			self._actioncallbacks = {'0': fife.Location(tracker._world._map.getLayer('player')).setExactLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
+			self._actioncallbacks = {0: fife.Location(tracker._world._map.getLayer('player')).setExactLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
 		elif action == "npcaction":
 			reaction = self._file.get("event", "clip", "default")
 			if tracker._world._npcs[self._file.get("event", "npc", "")]._availableActions[reaction]:
@@ -122,44 +123,43 @@ class Event(self):
 				self._action = tracker._world._player._action[reaction]
 				self._noactioncallbacks = 0
 		
-	def _evaluate():
+	def _evaluate(self):
+		if self._target == "player":
+			loc = self._tracker._world._player._agent.getLocation().getExactLayerCoordinates()
+		else:
+			loc = self._tracker._world._npcs[self._target]._agent.getLocation().getExactLayerCoordinates()
 		if self._type == "plot":
 			type = self._subtype
 		else:
 			type = self._type
 		if type == "trip":
-			if self._target == "player":
-				if tracker._world._player._agent.getLocation().getExactLayerCoordinates() == fife.ExactModelCoordinates(self._x, self._y):
-					if self._noactioncallbacks == 0:
-						self._action()
-					elif self._noactioncallbacks == 1:
-						self._action(self._actioncallbacks[0])
-					elif self._noactioncallbacks == 2:
-						self._action(self._actioncallbacks[0], self._actioncallbacks[1])
-					elif self._noactioncallbacks == 3:
-						self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
-					self._status = 'FULFILLED'
-					if self._activates != "None":
-						tracker._events[self._activates]._status = 'ACTIVE'
-			else:
-				if tracker._world._npcs[self._target]._agent.getLocation().getExactLayerCoordinates() == fife.ExactModelCoordinates(self._x, self._y):
-					if self._noactioncallbacks == 0:
-						self._action()
-					elif self._noactioncallbacks == 1:
-						self._action(self._actioncallbacks[0])
-					elif self._noactioncallbacks == 2:
-						self._action(self._actioncallbacks[0], self._actioncallbacks[1])
-					elif self._noactioncallbacks == 3:
-						self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
-					self._status = 'FULFILLED'
-					if self._activates != "None":
-						tracker._events[self._activates]._status = 'ACTIVE'
+			if int(loc.x) == self._x and int(loc.y) == self._y:
+				if self._noactioncallbacks == 0:
+					self._action()
+				elif self._noactioncallbacks == 1:
+					self._action(self._actioncallbacks[0])
+				elif self._noactioncallbacks == 2:
+					self._action(self._actioncallbacks[0], self._actioncallbacks[1])
+				elif self._noactioncallbacks == 3:
+					self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
+				self._status = 'FULFILLED'
+				if self._activates != "none":
+					self._tracker._events[self._activates]._status = 'ACTIVE'
 		elif type == "areatrip":
-			pass
-		elif type == "door":
-			pass
+			if loc.x >= self._xmin and loc.x <= self._xmax and loc.y >= self._ymin and loc.y <= self._ymax:
+				if self._noactioncallbacks == 0:
+					self._action()
+				elif self._noactioncallbacks == 1:
+					self._action(self._actioncallbacks[0])
+				elif self._noactioncallbacks == 2:
+					self._action(self._actioncallbacks[0], self._actioncallbacks[1])
+				elif self._noactioncallbacks == 3:
+					self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
+				self._status = 'FULFILLED'
+				if self._activates != "none":
+					self._tracker._events[self._activates]._status = 'ACTIVE'
 
-class EventTracker(self):
+class EventTracker():
 	def __init__(self, engine, model, musicmanager, world):
 		self._events = {}
 		self._engine = engine

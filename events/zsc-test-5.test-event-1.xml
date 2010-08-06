@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Settings>
+  <Module name="event">
+    <Setting name="name" type="str">test-event-1</Setting>
+    <Setting name="active" type="bool">True</Setting>
+    <Setting name="type" type="str">trip</Setting>
+    <Setting name="target" type="str">player</Setting>
+    <Setting name="x" type="int">-2</Setting>
+    <Setting name="y" type="int">6</Setting>
+    <Setting name="action" type="str">playsound</Setting>
+    <Setting name="clip" type="str">beep</Setting>
+  </Module>
+</Settings>

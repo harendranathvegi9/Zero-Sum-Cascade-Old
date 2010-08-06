@@ -51,7 +51,7 @@ from fife.extensions.fife_settings import Setting
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
 from scripts.agents.player import Player
-from scripts import musicmanager, npc
+from scripts import musicmanager, npc, eventtracker
 from fife.extensions.loaders import loadMapFile, loadImportFile
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 
@@ -103,6 +103,7 @@ class World(EventListenerBase):
 		self._starttime = 0
 		self._gamestate = 'STOPPED'
 		self._player = None
+		self._eventtracker = None
 		
 		# Start pychan
 		pychan.init(self._engine)
@@ -228,7 +229,7 @@ class World(EventListenerBase):
 		self._npcs = {}
 		self._npclist = False
 		self._mapsettings = SimpleXMLSerializer(filename=filename +".config")
-		
+		self._eventtracker = None
 		
 		
 		if purpose == 'LEVEL':
@@ -291,6 +292,11 @@ class World(EventListenerBase):
 				for id, name in self._npclist.iteritems():
 					self._npcs[name] = npc.NPC(self._setting, self._model, id, self._map.getLayer('player'), self, True, name)
 		
+		self._eventtracker = eventtracker.EventTracker(self._engine, self._model, self._sounds, self)
+		if self._mapsettings.get("map", "useevents", False):
+			eventlist = self._mapsettings._deserializeList(self._mapsettings.get("map", "eventslist", ""))
+			for file in eventlist:
+				self._eventtracker._addEvent(file)
 			
 	def _getLocationAt(self, clickpoint, layer):
 		"""

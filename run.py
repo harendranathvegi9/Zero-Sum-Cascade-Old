@@ -171,6 +171,8 @@ class mainApplication(ApplicationBase):
 		# Load a map
 		self._world._loadMap('maps/zsc-test-5.xml', 'LEVEL')
 		
+		self._world._sounds._loadClip("beep", "sounds/beep.ogg", False, False)
+		
 		self._world._sounds._setAmbient('music/forestAmbient1.ogg', True)
 		
 		self._world._startPlayerActor()
@@ -186,10 +188,8 @@ class mainApplication(ApplicationBase):
 		# Check to see if anything tried to quit
 		if self._listener._quit:
 			self.breakRequested = True
-			
-		if self._world._cameras['main'].getAttached() == None:
-			self._world._cameras['main'].setLocation(self._world._player._agent.getLocation())
-			
+		
+		self._world._eventtracker._evaluateEvents()
 def main():
 	"""
 	main Function
