@@ -66,9 +66,6 @@ class Event():
 			self._xmax = self._file.get("event", "xmax", 0)
 			self._ymin = self._file.get("event", "ymin", 0)
 			self._ymax = self._file.get("event", "ymax", 0)
-		if self._type == "door":
-			self._x = self._file.get("event", "x", 0)
-			self._y = self._file.get("event", "y", 0)
 		if self._type == "plot":
 			self._subtype = self._file.get("event", "subtype", "dummy")
 			if self._subtype == "dummy":
