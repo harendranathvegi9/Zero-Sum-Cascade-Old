@@ -62,12 +62,16 @@ class InteractiveObject(fife.InstanceActionListener):
 				  'destroy' : self.destroy,
 				  'turnon' : self.activate,
 				  'turnoff' : self.deactivate,
-				  'explode' : self.explode }
+				  'explode' : self.explode,
+				  'describe': self.describe,
+				  'glitch' : self.glitch }
 		self._availableactions = { 'use' : False,
 					   'destroy' : False,
 					   'turnon' : False,
 					   'turnoff' : False,
-					   'explode' : False }
+					   'explode' : False,
+					   'describe' : True,
+					   'glitch' : False }
 		
 		actionstr = self._objectfile.get("object", "actions", None)
 		actions = self._objectfile._deserializeDict(actionstr)
@@ -90,4 +94,10 @@ class InteractiveObject(fife.InstanceActionListener):
 		pass
 	
 	def explode(self):
+		pass
+	
+	def describe(self):
+		pass
+	
+	def glitch(self):
 		pass
