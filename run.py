@@ -173,7 +173,8 @@ class mainApplication(ApplicationBase):
 		
 		self._world._sounds._loadClip("beep", "sounds/beep.ogg", False, False)
 		
-		self._world._sounds._setAmbient('music/forestAmbient1.ogg', True)
+		self._world._sounds._loadClip('ambient', 'music/forestAmbient1.ogg', True, False)
+		self._world._sounds._startClip('ambient', True)
 		
 		self._world._startPlayerActor()
 
@@ -190,6 +191,7 @@ class mainApplication(ApplicationBase):
 			self.breakRequested = True
 		
 		self._world._eventtracker._evaluateEvents()
+		self._world._sounds._fade()
 def main():
 	"""
 	main Function

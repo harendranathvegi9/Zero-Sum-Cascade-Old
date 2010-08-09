@@ -41,40 +41,89 @@ from fife import fife
 #from fife.extensions.soundmanager import SoundManager
 
 class MusicManager():
-	def __init__(self, engine, soundmanager):
+	def __init__(self, engine, soundmanager, clock):
 		self._soundmanager = soundmanager
+		self._timemanager = clock
 		
 		self._emitters = {}
+		self._emitterstatus = {}
 		
 	def _setAmbient(self, file, play):
 		self._emitters['ambient'] = self._soundmanager.createSoundEmitter(file)
 		self._emitters['ambient']._setLooping(True)
 		if play:
 			self._emitters['ambient'].play()
+			self._emitterstatus['ambient'] = 'PLAYING'
+		else:
+			self._emitterstatus['ambient'] = 'STOPPED'
 			
 	def _setMusic(self, file, play):
 		self._emitters['music'] = self._soundmanager.createSoundEmitter(file)
-		self._emitters['ambient']._setLooping(True)
+		self._emitters['music']._setLooping(True)
 		if play:
 			self._emitters['music'].play()
+			self._emitterstatus['music'] = 'PLAYING'
+		else:
+			self._emitterstatus['music'] = 'STOPPED'
 		
-	def _startClip(self, clip):
-		if self._emitters[clip] != None:
+	def _startClip(self, clip, fade=False, startgain=0):
+		if self._emitters[clip] != None and self._emitterstatus[clip] != 'PLAYING' and not fade:
 			self._emitters[clip].play()
+			self._emitterstatus[clip] = 'PLAYING'
+			self._emitters[clip]._setGain(255)
+		elif self._emitters[clip] != None and (self._emitterstatus[clip] != 'PLAYING' or self._emitterstatus[clip] != 'FADEIN') and fade:
+			self._emitters[clip].play()
+			self._emitterstatus[clip] = 'FADEIN'
+			self._emitters[clip]._setGain(0)
+
 	
-	def _stopClip(self, clip):
-		if self._emitters[clip] != None:
-			self._emitters[clip].stop()
+	def _stopClip(self, clip, fade=False, startgain=255):
+		if self._emitters[clip] != None and self._emitterstatus[clip] != 'STOPPED' and not fade:
+			self._emitters[clip].play()
+			self._emitterstatus[clip] = 'STOPPED'
+			self._emitters[clip]._setGain(255)
+		elif self._emitters[clip] != None and (self._emitterstatus[clip] != 'STOPPED' or self._emitterstatus[clip] != 'FADEOUT') and fade:
+			self._emitters[clip].play()
+			self._emitterstatus[clip] = 'FADEOUT'
+			self._emitters[clip]._setGain(startgain)
 		
 	def _stopAllClips(self):
 		for sound in self._emitters:
 			self._stopClip(sound)
+			self._emitterstatus[sound] = 'STOPPED'
 
 	def _loadClip(self, clip, file, looping, play):
 		self._emitters[clip] = self._soundmanager.createSoundEmitter(file)
 		self._emitters[clip]._setLooping(looping)
 		if play:
 			self._emitters[clip].play()
+			self._emitterstatus[clip] = 'PLAYING'
+		else:
+			self._emitterstatus[clip] = 'STOPPED'
+			
+	def _fade(self):
+		for clip, status in self._emitterstatus.iteritems():
+			if status == 'FADEIN':
+				dgain = 255.0 / (10000/self._timemanager.getTimeDelta())
+				if self._emitters[clip]._getGain() + dgain > 255:
+					dgain = 255 - self._emitters[clip]._getGain()
+				self._emitters[clip]._setGain(self._emitters[clip]._getGain() + dgain)
+				if self._emitters[clip]._getGain() == 255:
+					self._emitterstatus[clip] = 'PLAYING'
+				print clip + " delta gain: " + str(dgain)
+				print clip + " gain: " + str(self._emitters[clip]._getGain())
+			elif status == 'FADEOUT':
+				dgain = -255.0/(10000/self._timemanager.getTimeDelta())
+				if self._emitters[clip]._getGain() + dgain < 0:
+					dgain = self._emitters[clip]._getGain() - 255
+				self._emitters[clip]._setGain(self._emitters[clip]._getGain() + dgain)
+				if self._emitters[clip]._getGain() == 0:
+					self._emitterstatus[clip] = 'STOPPED'
+					self._emitters[clip].stop()
+				print clip + " delta gain: " + str(dgain)
+				print clip + " gain: " + str(self._emitters[clip]._getGain())
+			else:
+				pass
 	
 class ThreePartMusic():
 	def __init__(self, intro, loop, end, load, soundmanager):

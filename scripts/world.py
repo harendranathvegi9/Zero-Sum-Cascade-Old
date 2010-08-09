@@ -116,7 +116,7 @@ class World(EventListenerBase):
 		
 		# Start the sound manager
 		self._soundmanager = SoundManager(self._engine)
-		self._sounds = musicmanager.MusicManager(self._engine, self._soundmanager)
+		self._sounds = musicmanager.MusicManager(self._engine, self._soundmanager, self._timemanager)
 		
 	def _loadGui(self, type, guifile, imports):
 		"""
