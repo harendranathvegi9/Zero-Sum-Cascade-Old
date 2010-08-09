@@ -130,18 +130,18 @@ class ThreePartMusic():
 		self._soundmanager = soundmanager
 		if load:
 			self._intro = self._soundmanager.createSoundEmitter(intro)
-			self._intro._setCallback(startLoop)
+			self._intro._setCallback(self._startLoop)
 			self._loop = self._soundmanager.createSoundEmitter(loop)
 			self._loop._setLooping(True)
 			self._end = self._soundmanager.createSoundEmitter(end)
-			self._intro._setCallback(_fullStop)
+			
 		else:
 			self._intro = intro
-			self._intro._setCallback(_startLoop)
+			self._intro._setCallback(self._startLoop)
 			self._loop = loop
-			self._loop._setLooping(True)
+			self._loop._setLooping(True) 
 			self._end = end
-			self._intro._setCallback(_fullStop)
+			
 		self._status = 'STOPPED'
 		
 	def _start(self):

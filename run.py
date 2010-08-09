@@ -39,6 +39,7 @@ from scripts.common.eventlistenerbase import EventListenerBase
 
 # Import the world library
 from scripts import world
+from scripts.musicmanager import ThreePartMusic
 
 # Import the settings library
 from fife.extensions.fife_settings import Setting
@@ -173,8 +174,11 @@ class mainApplication(ApplicationBase):
 		
 		self._world._sounds._loadClip("beep", "sounds/beep.ogg", False, False)
 		
-		self._world._sounds._loadClip('ambient', 'music/forestAmbient1.ogg', True, False)
-		self._world._sounds._startClip('ambient', True)
+		#self._world._sounds._loadClip('ambient', 'music/forestAmbient1.ogg', True, False)
+		#self._world._sounds._startClip('ambient', True)
+		
+		self._testsound = ThreePartMusic('music/other/title/start.ogg', 'music/other/title/loop.ogg', 'music/other/title/end.ogg', True, self._world._soundmanager)
+		self._testsound._start()
 		
 		self._world._startPlayerActor()
 
