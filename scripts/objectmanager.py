@@ -79,25 +79,38 @@ class InteractiveObject(fife.InstanceActionListener):
 			self._availableactions[action] = bool
 	
 	def onInstanceActionFinished(self, instance, action):
-		pass
+		if self._status == 'ON':
+			self._agent.act('on', self._agent.getFacingLoaction)
+		elif self._status == 'OFF':
+			self._agent.act('off', self._agent.getFacingLoaction)
+		elif self._status == 'DESTROYED':
+			self._agent.act('dead', self._agent.getFacingLoaction)
+		elif self._status == 'GLITCHED':
+			self._agent.act('glitch', self._agent.getFacingLoaction)
 	
 	def use(self):
-		pass
+		if self._status == 'ON':
+			self._agent.act('on', self._agent.getFacingLoaction)
 
 	def destroy(self):
-		pass
+		self._agent.act('die', self._agent.getFacingLoaction)
+		self._status = 'DESTROYED'
 	
 	def activate(self):
-		pass
+		self._agent.act('turnon', self._agent.getFacingLoaction)
+		self._status = 'ON'
 	
 	def deactivate(self):
-		pass
+		self._agent.act('turnoff', self._agent.getFacingLoaction)
+		self._status = 'OFF'
 	
 	def explode(self):
-		pass
+		self._agent.act('explode', self._agent.getFacingLoaction)
+		self._status = 'DESTROYED'
 	
 	def describe(self):
-		pass
+		pass # Will pass description to the HUD
 	
 	def glitch(self):
-		pass
+		self._agent.act('glitch', self._agent.getFacingLoaction)
+		self._status = 'GLITCHED'

@@ -27,11 +27,6 @@
 
 import sys, os, re
 
-# Tell the interpreter where to find the engine
-fife_path = os.path.join('..','..','engine','python')
-if os.path.isdir(fife_path) and fife_path not in sys.path:
-	sys.path.insert(0,fife_path)
-
 # Import the engine
 from fife import fife
 
@@ -51,7 +46,7 @@ from fife.extensions.fife_settings import Setting
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
 from scripts.agents.player import Player
-from scripts import musicmanager, npc, eventtracker
+from scripts import musicmanager, npc, eventtracker, objectmanager
 from fife.extensions.loaders import loadMapFile, loadImportFile
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 
@@ -104,6 +99,7 @@ class World(EventListenerBase):
 		self._gamestate = 'STOPPED'
 		self._player = None
 		self._eventtracker = None
+		self._objects = None
 		
 		# Start pychan
 		pychan.init(self._engine)
@@ -285,6 +281,12 @@ class World(EventListenerBase):
 			self._waypoints = self._mapsettings._deserializeList(self._mapsettings.get("map", "waypoints", ""))
 		else:
 			self._waypoints = None
+		
+		if self._mapsettings.get("map", "useobjects", False):
+			self._objects = objectmanager.ObjectManager(self)
+			objlist = self._mapsettings._deserializeList(self._mapsettings.get("map", "objectlist", False))
+			for file in objlist:
+				self._objects._loadObjects(file)
 		
 		if self._mapsettings.get("map", "dynamicnpcs", False):
 			self._npclist = self._mapsettings._deserializeDict(self._mapsettings.get("map", "npclist", False))
