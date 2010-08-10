@@ -49,6 +49,7 @@ class NPC(Agent):
 		super(NPC, self).__init__(settings, model, agentName, layer, uniqInMap)
 		self._state = _STATE_NONE
 		self._name = name
+		self._agentName = agentName
 		self._layer = layer
 		self._availableActions = { 'walk': False,
 					   'run': False,
@@ -105,7 +106,6 @@ class NPC(Agent):
 		self._npcFile = SimpleXMLSerializer(filename="npcs/" + name + ".xml")
 		actionstr = self._npcFile.get("npc", "actions", None)
 		actions = self._npcFile._deserializeDict(actionstr)
-		print actions
 		for action, bool in actions.iteritems():
 			self._availableActions[action] = bool
 		self._actionchance = self._npcFile.get("npc", "actionchance", 0)
@@ -130,7 +130,7 @@ class NPC(Agent):
 	def run(self, location):
 		self._state = _STATE_RUN
 		print self._name + " is running"
-		self._agent.move('walk', location, 1)
+		self._agent.move('walk', location, 0.5)
 		
 	def walk(self):
 		pass

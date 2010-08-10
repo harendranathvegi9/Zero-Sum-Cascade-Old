@@ -99,7 +99,7 @@ class World(EventListenerBase):
 		self._gamestate = 'STOPPED'
 		self._player = None
 		self._eventtracker = None
-		self._objects = None
+		self._objects = {}
 		
 		# Start pychan
 		pychan.init(self._engine)
@@ -310,14 +310,40 @@ class World(EventListenerBase):
 		location = fife.Location(layer)
 		location.setMapCoordinates(target_mapcoord)
 		return location
+	
+	def _getInstancesAt(self, clickpoint, layer):
+		"""
+		Query the main camera for instances on a given layer.
+		"""
+		return self._cameras['main'].getMatchingInstances(clickpoint, layer)
 			
 	def mousePressed(self, evt):
 		if evt.isConsumedByWidgets():
 			return
 		clickpoint = fife.ScreenPoint(evt.getX(), evt.getY())
+		playerinstance = self._getInstancesAt(clickpoint, self._map.getLayer('player'))
+		playerinstance = self._getInstancesAt(clickpoint, self._map.getLayer('waypoints'))
 		if (evt.getButton() == fife.MouseEvent.LEFT):
 			self._player.run(self._getLocationAt(clickpoint, self._map.getLayer('player')))
+		elif (evt.getButton() == fife.MouseEvent.RIGHT):
+			pass
 			
+	def mouseMoved(self, evt):
+		if self._map != None:
+			renderer = fife.InstanceRenderer.getInstance(self._cameras['main'])
+			renderer.removeAllOutlines()
+	
+			pt = fife.ScreenPoint(evt.getX(), evt.getY())
+			instances = self._getInstancesAt(pt, self._map.getLayer('player'))
+			instances = instances + self._getInstancesAt(pt, self._map.getLayer('waypoints'))
+			for i in instances:
+				for name, object in self._objects.iteritems():
+					if i.getId() == name:
+						renderer.addOutlined(i, 173, 255, 47, 2)
+				for name, object in self._npcs.iteritems():
+					if i.getId() == object._agentName:
+						renderer.addOutlined(i, 173, 255, 47, 2)
+
 	def _startPlayerActor(self):
 		self._player = Player(self._setting, self._model, "actor-pc", self._map.getLayer('player'))
 		self._cameras['main'].setLocation(self._player._agent.getLocation())
