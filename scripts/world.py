@@ -274,13 +274,17 @@ class World(EventListenerBase):
 			# Reset the camera
 			cam.resetRenderers()
 			
-		self._startPlayerActor()
-			
-		# Start co-ordinate renderer
-		renderer = self._cameras['main'].getRenderer('CoordinateRenderer')
-		renderer.clearActiveLayers()
-		renderer.addActiveLayer(self._map.getLayer("coords"))
-			
+		if purpose == 'LEVEL':
+			# Start the player character
+			self._startPlayerActor()
+		
+		# Start the floating text renderer
+		renderer = fife.FloatingTextRenderer.getInstance(self._cameras['main'])
+		textfont = self._engine.getGuiManager().createFont('fonts/rpgfont.png', 0, str(self._setting.get("FIFE", "FontGlyphs")))
+		renderer.changeDefaultFont(textfont)
+		renderer.activateAllLayers(self._map)
+		renderer.setEnabled(True)
+	
 		if self._mapsettings.get("map", "usewaypoints", False):
 			self._waypoints = self._mapsettings._deserializeList(self._mapsettings.get("map", "waypoints", ""))
 		else:

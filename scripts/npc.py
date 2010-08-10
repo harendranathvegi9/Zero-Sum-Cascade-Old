@@ -67,7 +67,7 @@ class NPC(Agent):
 					   'teleportstart': False,
 					   'teleportend': False,
 					   'glitch': False,
-					   'describe' : False}
+					   'describe' : True}
 		self._action = { 'walk': self.walk,
 				 'run': self.run,
 				 'talk': self.talk,
@@ -103,6 +103,7 @@ class NPC(Agent):
 		for action, bool in actions.iteritems():
 			self._availableActions[action] = bool
 		self._actionchance = self._npcFile.get("npc", "actionchance", 0)
+		self._description = self._npcFile.get("npc", "description", "I can see a mysterious figure,\n but I can't quite make them out.")
 		self._idle()
 			
 	def onInstanceActionFinished(self, instance, action):
@@ -111,7 +112,6 @@ class NPC(Agent):
 	def _idle(self):
 		self._state = _STATE_IDLE
 		chance = random.randint(0,100)
-		print str(chance) + " vs. " + str(self._actionchance)
 		if chance < self._actionchance:
 			self._waypointmove()
 		else:
@@ -170,4 +170,4 @@ class NPC(Agent):
 		pass
 
 	def describe(self):
-		pass
+		self._world._player._agent.say(self._description, 5000)

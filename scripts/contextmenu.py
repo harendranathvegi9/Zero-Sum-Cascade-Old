@@ -129,7 +129,8 @@ class ContextMenu():
 		pass
 	
 	def _inspect(self):
-		pass
+		self._hide()
+		self._currentObject.describe()
 	
 	def _turnon(self):
 		pass
