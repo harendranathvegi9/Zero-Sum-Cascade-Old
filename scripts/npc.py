@@ -110,7 +110,12 @@ class NPC(Agent):
 		
 	def _idle(self):
 		self._state = _STATE_IDLE
-		self._waypointmove()
+		chance = random.randint(0,100)
+		print str(chance) + " vs. " + str(self._actionchance)
+		if chance < self._actionchance:
+			self._waypointmove()
+		else:
+			self._agent.act('walk', self._agent.getFacingLocation())
 		
 	def _waypointmove(self):
 		no = random.randint(0, len(self._world._waypoints) - 1)
@@ -123,7 +128,7 @@ class NPC(Agent):
 		
 	def run(self, location):
 		self._state = _STATE_RUN
-		self._agent.move('walk', location, 0.5)
+		self._agent.move('walk', location, 0.75)
 		
 	def walk(self):
 		pass

@@ -60,4 +60,4 @@ class Player(Agent):
 		
 	def run(self, location):
 		self._state = _STATE_RUN
-		self._agent.move('walk', location, 1)
+		self._agent.move('walk', location, 0.75)

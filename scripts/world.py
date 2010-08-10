@@ -274,6 +274,8 @@ class World(EventListenerBase):
 			# Reset the camera
 			cam.resetRenderers()
 			
+		self._startPlayerActor()
+			
 		# Start co-ordinate renderer
 		renderer = self._cameras['main'].getRenderer('CoordinateRenderer')
 		renderer.clearActiveLayers()

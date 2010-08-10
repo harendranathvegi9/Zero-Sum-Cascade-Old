@@ -139,4 +139,4 @@ class ContextMenu():
 	
 	def _follow(self):
 		self._hide()
-		self._world._player._agent.follow('walk', self._currentObject._agent, 0.5)
+		self._world._player._agent.follow('walk', self._currentObject._agent, 0.75)

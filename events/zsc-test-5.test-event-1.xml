@@ -7,7 +7,8 @@
     <Setting name="target" type="str">player</Setting>
     <Setting name="x" type="int">-2</Setting>
     <Setting name="y" type="int">6</Setting>
-    <Setting name="action" type="str">playsound</Setting>
-    <Setting name="clip" type="str">beep</Setting>
+    <Setting name="action" type="str">portplayer</Setting>
+    <Setting name="newx" type="int">-2</Setting>
+    <Setting name="newy" type="int">4</Setting>
   </Module>
 </Settings>

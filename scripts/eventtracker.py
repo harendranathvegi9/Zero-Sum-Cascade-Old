@@ -84,41 +84,58 @@ class Event():
 		
 		action = self._file.get("event", "action", "none")
 		if action == "eventmusic":
-			tracker._eventmusic[self._eventname] = ThreePartMusic(self._file.get("event", "musicintro", ""), self._file.get("event", "musicloop", ""), self._file.get("event", "musicend", ""), True, tracker._musicmanager._soundmanager)
-			self._action = tracker._eventmusic(self._eventname)._play
+			self._tracker._eventmusic[self._eventname] = ThreePartMusic(self._file.get("event", "musicintro", ""), self._file.get("event", "musicloop", ""), self._file.get("event", "musicend", ""), True, tracker._musicmanager._soundmanager)
+			self._action = self._tracker._eventmusic(self._eventname)._play
 			self._noactioncallbacks = 0
 			self._actioncallbacks = {}
 		elif action == "playsound":
-			self._action = tracker._musicmanager._startClip
+			self._action = self._tracker._musicmanager._startClip
 			self._noactioncallbacks = 1
 			self._actioncallbacks = {0: self._file.get("event", "clip", "default")}
 		elif action == "stopsound":
-			self._action = tracker._musicmanager._startClip
+			self._action = self._tracker._musicmanager._startClip
 			self._noactioncallbacks = 1
 			self._actioncallbacks = {0: self._file.get("event", "clip", "default")}
 		elif action == "swapmap":
-			self._action = tracker._world._loadmap
+			self._action = self._tracker._world._loadmap
 			self._noactioncallbacks = 2
 			self._actioncallbacks = {0: self._file.get("event", "newmap", ""),
 						 1: 'LEVEL'}
 		elif action == "movenpc":
-			self._action = tracker._world._npcs[self._file.get("event", "npc", "")].run
-			self._noactioncallbacks = 1
-			self._actioncallbacks = {0: fife.Location(tracker._world._map.getLayer('player')).setExactLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
+			self._action = self._tracker._world._npcs[self._file.get("event", "npc", "")].run
+			location = fife.Location()
+			location.setLayer(tracker._world._map.getLayer('player'))
+			location.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "newx", 0), self._file.get("event", "newy", 0)))
+			self._actioncallbacks = {0: location}
 		elif action == "moveplayer":
-			self._action = tracker._world._player.run
-			self._noactioncallbacks = 1
-			self._actioncallbacks = {0: fife.Location(tracker._world._map.getLayer('player')).setExactLayerCoordinates(fife.ModelCoordinate(self._file.get("event", "x", 0), self._file.get("event", "y", 0)))}
+			self._action = self._tracker._world._player.run
+			location = fife.Location()
+			location.setLayer(tracker._world._map.getLayer('player'))
+			location.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "newx", 0), self._file.get("event", "newy", 0)))
+			self._actioncallbacks = {0: location}
 		elif action == "npcaction":
 			reaction = self._file.get("event", "clip", "default")
-			if tracker._world._npcs[self._file.get("event", "npc", "")]._availableActions[reaction]:
-				self._action = tracker._world._npcs[self._file.get("event", "npc", "")]._action[reaction]
+			if self._tracker._world._npcs[self._file.get("event", "npc", "")]._availableActions[reaction]:
+				self._action = self._tracker._world._npcs[self._file.get("event", "npc", "")]._action[reaction]
 				self._noactioncallbacks = 0
 		elif action == "playeraction":
 			reaction = self._file.get("event", "clip", "default")
-			if tracker._world._npcs[self._file.get("event", "npc", "")]._availableActions[reaction]:
-				self._action = tracker._world._player._action[reaction]
+			if self._tracker._world._player._availableActions[reaction]:
+				self._action = self._tracker._world._player._action[reaction]
 				self._noactioncallbacks = 0
+		elif action == "portnpc":
+			self._action = self._tracker._world._npcs[self._file.get("event", "npc", "")]._agent.setLocation
+			location = fife.Location()
+			location.setLayer(tracker._world._map.getLayer('player'))
+			location.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "newx", 0), self._file.get("event", "newy", 0)))
+			self._actioncallbacks = {0: location}
+		elif action == "portplayer":
+			self._action = self._tracker._world._player._agent.setLocation
+			self._noactioncallbacks = 1
+			location = fife.Location()
+			location.setLayer(tracker._world._map.getLayer('player'))
+			location.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "newx", 0), self._file.get("event", "newy", 0)))
+			self._actioncallbacks = {0: location}
 		
 	def _evaluate(self):
 		if self._target == "player":

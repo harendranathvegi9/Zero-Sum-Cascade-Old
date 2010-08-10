@@ -180,7 +180,6 @@ class mainApplication(ApplicationBase):
 		self._testsound = ThreePartMusic('music/other/title/start.ogg', 'music/other/title/loop.ogg', 'music/other/title/end.ogg', True, self._world._soundmanager)
 		self._testsound._start()
 		
-		self._world._startPlayerActor()
 
 	def createListener(self):
 		pass # already created in constructor
