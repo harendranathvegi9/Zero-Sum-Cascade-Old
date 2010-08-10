@@ -27,14 +27,6 @@
 
 import sys, os, re, math, random
 
-# Tell the interpreter where to find the engine
-fife_path = os.path.join('..','..','engine','python')
-if os.path.isdir(fife_path) and fife_path not in sys.path:
-	sys.path.insert(0,fife_path)
-#root_dir = os.path.join('..','..')
-#if os.path.isdir(root_dir) and root_dir not in sys.path:
-#	sys.path.insert(0, root_dir)
-
 # Import the engine
 from fife import fife
 
@@ -74,7 +66,8 @@ class NPC(Agent):
 					   'beshotpistol': False,
 					   'teleportstart': False,
 					   'teleportend': False,
-					   'glitch': False }
+					   'glitch': False,
+					   'describe' : False}
 		self._action = { 'walk': self.walk,
 				 'run': self.run,
 				 'talk': self.talk,
@@ -98,7 +91,8 @@ class NPC(Agent):
 				 'beshotpistol': self.beshot,
 				 'teleportstart': self.teleportstart,
 				 'teleportend': self.teleportend,
-				 'glitch': self.glitch }
+				 'glitch': self.glitch,
+				 'decribe' : self.describe }
 		self._world = world
 		self._loadNPC(self._name)
 		
@@ -169,4 +163,7 @@ class NPC(Agent):
 		pass
 	
 	def glitch(self):
+		pass
+
+	def describe(self):
 		pass
