@@ -123,7 +123,6 @@ class NPC(Agent):
 		
 	def run(self, location):
 		self._state = _STATE_RUN
-		print self._name + " is running"
 		self._agent.move('walk', location, 0.5)
 		
 	def walk(self):

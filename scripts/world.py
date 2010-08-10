@@ -100,7 +100,8 @@ class World(EventListenerBase):
 		self._player = None
 		self._eventtracker = None
 		self._objects = {}
-		self._contextmenu = contextmenu.ContextMenu('rightclickmenu')
+		self._contextmenu = contextmenu.ContextMenu('rightclickmenu', self)
+		self._mouseMoved = False
 		
 		# Start pychan
 		pychan.init(self._engine)
@@ -331,13 +332,18 @@ class World(EventListenerBase):
 			self._contextmenu._hide()
 		elif (evt.getButton() == fife.MouseEvent.RIGHT):
 			self._contextmenu._show(playerinstance, clickpoint, self)
+		evt.consume()
 			
-	def mouseMoved(self, evt):
+	def mouseMoved(self, evt, ext=False, cursor=None):
+		self._mouseMoved = True
 		if self._map != None:
 			renderer = fife.InstanceRenderer.getInstance(self._cameras['main'])
 			renderer.removeAllOutlines()
 	
-			pt = fife.ScreenPoint(evt.getX(), evt.getY())
+			if ext:
+				pt = fife.ScreenPoint(cursor.getX(), cursor.getY())
+			else:
+				pt = fife.ScreenPoint(evt.getX(), evt.getY())
 			instances = self._getInstancesAt(pt, self._map.getLayer('player'))
 			instances = instances + self._getInstancesAt(pt, self._map.getLayer('waypoints'))
 			for i in instances:

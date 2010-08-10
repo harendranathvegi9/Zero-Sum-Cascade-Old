@@ -40,9 +40,10 @@ from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 from scripts.agentbase import Agent
 
 class ContextMenu():
-	def __init__(self, guifile):
+	def __init__(self, guifile, world):
 		self._menu = pychan.loadXML('gui/' + guifile + '.xml')
 		self._dynamicbuttons = {}
+		self._world = world
 		dynamicbuttons = ( 'moveButton',
 				   'talkButton',
 				   'useButton',
@@ -67,12 +68,14 @@ class ContextMenu():
 	
 	def _hide(self):
 		self._menu.hide()
+		self._menu.real_widget.setEnabled(False)
 	
 	def _show(self, instance, clickpoint, world):
-		self._menu.hide()
+		self._hide()
+		self._menu.real_widget.setEnabled(True)
 		self._menu.removeAllChildren() # This one line of code is the sole reason there are no children in the game
 		
-		print instance
+		self._world = world
 		
 		location = world._getLocationAt(clickpoint, world._map.getLayer('player'))
 		target_distance = world._player._agent.getLocationRef().getLayerDistanceTo(location)
@@ -81,7 +84,8 @@ class ContextMenu():
 		self._clickpoint = clickpoint
 		self._location = location
 		if instance != ():
-			instance, b = instance
+			instance = instance[0]
+			
 			for name, object in world._objects.iteritems():
 				if instance.getId() == name:
 					self._currentObject = world._objects[name]
@@ -112,7 +116,8 @@ class ContextMenu():
 		self._menu.show()
 
 	def _move(self):
-		pass
+		self._hide()
+		self._world._player.run(self._location)
 	
 	def _shoot(self):
 		pass
@@ -133,4 +138,5 @@ class ContextMenu():
 		pass
 	
 	def _follow(self):
-		pass
+		self._hide()
+		self._world._player._agent.follow('walk', self._currentObject._agent, 0.5)

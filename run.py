@@ -194,8 +194,13 @@ class mainApplication(ApplicationBase):
 		if self._listener._quit:
 			self.breakRequested = True
 		
+		self._world._mouseMoved = False
+		
 		self._world._eventtracker._evaluateEvents()
 		self._world._sounds._fade()
+		
+		if not self._world._mouseMoved:
+			self._world.mouseMoved(None, True, self.engine.getCursor())
 def main():
 	"""
 	main Function

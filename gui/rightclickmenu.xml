@@ -1,4 +1,4 @@
-<VBox opaque='1'>
+<VBox opaque='1' name="rcmenu">
 	<Button name="moveButton" text="Move here" />
 	<Button name="followButton" text="Follow" />
 	<Button name="talkButton" text="Talk" />
