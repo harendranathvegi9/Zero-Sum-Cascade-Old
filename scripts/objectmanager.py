@@ -92,6 +92,19 @@ class InteractiveObject(fife.InstanceActionListener):
 	def use(self):
 		if self._status == 'ON':
 			self._agent.act('on', self._agent.getFacingLoaction)
+			if self._noactioncallbacks == 0:
+				self._action()
+			elif self._noactioncallbacks == 1:
+				self._action(self._actioncallbacks[0])
+			elif self._noactioncallbacks == 2:
+				self._action(self._actioncallbacks[0], self._actioncallbacks[1])
+			elif self._noactioncallbacks == 3:
+				self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
+			elif self._noactioncallbacks == 4:
+				self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2], self._actioncallbacks[3])
+			elif self._noactioncallbacks == 5:
+				self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2], self._actioncallbacks[3], self._actioncallbacks[4])
+
 
 	def destroy(self):
 		self._agent.act('die', self._agent.getFacingLoaction)
@@ -115,3 +128,40 @@ class InteractiveObject(fife.InstanceActionListener):
 	def glitch(self):
 		self._agent.act('glitch', self._agent.getFacingLoaction)
 		self._status = 'GLITCHED'
+		
+	def noAction(self):
+		pass # This function exists purely to act as a void function
+		     # for objects that make a pretty light
+		
+	def _loadObject(self):
+		action = self._objectfile.get("object", "action", "none")
+		if action == "none":
+			self._action = self.noAction
+			self._noactioncallbacks = 0
+			self._actioncallbakcs = {}
+		elif action == "door":
+			loc1 = fife.Location()
+			loc1.setLayer(self._manager._world._map.getLayer('player'))
+			loc1.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "newx", 0), self._file.get("event", "newy", 0)))
+			
+			loc2 = fife.Location()
+			loc2.setLayer(self._manager._world._map.getLayer('player'))
+			loc2.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "refx", 0), self._file.get("event", "refy", 0)))
+			
+			self._action = self._manager._world._loadMap
+			self._noactioncallbacks = 5
+			self._actioncallbakcs = { 0 : self._objectFile.get("object", "mapfile", "") ,
+						  1 : 'LEVEL' ,
+						  2 : True ,
+						  3 : loc1 ,
+						  4 : loc2 }
+		elif action == "plot":
+			self._action = self._manager._world._eventtracker._evaluateItem
+			self._noactioncallbacks = 1
+			self._actioncallbacks = { 0 : self._agentName }
+		elif action == "book":
+			pass # Needs GUI manager
+		elif action == "computer":
+			pass # Needs GUI manager
+		elif action == "teleport":
+			pass # Needs hooks in the player and NPC classes

@@ -50,6 +50,7 @@ class Player(Agent):
 	def __init__(self, settings, model, agentName, layer, uniqInMap=True):
 		super(Player, self).__init__(settings, model, agentName, layer, uniqInMap)
 		self._state = _STATE_NONE
+		self._plots = {}
 	
 	def onInstanceActionFinished(self, instance, action):
 		self._idle()

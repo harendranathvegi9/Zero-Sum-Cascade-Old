@@ -66,6 +66,8 @@ class Event():
 			self._xmax = self._file.get("event", "xmax", 0)
 			self._ymin = self._file.get("event", "ymin", 0)
 			self._ymax = self._file.get("event", "ymax", 0)
+		if self._type == "item":
+			self._item = self._file.get("event", "item", None)
 		if self._type == "plot":
 			self._subtype = self._file.get("event", "subtype", "dummy")
 			if self._subtype == "dummy":
@@ -81,6 +83,8 @@ class Event():
 				self._xmax = self._file.get("event", "xmax", 0)
 				self._ymin = self._file.get("event", "ymin", 0)
 				self._ymax = self._file.get("event", "ymax", 0)
+			if self._subtype == "item":
+				self._item = self._file.get("event", "item", None)
 		
 		action = self._file.get("event", "action", "none")
 		if action == "eventmusic":
@@ -137,15 +141,17 @@ class Event():
 			location.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "newx", 0), self._file.get("event", "newy", 0)))
 			self._actioncallbacks = {0: location}
 		
-	def _evaluate(self):
+	def _evaluate(self, item=None):
 		if self._target == "player":
 			loc = self._tracker._world._player._agent.getLocation().getExactLayerCoordinates()
 		else:
 			loc = self._tracker._world._npcs[self._target]._agent.getLocation().getExactLayerCoordinates()
 		if self._type == "plot":
 			type = self._subtype
+			plot = True
 		else:
 			type = self._type
+			plot = False
 		if type == "trip":
 			if int(loc.x) == self._x and int(loc.y) == self._y:
 				if self._noactioncallbacks == 0:
@@ -161,6 +167,19 @@ class Event():
 					self._tracker._events[self._activates]._status = 'ACTIVE'
 		elif type == "areatrip":
 			if loc.x >= self._xmin and loc.x <= self._xmax and loc.y >= self._ymin and loc.y <= self._ymax:
+				if self._noactioncallbacks == 0:
+					self._action()
+				elif self._noactioncallbacks == 1:
+					self._action(self._actioncallbacks[0])
+				elif self._noactioncallbacks == 2:
+					self._action(self._actioncallbacks[0], self._actioncallbacks[1])
+				elif self._noactioncallbacks == 3:
+					self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
+				self._status = 'FULFILLED'
+				if self._activates != "none":
+					self._tracker._events[self._activates]._status = 'ACTIVE'
+		elif item == "item":
+			if item != None and item == self._item:
 				if self._noactioncallbacks == 0:
 					self._action()
 				elif self._noactioncallbacks == 1:
@@ -193,3 +212,7 @@ class EventTracker():
 		for name, event in self._events.iteritems():
 			if event._status == 'ACTIVE' or all:
 				event._evaluate()
+				
+	def _evaluateEvent(self, event, item=None):
+		if self._events[event]._status == 'ACTIVE':
+			self._events[event]._evaluate(item)

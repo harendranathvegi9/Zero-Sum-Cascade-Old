@@ -213,7 +213,7 @@ class World(EventListenerBase):
 			loaded = self._loadingmenu.findChild(name="loading")
 			loaded.text = str(math.floor(percentdone * 100)) + '% Loaded'
 
-	def _loadMap(self, filename, purpose):
+	def _loadMap(self, filename, purpose, port=False, location=None, direction=None):
 		"""
 		_loadMap Function
 		Deletes the old map and loads a new one. Also initilises cameras.
@@ -277,6 +277,10 @@ class World(EventListenerBase):
 		if purpose == 'LEVEL':
 			# Start the player character
 			self._startPlayerActor()
+			if location != None:
+				self._player._agent.setLocation(location)
+			if direction != None:
+				self._player._agent.setFacingLocation(direction)
 		
 		# Start the floating text renderer
 		renderer = fife.FloatingTextRenderer.getInstance(self._cameras['main'])
