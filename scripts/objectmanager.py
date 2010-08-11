@@ -77,6 +77,7 @@ class InteractiveObject(fife.InstanceActionListener):
 		actions = self._objectfile._deserializeDict(actionstr)
 		for action, bool in actions.iteritems():
 			self._availableactions[action] = bool
+		self._description = self._npcFile.get("object", "description", "I can see something, but\n I can't tell what it is")
 	
 	def onInstanceActionFinished(self, instance, action):
 		if self._status == 'ON':
@@ -109,7 +110,7 @@ class InteractiveObject(fife.InstanceActionListener):
 		self._status = 'DESTROYED'
 	
 	def describe(self):
-		pass # Will pass description to the HUD
+		self._world._player._agent.say(self._description, 5000)
 	
 	def glitch(self):
 		self._agent.act('glitch', self._agent.getFacingLoaction)

@@ -2781,7 +2781,10 @@ class AbstractFont(_object):
         return _fife.AbstractFont_isAntiAlias(self)
 
     def setColor(self, *args):
-        """setColor(self, uint8_t r, uint8_t g, uint8_t b)"""
+        """
+        setColor(self, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255)
+        setColor(self, uint8_t r, uint8_t g, uint8_t b)
+        """
         return _fife.AbstractFont_setColor(self, *args)
 
     def getColor(self):
@@ -2831,7 +2834,10 @@ class TTFont(FontBase):
     __swig_destroy__ = _fife.delete_TTFont
     __del__ = lambda self : None;
     def setColor(self, *args):
-        """setColor(self, Uint8 r, Uint8 g, Uint8 b)"""
+        """
+        setColor(self, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255)
+        setColor(self, Uint8 r, Uint8 g, Uint8 b)
+        """
         return _fife.TTFont_setColor(self, *args)
 
     def getWidth(self, *args):
@@ -2862,7 +2868,10 @@ class SubImageFont(FontBase):
     __swig_destroy__ = _fife.delete_SubImageFont
     __del__ = lambda self : None;
     def setColor(self, *args):
-        """setColor(self, Uint8 r, Uint8 g, Uint8 b)"""
+        """
+        setColor(self, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255)
+        setColor(self, Uint8 r, Uint8 g, Uint8 b)
+        """
         return _fife.SubImageFont_setColor(self, *args)
 
     def getWidth(self, *args):
@@ -2950,7 +2959,10 @@ class GuiFont(Font,AbstractFont):
         return _fife.GuiFont_getAsImage(self, *args)
 
     def setColor(self, *args):
-        """setColor(self, uint8_t r, uint8_t g, uint8_t b)"""
+        """
+        setColor(self, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255)
+        setColor(self, uint8_t r, uint8_t g, uint8_t b)
+        """
         return _fife.GuiFont_setColor(self, *args)
 
     def getColor(self):
@@ -9031,15 +9043,31 @@ class AbstractImage(_object):
         return _fife.AbstractImage_getPixelRGBA(self, *args)
 
     def putPixel(self, *args):
-        """putPixel(self, int x, int y, int r, int g, int b) -> bool"""
+        """
+        putPixel(self, int x, int y, int r, int g, int b, int a = 255) -> bool
+        putPixel(self, int x, int y, int r, int g, int b) -> bool
+        """
         return _fife.AbstractImage_putPixel(self, *args)
 
     def drawLine(self, *args):
-        """drawLine(self, Point p1, Point p2, int r, int g, int b)"""
+        """
+        drawLine(self, Point p1, Point p2, int r, int g, int b, int a = 255)
+        drawLine(self, Point p1, Point p2, int r, int g, int b)
+        """
         return _fife.AbstractImage_drawLine(self, *args)
+
+    def drawTriangle(self, *args):
+        """
+        drawTriangle(self, Point p1, Point p2, Point p3, int r, int g, int b, 
+            int a = 255)
+        drawTriangle(self, Point p1, Point p2, Point p3, int r, int g, int b)
+        """
+        return _fife.AbstractImage_drawTriangle(self, *args)
 
     def drawQuad(self, *args):
         """
+        drawQuad(self, Point p1, Point p2, Point p3, Point p4, int r, int g, 
+            int b, int a = 255)
         drawQuad(self, Point p1, Point p2, Point p3, Point p4, int r, int g, 
             int b)
         """
@@ -9393,22 +9421,41 @@ class RenderBackend(AbstractImage):
         return _fife.RenderBackend_getPixelRGBA(self, *args)
 
     def putPixel(self, *args):
-        """putPixel(self, int x, int y, int r, int g, int b) -> bool"""
+        """
+        putPixel(self, int x, int y, int r, int g, int b, int a = 255) -> bool
+        putPixel(self, int x, int y, int r, int g, int b) -> bool
+        """
         return _fife.RenderBackend_putPixel(self, *args)
 
     def drawLine(self, *args):
-        """drawLine(self, Point p1, Point p2, int r, int g, int b)"""
+        """
+        drawLine(self, Point p1, Point p2, int r, int g, int b, int a = 255)
+        drawLine(self, Point p1, Point p2, int r, int g, int b)
+        """
         return _fife.RenderBackend_drawLine(self, *args)
+
+    def drawTriangle(self, *args):
+        """
+        drawTriangle(self, Point p1, Point p2, Point p3, int r, int g, int b, 
+            int a = 255)
+        drawTriangle(self, Point p1, Point p2, Point p3, int r, int g, int b)
+        """
+        return _fife.RenderBackend_drawTriangle(self, *args)
 
     def drawQuad(self, *args):
         """
+        drawQuad(self, Point p1, Point p2, Point p3, Point p4, int r, int g, 
+            int b, int a = 255)
         drawQuad(self, Point p1, Point p2, Point p3, Point p4, int r, int g, 
             int b)
         """
         return _fife.RenderBackend_drawQuad(self, *args)
 
     def drawVertex(self, *args):
-        """drawVertex(self, Point p, int size, int r, int g, int b)"""
+        """
+        drawVertex(self, Point p, int size, int r, int g, int b, int a = 255)
+        drawVertex(self, Point p, int size, int r, int g, int b)
+        """
         return _fife.RenderBackend_drawVertex(self, *args)
 
     def pushClipArea(self, *args):
@@ -9937,19 +9984,33 @@ class FloatingTextRenderer(RendererBase):
         return _fife.FloatingTextRenderer_changeDefaultFont(self, *args)
 
     def setColor(self, *args):
-        """setColor(self, Uint8 r, Uint8 g, Uint8 b)"""
+        """
+        setColor(self, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255)
+        setColor(self, Uint8 r, Uint8 g, Uint8 b)
+        """
         return _fife.FloatingTextRenderer_setColor(self, *args)
 
     def setDefaultBackground(self, *args):
         """
-        setDefaultBackground(self, Uint8 br, Uint8 bg, Uint8 bb, Uint8 bbr, Uint8 bbg, 
-            Uint8 bbb)
+        setDefaultBackground(self, Uint8 br, Uint8 bg, Uint8 bb, Uint8 ba = 255)
+        setDefaultBackground(self, Uint8 br, Uint8 bg, Uint8 bb)
         """
         return _fife.FloatingTextRenderer_setDefaultBackground(self, *args)
+
+    def setDefaultBorder(self, *args):
+        """
+        setDefaultBorder(self, Uint8 bbr, Uint8 bbg, Uint8 bbb, Uint8 bba = 255)
+        setDefaultBorder(self, Uint8 bbr, Uint8 bbg, Uint8 bbb)
+        """
+        return _fife.FloatingTextRenderer_setDefaultBorder(self, *args)
 
     def resetDefaultBackground(self):
         """resetDefaultBackground(self)"""
         return _fife.FloatingTextRenderer_resetDefaultBackground(self)
+
+    def resetDefaultBorder(self):
+        """resetDefaultBorder(self)"""
+        return _fife.FloatingTextRenderer_resetDefaultBorder(self)
 
     def getInstance(*args):
         """getInstance(IRendererContainer cnt) -> FloatingTextRenderer"""
@@ -10095,7 +10156,7 @@ class GenericRendererLineInfo(GenericRendererElementInfo):
     def __init__(self, *args): 
         """
         __init__(self, GenericRendererNode n1, GenericRendererNode n2, uint8_t r, 
-            uint8_t g, uint8_t b) -> GenericRendererLineInfo
+            uint8_t g, uint8_t b, uint8_t a) -> GenericRendererLineInfo
         """
         this = _fife.new_GenericRendererLineInfo(*args)
         try: self.this.append(this)
@@ -10115,7 +10176,10 @@ class GenericRendererPointInfo(GenericRendererElementInfo):
     __getattr__ = lambda self, name: _swig_getattr(self, GenericRendererPointInfo, name)
     __repr__ = _swig_repr
     def __init__(self, *args): 
-        """__init__(self, GenericRendererNode n, uint8_t r, uint8_t g, uint8_t b) -> GenericRendererPointInfo"""
+        """
+        __init__(self, GenericRendererNode n, uint8_t r, uint8_t g, uint8_t b, 
+            uint8_t a) -> GenericRendererPointInfo
+        """
         this = _fife.new_GenericRendererPointInfo(*args)
         try: self.this.append(this)
         except: self.this = this
@@ -10123,6 +10187,29 @@ class GenericRendererPointInfo(GenericRendererElementInfo):
     __del__ = lambda self : None;
 GenericRendererPointInfo_swigregister = _fife.GenericRendererPointInfo_swigregister
 GenericRendererPointInfo_swigregister(GenericRendererPointInfo)
+
+class GenericRendererTriangleInfo(GenericRendererElementInfo):
+    """Proxy of C++ FIFE::GenericRendererTriangleInfo class"""
+    __swig_setmethods__ = {}
+    for _s in [GenericRendererElementInfo]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, GenericRendererTriangleInfo, name, value)
+    __swig_getmethods__ = {}
+    for _s in [GenericRendererElementInfo]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, GenericRendererTriangleInfo, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(self, GenericRendererNode n1, GenericRendererNode n2, GenericRendererNode n3, 
+            uint8_t r, uint8_t g, uint8_t b, 
+            uint8_t a) -> GenericRendererTriangleInfo
+        """
+        this = _fife.new_GenericRendererTriangleInfo(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _fife.delete_GenericRendererTriangleInfo
+    __del__ = lambda self : None;
+GenericRendererTriangleInfo_swigregister = _fife.GenericRendererTriangleInfo_swigregister
+GenericRendererTriangleInfo_swigregister(GenericRendererTriangleInfo)
 
 class GenericRendererQuadInfo(GenericRendererElementInfo):
     """Proxy of C++ FIFE::GenericRendererQuadInfo class"""
@@ -10137,7 +10224,7 @@ class GenericRendererQuadInfo(GenericRendererElementInfo):
         """
         __init__(self, GenericRendererNode n1, GenericRendererNode n2, GenericRendererNode n3, 
             GenericRendererNode n4, 
-            uint8_t r, uint8_t g, uint8_t b) -> GenericRendererQuadInfo
+            uint8_t r, uint8_t g, uint8_t b, uint8_t a) -> GenericRendererQuadInfo
         """
         this = _fife.new_GenericRendererQuadInfo(*args)
         try: self.this.append(this)
@@ -10159,7 +10246,7 @@ class GenericRendererVertexInfo(GenericRendererElementInfo):
     def __init__(self, *args): 
         """
         __init__(self, GenericRendererNode center, int size, uint8_t r, uint8_t g, 
-            uint8_t b) -> GenericRendererVertexInfo
+            uint8_t b, uint8_t a) -> GenericRendererVertexInfo
         """
         this = _fife.new_GenericRendererVertexInfo(*args)
         try: self.this.append(this)
@@ -10258,6 +10345,8 @@ class GenericRenderer(RendererBase):
     def addLine(self, *args):
         """
         addLine(self, string group, GenericRendererNode n1, GenericRendererNode n2, 
+            uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255)
+        addLine(self, string group, GenericRendererNode n1, GenericRendererNode n2, 
             uint8_t r, uint8_t g, uint8_t b)
         """
         return _fife.GenericRenderer_addLine(self, *args)
@@ -10265,12 +10354,29 @@ class GenericRenderer(RendererBase):
     def addPoint(self, *args):
         """
         addPoint(self, string group, GenericRendererNode n, uint8_t r, uint8_t g, 
+            uint8_t b, uint8_t a = 255)
+        addPoint(self, string group, GenericRendererNode n, uint8_t r, uint8_t g, 
             uint8_t b)
         """
         return _fife.GenericRenderer_addPoint(self, *args)
 
+    def addTriangle(self, *args):
+        """
+        addTriangle(self, string group, GenericRendererNode n1, GenericRendererNode n2, 
+            GenericRendererNode n3, uint8_t r, 
+            uint8_t g, uint8_t b, uint8_t a = 255)
+        addTriangle(self, string group, GenericRendererNode n1, GenericRendererNode n2, 
+            GenericRendererNode n3, uint8_t r, 
+            uint8_t g, uint8_t b)
+        """
+        return _fife.GenericRenderer_addTriangle(self, *args)
+
     def addQuad(self, *args):
         """
+        addQuad(self, string group, GenericRendererNode n1, GenericRendererNode n2, 
+            GenericRendererNode n3, GenericRendererNode n4, 
+            uint8_t r, uint8_t g, uint8_t b, 
+            uint8_t a = 255)
         addQuad(self, string group, GenericRendererNode n1, GenericRendererNode n2, 
             GenericRendererNode n3, GenericRendererNode n4, 
             uint8_t r, uint8_t g, uint8_t b)
@@ -10279,6 +10385,8 @@ class GenericRenderer(RendererBase):
 
     def addVertex(self, *args):
         """
+        addVertex(self, string group, GenericRendererNode n, int size, uint8_t r, 
+            uint8_t g, uint8_t b, uint8_t a = 255)
         addVertex(self, string group, GenericRendererNode n, int size, uint8_t r, 
             uint8_t g, uint8_t b)
         """

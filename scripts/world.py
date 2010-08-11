@@ -282,6 +282,8 @@ class World(EventListenerBase):
 		renderer = fife.FloatingTextRenderer.getInstance(self._cameras['main'])
 		textfont = self._engine.getGuiManager().createFont('fonts/rpgfont.png', 0, str(self._setting.get("FIFE", "FontGlyphs")))
 		renderer.changeDefaultFont(textfont)
+		renderer.setDefaultBackground(0,0,0,0)
+		renderer.setDefaultBorder(0,0,0,0)
 		renderer.activateAllLayers(self._map)
 		renderer.setEnabled(True)
 	
