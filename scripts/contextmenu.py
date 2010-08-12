@@ -79,39 +79,41 @@ class ContextMenu():
 		
 		location = world._getLocationAt(clickpoint, world._map.getLayer('player'))
 		target_distance = world._player._agent.getLocationRef().getLayerDistanceTo(location)
-		self._menu.addChild(self._dynamicbuttons['moveButton'])
 		
 		self._clickpoint = clickpoint
 		self._location = location
 		if instance != ():
 			instance = instance[0]
 			
-			for name, object in world._objects.iteritems():
+			for name, object in world._objects._objects.iteritems():
 				if instance.getId() == name:
-					self._currentObject = world._objects[name]
+					self._currentObject = world._objects._objects[name]
 					self._currentType = 'OBJECT'
 					self._menu.addChild(self._dynamicbuttons['followButton'])
-					for action, bool in object._availableActions.iteritems():
-						if action == "use" and bool and (self._currentObject._status == "ACTIVE" or self._currentObject._status == "DOOR"):
+					for action, bool in object._availableactions.iteritems():
+						if action == "use" and bool and (self._currentObject._status == "ACTIVE" or self._currentObject._status == "DOOR") and target_distance <= 3:
 							self._menu.addChild(self._dynamicbuttons['useButton'])
-						elif action == "activate" and bool and self._currentObject._status == "INACTIVE":
+						elif action == "activate" and bool and self._currentObject._status == "INACTIVE" and target_distance <= 2:
 							self._menu.addChild(self._dynamicbuttons['turnOnButton'])
-						elif action == "deactivate" and bool and self._currentObject._status == "ACTIVE":
+						elif action == "deactivate" and bool and self._currentObject._status == "ACTIVE" and target_distance <= 2:
 							self._menu.addChild(self._dynamicbuttons['turnOffButton'])
-						elif action == "describe" and bool:
+						elif action == "describe" and bool and target_distance <= 15:
 							self._menu.addChild(self._dynamicbuttons['inspectButton'])
 			for name, object in world._npcs.iteritems():
 				if instance.getId() == object._agentName:
+					self._menu.addChild(self._dynamicbuttons['moveButton'])
 					self._currentObject = world._npcs[name]
 					self._currentType = 'NPC'
 					self._menu.addChild(self._dynamicbuttons['followButton'])
 					for action, bool in object._availableActions.iteritems():
-						if action == "talk" and bool:
+						if action == "talk" and bool and target_distance <= 3:
 							self._menu.addChild(self._dynamicbuttons['talkButton'])
-						elif action == "describe" and bool:
+						elif action == "describe" and bool and target_distance <= 15:
 							self._menu.addChild(self._dynamicbuttons['inspectButton'])
-						elif action == "beshot" and bool and (world._player._hasGun or world._player._hasPistol):
+						elif action == "beshot" and bool and (world._player._hasGun or world._player._hasPistol)  and target_distance <= 10:
 							self._menu.addChild(self._dynamicbuttons['shootButton'])
+		else:
+			self._menu.addChild(self._dynamicbuttons['moveButton'])
 		self._menu.position = (clickpoint.x, clickpoint.y)
 		self._menu.show()
 
@@ -126,7 +128,8 @@ class ContextMenu():
 		pass
 	
 	def _use(self):
-		pass
+		self._hide()
+		self._currentObject.use()
 	
 	def _inspect(self):
 		self._hide()

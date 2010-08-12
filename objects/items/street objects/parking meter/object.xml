@@ -1,0 +1,31 @@
+<?fife type="object"?>
+<object blocking="1" id="object:parkingmeter" namespace="zsc" static="0">
+	<image direction="0" source="000.png" x_offset="0" y_offset="-20" />
+	<image direction="315" source="315.png" x_offset="0" y_offset="-20" />
+	<image direction="270" source="270.png" x_offset="0" y_offset="-20" />
+	<image direction="225" source="225.png" x_offset="0" y_offset="-20" />
+	<image direction="180" source="180.png" x_offset="0" y_offset="-20" />
+	<image direction="135" source="135.png" x_offset="0" y_offset="-20" />
+	<image direction="90" source="090.png" x_offset="0" y_offset="-20" />
+	<image direction="45" source="045.png" x_offset="0" y_offset="-20" />
+	<action id="use">
+		<animation id="use" source="use/45/animation.xml" direction="45" />
+		<animation id="use" source="use/135/animation.xml" direction="135" />
+		<animation id="use" source="use/225/animation.xml" direction="225" />
+		<animation id="use" source="use/315/animation.xml" direction="315" />
+		<animation id="use" source="use/0/animation.xml" direction="0" />
+		<animation id="use" source="use/90/animation.xml" direction="90" />
+		<animation id="use" source="use/180/animation.xml" direction="180" />
+		<animation id="use" source="use/270/animation.xml" direction="270" />
+	</action>
+	<action id="on">
+		<animation id="on" source="on/45/animation.xml" direction="45" />
+		<animation id="on" source="on/135/animation.xml" direction="135" />
+		<animation id="on" source="on/225/animation.xml" direction="225" />
+		<animation id="on" source="on/315/animation.xml" direction="315" />
+		<animation id="on" source="on/0/animation.xml" direction="0" />
+		<animation id="on" source="on/90/animation.xml" direction="90" />
+		<animation id="on" source="on/180/animation.xml" direction="180" />
+		<animation id="on" source="on/270/animation.xml" direction="270" />
+	</action>
+</object>

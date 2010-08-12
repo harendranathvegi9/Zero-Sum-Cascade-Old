@@ -39,12 +39,8 @@ class ObjectManager():
 		self._world = world
 		
 	def _loadObjects(self, file):
-		self._objectmanifest = SimpleXMLSerializer(file)
-		objstr = self._objectfile.get("object", "actions", None)
-		obj = self._objectfile._deserializeList(objstr)
-		for object in obj.iteritems():
-			tmp = InteractiveObject(self, self._world._model, 'objects/' + object)
-			self._objects[tmp._agentName] = tmp
+		tmp = InteractiveObject(self, self._world._model, file)
+		self._objects[tmp._agentName] = tmp
 
 class InteractiveObject(fife.InstanceActionListener):
 	def __init__(self, objectmanager, model, file):
@@ -53,8 +49,8 @@ class InteractiveObject(fife.InstanceActionListener):
 		self._model = model
 		self._objectFile = SimpleXMLSerializer(file)
 		self._agentName = self._objectFile.get("object", "agentname", "dummy")
-		self._layer = self._manager._world._map._getLayer(self._objectFile.get("object", "layer", "player"))
-		self._agent = layer.getInstance(agentName)
+		self._layer = self._manager._world._map.getLayer(self._objectFile.get("object", "layer", "player"))
+		self._agent = self._layer.getInstance(self._agentName)
 		self._agent.addActionListener(self)
 		self._status = self._objectFile.get("object", "status", 'INACTIVE')
 		
@@ -73,25 +69,39 @@ class InteractiveObject(fife.InstanceActionListener):
 					   'describe' : True,
 					   'glitch' : False }
 		
-		actionstr = self._objectfile.get("object", "actions", None)
-		actions = self._objectfile._deserializeDict(actionstr)
+		actionstr = self._objectFile.get("object", "actions", None)
+		actions = self._objectFile._deserializeDict(actionstr)
 		for action, bool in actions.iteritems():
-			self._availableactions[action] = bool
-		self._description = self._npcFile.get("object", "description", "I can see something, but\n I can't tell what it is")
+			print action + " = " + bool
+			if bool in ("True"):
+				self._availableactions[action] = True
+			else:
+				self._availableactions[action] = False
+			print action + " = " + str(self._availableactions[action])
+		self._description = self._objectFile.get("object", "description", "I can see something, but\n I can't tell what it is")
+		self._talk = self._objectFile.get("object", "talk", False)
+		self._message = self._objectFile._deserializeList(self._objectFile.get("object", "messages", ""))
+		self._usesound = self._objectFile.get("object", "sound", False)
+		if self._usesound:
+			self._manager._world._sounds._loadclip(self._agentName, self._objectFile.get("object", "soundfile", ""), False, False)
+			self._sound = self._manager._world._sounds._emitters[self._agentName]
+		self._loadObject()
+		self.onInstanceActionFinished(self._agent, "")
 	
 	def onInstanceActionFinished(self, instance, action):
-		if self._status == 'ON':
-			self._agent.act('on', self._agent.getFacingLoaction)
-		elif self._status == 'OFF':
-			self._agent.act('off', self._agent.getFacingLoaction)
+		if self._status == 'ACTIVE':
+			self._agent.act('on', self._agent.getFacingLocation())
+		elif self._status == 'INACTIVE':
+			self._agent.act('off', self._agent.getFacingLocation())
 		elif self._status == 'DESTROYED':
-			self._agent.act('dead', self._agent.getFacingLoaction)
+			self._agent.act('dead', self._agent.getFacingLocation())
 		elif self._status == 'GLITCHED':
-			self._agent.act('glitch', self._agent.getFacingLoaction)
+			self._agent.act('glitch', self._agent.getFacingLocation())
 	
 	def use(self):
-		if self._status == 'ON':
-			self._agent.act('on', self._agent.getFacingLoaction)
+		if self._status == 'ACTIVE':
+			self._agent.act('use', self._agent.getFacingLocation())
+			self._manager._world._player._agent.setFacingLocation(self._agent.getLocation())
 			if self._noactioncallbacks == 0:
 				self._action()
 			elif self._noactioncallbacks == 1:
@@ -104,7 +114,11 @@ class InteractiveObject(fife.InstanceActionListener):
 				self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2], self._actioncallbacks[3])
 			elif self._noactioncallbacks == 5:
 				self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2], self._actioncallbacks[3], self._actioncallbacks[4])
-
+			if self._talk:
+				rand = random.randint(0, len(self._message) - 1)
+				self._manager._world._player._agent.say(self._message[rand], 3500)
+			if self._usesound:
+				self._sound.play()
 
 	def destroy(self):
 		self._agent.act('die', self._agent.getFacingLoaction)
@@ -112,18 +126,18 @@ class InteractiveObject(fife.InstanceActionListener):
 	
 	def activate(self):
 		self._agent.act('turnon', self._agent.getFacingLoaction)
-		self._status = 'ON'
+		self._status = 'ACTIVE'
 	
 	def deactivate(self):
 		self._agent.act('turnoff', self._agent.getFacingLoaction)
-		self._status = 'OFF'
+		self._status = 'INACTIVE'
 	
 	def explode(self):
 		self._agent.act('explode', self._agent.getFacingLoaction)
 		self._status = 'DESTROYED'
 	
 	def describe(self):
-		self._world._player._agent.say(self._description, 5000)
+		self._manager._world._player._agent.say(self._description, 5000)
 	
 	def glitch(self):
 		self._agent.act('glitch', self._agent.getFacingLoaction)
@@ -134,11 +148,11 @@ class InteractiveObject(fife.InstanceActionListener):
 		     # for objects that make a pretty light
 		
 	def _loadObject(self):
-		action = self._objectfile.get("object", "action", "none")
+		action = self._objectFile.get("object", "action", "none")
 		if action == "none":
 			self._action = self.noAction
 			self._noactioncallbacks = 0
-			self._actioncallbakcs = {}
+			self._actioncallbacks = {}
 		elif action == "door":
 			loc1 = fife.Location()
 			loc1.setLayer(self._manager._world._map.getLayer('player'))

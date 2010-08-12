@@ -1,6 +1,6 @@
 <VBox opaque='1' name="rcmenu">
 	<Button name="moveButton" text="Move here" />
-	<Button name="followButton" text="Follow" />
+	<Button name="followButton" text="Go to" />
 	<Button name="talkButton" text="Talk" />
 	<Button name="shootButton" text="Shoot" />
 	<Button name="inspectButton" text="Inspect" />

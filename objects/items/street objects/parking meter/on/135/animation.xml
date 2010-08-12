@@ -1,0 +1,3 @@
+<animation delay="250" namespace="zsc::animation" id="player:walk" x_offset="0" y_offset="-20">
+	<frame source="135.png" />
+</animation>

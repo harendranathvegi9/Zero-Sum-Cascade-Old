@@ -359,7 +359,7 @@ class World(EventListenerBase):
 			instances = self._getInstancesAt(pt, self._map.getLayer('player'))
 			instances = instances + self._getInstancesAt(pt, self._map.getLayer('waypoints'))
 			for i in instances:
-				for name, object in self._objects.iteritems():
+				for name, object in self._objects._objects.iteritems():
 					if i.getId() == name:
 						renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
 				for name, object in self._npcs.iteritems():

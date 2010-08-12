@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Settings>
+  <Module name="object">
+    <Setting name="agentname" type="str">obj-parkingmeter-1</Setting>
+    <Setting name="status" type="str">ACTIVE</Setting>
+    <Setting name="actions" type="str">use : True</Setting>
+    <Setting name="description" type="str">A black, plastic parking meter</Setting>
+    <Setting name="talk" type="bool">True</Setting>
+    <Setting name="messages" type="str">The parking meter took my money and gave me a ticket ; The parking meter is in use ; The parking meter is out of order</Setting>
+ </Module>
+</Settings>
