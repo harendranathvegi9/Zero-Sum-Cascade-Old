@@ -37,8 +37,6 @@ from fife.extensions.pychan import widgets
 
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 
-from scripts.agentbase import Agent
-
 class ContextMenu():
 	def __init__(self, guifile, world):
 		self._menu = pychan.loadXML('gui/' + guifile + '.xml')
