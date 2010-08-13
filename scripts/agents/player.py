@@ -51,6 +51,11 @@ class Player(Agent):
 		super(Player, self).__init__(settings, model, agentName, layer, uniqInMap)
 		self._state = _STATE_NONE
 		self._plots = {}
+		self._hasGun = False
+		self._hasPistol = False
+		self._hasMap = False
+		self._hasZSC = False
+		self._strange = 0
 	
 	def onInstanceActionFinished(self, instance, action):
 		self._idle()

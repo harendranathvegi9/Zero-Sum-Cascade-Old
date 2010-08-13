@@ -89,10 +89,9 @@ class ApplicationListener(EventListenerBase):
 		elif keyval == fife.Key.F1:
 			self._console().toggleShowHide()
 			self.onConsoleCommand('help')
-		elif keyval == fife.Key.F2:
-			print "F2 pressed"
-			r = self._world._cameras['main'].getRenderer('CoordinateRenderer')
-			r.setEnabled(not r.isEnabled())
+			evt.consume()
+		else:	
+			self._world._keyPressed(evt)
 
 	def onConsoleCommand(self, command):
 		"""
@@ -165,6 +164,8 @@ class mainApplication(ApplicationBase):
 		
 		# Load GUI
 		self._world._loadGui('LOAD', 'loading-1', False)
+		self._world._loadGui('HUD', 'hud', False)
+		self._world._loadGui('MAIN', 'menu', False)
 		
 		
 		
@@ -190,7 +191,7 @@ class mainApplication(ApplicationBase):
 		Overwrites the default _pump function and is executed every frame.
 		"""
 		# Check to see if anything tried to quit
-		if self._listener._quit:
+		if self._listener._quit or self._world._quit:
 			self.breakRequested = True
 		
 		self._world._mouseMoved = False

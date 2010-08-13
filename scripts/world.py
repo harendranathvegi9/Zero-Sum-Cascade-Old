@@ -46,7 +46,7 @@ from fife.extensions.fife_settings import Setting
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
 from scripts.agents.player import Player
-from scripts import musicmanager, npc, eventtracker, objectmanager, contextmenu
+from scripts import musicmanager, npc, eventtracker, objectmanager, contextmenu, hudhandler, menuhandler
 from fife.extensions.loaders import loadMapFile, loadImportFile
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 
@@ -96,7 +96,8 @@ class World(EventListenerBase):
 		self._paused = True
 		self._pausedtime = 0
 		self._starttime = 0
-		self._gamestate = 'STOPPED'
+		self._gamestate = 'NONE'
+		self._quit = False
 		self._player = None
 		self._eventtracker = None
 		self._objects = {}
@@ -127,15 +128,9 @@ class World(EventListenerBase):
 		imports - Boolean
 		"""
 		if type == 'MAIN':
-			self._mainmenu = pychan.loadXML('gui/' + guifile + '.xml')
-			if imports:
-				guiinit = __import__('scripts.gui.' + guifile)
-				guiinit.run()
+			self._mainmenu = menuhandler.MenuHandler(guifile, self)
 		elif type == 'HUD':
-			self._hud = pychan.loadXML('gui/' + guifile + '.xml')
-			if imports:
-				guiinit = __import__('scripts.gui.' + guifile)
-				guiinit.run()
+			self._hud = hudhandler.HUDHandler(guifile, self)
 		elif type == 'PAUSE':
 			self._pause = pychan.loadXML('gui/' + guifile + '.xml')
 			if imports:
@@ -180,8 +175,6 @@ class World(EventListenerBase):
 		if percentdone == 1:
 			self._gamestate = 'LOADED'
 			self._hideAllGuis()
-			if self._hud != None:
-				self._hud.show()	
 		# Otherwise set the loading screens percentage label
 		else:
 			print str(percentdone) + "% loaded"
@@ -281,6 +274,8 @@ class World(EventListenerBase):
 				self._player._agent.setLocation(location)
 			if direction != None:
 				self._player._agent.setFacingLocation(direction)
+			if self._hud != None:
+				self._hud.show()	
 		
 		# Start the floating text renderer
 		renderer = fife.FloatingTextRenderer.getInstance(self._cameras['main'])
@@ -315,13 +310,6 @@ class World(EventListenerBase):
 				self._eventtracker._addEvent(file)
 				
 		self._gamestate = purpose
-		
-		
-		# to be replaced with the hud class
-		self._hud = pychan.loadXML("gui/hud.xml")
-		self._hud.show()
-		hud = self._hud.findChild(name="hud")
-		autoposition.placeWidget(hud, 'center:bottom-20')
 			
 	def _getLocationAt(self, clickpoint, layer):
 		"""
@@ -341,7 +329,7 @@ class World(EventListenerBase):
 		return self._cameras['main'].getMatchingInstances(clickpoint, layer)
 			
 	def mousePressed(self, evt):
-		if evt.isConsumedByWidgets():
+		if evt.isConsumedByWidgets() or self._gamestate != 'LEVEL':
 			return
 		clickpoint = fife.ScreenPoint(evt.getX(), evt.getY())
 		playerinstance = self._getInstancesAt(clickpoint, self._map.getLayer('player'))
@@ -355,23 +343,30 @@ class World(EventListenerBase):
 			
 	def mouseMoved(self, evt, ext=False, cursor=None):
 		self._mouseMoved = True
-		if self._map != None:
-			renderer = fife.InstanceRenderer.getInstance(self._cameras['main'])
-			renderer.removeAllOutlines()
+		if self._map == None or self._gamestate != 'LEVEL':
+			return
+		
+		renderer = fife.InstanceRenderer.getInstance(self._cameras['main'])
+		renderer.removeAllOutlines()
 	
-			if ext:
-				pt = fife.ScreenPoint(cursor.getX(), cursor.getY())
-			else:
-				pt = fife.ScreenPoint(evt.getX(), evt.getY())
-			instances = self._getInstancesAt(pt, self._map.getLayer('player'))
-			instances = instances + self._getInstancesAt(pt, self._map.getLayer('waypoints'))
-			for i in instances:
-				for name, object in self._objects._objects.iteritems():
-					if i.getId() == name:
-						renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
-				for name, object in self._npcs.iteritems():
-					if i.getId() == object._agentName:
-						renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
+		if ext:
+			pt = fife.ScreenPoint(cursor.getX(), cursor.getY())
+		else:
+			pt = fife.ScreenPoint(evt.getX(), evt.getY())
+		instances = self._getInstancesAt(pt, self._map.getLayer('player'))
+		instances = instances + self._getInstancesAt(pt, self._map.getLayer('waypoints'))
+		for i in instances:
+			for name, object in self._objects._objects.iteritems():
+				if i.getId() == name:
+					renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
+			for name, object in self._npcs.iteritems():
+				if i.getId() == object._agentName:
+					renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
+
+	def _keyPressed(self, evt):
+		keyval = evt.getKey().getValue()
+		keystr = evt.getKey().getAsString().lower()
+		#if keyval = 
 
 	def _startPlayerActor(self):
 		self._player = Player(self._setting, self._model, "actor-pc", self._map.getLayer('player'))

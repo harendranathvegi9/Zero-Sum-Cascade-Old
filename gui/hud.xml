@@ -2,4 +2,7 @@
 	<Icon name="menuicon" image="gui/icons/menuui2.png" />
 	<Icon name="mapicon" image="gui/icons/mapui2.png" />
 	<Icon name="zscicon" image="gui/icons/zscui2.png" />
+	<Icon image="gui/icons/menuui.png" />
+	<Icon image="gui/icons/mapui.png" />
+	<Icon image="gui/icons/zscui.png" />
 </HBox>
