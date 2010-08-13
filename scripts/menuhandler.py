@@ -81,7 +81,7 @@ class MenuHandler():
 		self._menu.addChild(self._menuicons['settingsbutton'])
 		self._menu.addChild(self._menuicons['aboutbutton'])
 		self._menu.addChild(self._menuicons['exitbutton'])
-		self._world._gamestate == 'MENU'
+		self._world._gamestate = 'MENU'
 		self._hud.show()
 		menu = self._hud.findChild(name="container")
 		autoposition.placeWidget(menu, 'right:top')
