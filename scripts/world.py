@@ -315,6 +315,13 @@ class World(EventListenerBase):
 				self._eventtracker._addEvent(file)
 				
 		self._gamestate = purpose
+		
+		
+		# to be replaced with the hud class
+		self._hud = pychan.loadXML("gui/hud.xml")
+		self._hud.show()
+		hud = self._hud.findChild(name="hud")
+		autoposition.placeWidget(hud, 'center:bottom-20')
 			
 	def _getLocationAt(self, clickpoint, layer):
 		"""

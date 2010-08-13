@@ -1,0 +1,5 @@
+<HBox opaque='0' name="hud">
+	<Icon name="menuicon" image="gui/icons/menuui2.png" />
+	<Icon name="mapicon" image="gui/icons/mapui2.png" />
+	<Icon name="zscicon" image="gui/icons/zscui2.png" />
+</HBox>
