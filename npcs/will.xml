@@ -3,5 +3,14 @@
   <Module name="npc">
     <Setting name="actionchance" type="int">8</Setting>
     <Setting name="actions" type="str">run : True ; glitch : False</Setting>
+    <Setting name="hasdialogue" type="bool">True</Setting>
+  </Module>
+  <Module name="dialogue">
+    <Setting name="index" type="str">1 ; 2 ; 3 ; 4</Setting>
+    <Setting name="idleindex" type="str">1 ; 2 ; 3</Setting>
+    <Setting name="1" type="str">index : 1 ; topic : idle ; text : ...nd of all creati... ; requires : 0</Setting>
+    <Setting name="2" type="str">index : 2 ; topic : idle ; text : ...ring about comple... ; requires : 0</Setting>
+    <Setting name="3" type="str">index : 3 ; topic : idle ; text : ...o surrender, no compro... ; requires : 0</Setting>
+    <Setting name="4" type="str">index : 3 ; topic : What am I? ; text : I am a Mr. Placeholder. I am a facimle of humanity. ; requires : 0</Setting>
   </Module>
 </Settings>

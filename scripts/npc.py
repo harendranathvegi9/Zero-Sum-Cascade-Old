@@ -101,21 +101,59 @@ class NPC(Agent):
 		actionstr = self._npcFile.get("npc", "actions", None)
 		actions = self._npcFile._deserializeDict(actionstr)
 		for action, bool in actions.iteritems():
-			self._availableActions[action] = bool
+			if bool == "True":
+				self._availableActions[action] = True
+			else:
+				self._availableActions[action] = False
 		self._actionchance = self._npcFile.get("npc", "actionchance", 0)
 		self._description = self._npcFile.get("npc", "description", "I can see a mysterious figure,\n but I can't quite make them out.")
+		self._autowalk = self._npcFile.get("npc", "autowalk", True)
+		self._hasdialogue = self._npcFile.get("npc", "hasdialogue", False)
+		self._autowalk = self._npcFile.get("npc", "autowalk", True)
+		self._loadDialogue()
 		self._idle()
-			
+	
+	def _loadDialogue(self):
+		if not self._hasdialogue:
+			return
+		self._dialogue = {}
+		self._idledialogue = []
+		index = []
+		index = self._npcFile._deserializeList(self._npcFile.get("dialogue", "index", ""))
+		for line in index:
+			self._dialogue[line] = self._npcFile._deserializeDict(self._npcFile.get("dialogue", line, ""))
+		idleindex = self._npcFile._deserializeList(self._npcFile.get("dialogue", "idleindex", ""))
+		for line in idleindex:
+			self._idledialogue.append(self._dialogue[line])
+	
+	def _listAvailableTopics(self):
+		returninglist = []
+		if not self._hasdialogue:
+			return returninglist
+		for index, dialogue in self._dialogue.iteritems():
+			if dialogue["requires"] in self._world._player._plots or dialogue["requires"] == '0' and dialogue not in self._idledialogue:
+				returninglist.append((index, dialogue["topic"]))
+		return returninglist
+	
+	def _talk(self, index):
+		if index not in self._world._player._plots:
+			self._world._player._plots.append(index)
+		self._agent.say(self._dialogue[index]["text"], 5000)
+	
 	def onInstanceActionFinished(self, instance, action):
 		self._idle()
 		
 	def _idle(self):
 		self._state = _STATE_IDLE
-		chance = random.randint(0,100)
-		if chance < self._actionchance:
-			self._waypointmove()
-		else:
-			self._agent.act('walk', self._agent.getFacingLocation())
+		if self._autowalk:
+			chance = random.randint(0,100)
+			if chance < self._actionchance:
+				self._waypointmove()
+			else:
+				self._agent.act('walk', self._agent.getFacingLocation())
+			chance = random.randint(0,100)
+			if chance < self._actionchance / 2 and self._hasdialogue:
+				self.talk()
 		
 	def _waypointmove(self):
 		no = random.randint(0, len(self._world._waypoints) - 1)
@@ -134,7 +172,8 @@ class NPC(Agent):
 		pass
 		
 	def talk(self):
-		pass
+		chance = random.randint(0, len(self._idledialogue) - 1)
+		self._talk(self._idledialogue[chance]["index"])
 	
 	def die(self):
 		pass

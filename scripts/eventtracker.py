@@ -101,7 +101,7 @@ class Event():
 			self._noactioncallbacks = 1
 			self._actioncallbacks = {0: self._file.get("event", "clip", "default")}
 		elif action == "swapmap":
-			self._action = self._tracker._world._loadmap
+			self._action = self._tracker._world._loadMap
 			self._noactioncallbacks = 2
 			self._actioncallbacks = {0: self._file.get("event", "newmap", ""),
 						 1: 'LEVEL'}

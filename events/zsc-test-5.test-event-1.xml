@@ -7,8 +7,7 @@
     <Setting name="target" type="str">player</Setting>
     <Setting name="x" type="int">-2</Setting>
     <Setting name="y" type="int">6</Setting>
-    <Setting name="action" type="str">portplayer</Setting>
-    <Setting name="newx" type="int">-2</Setting>
-    <Setting name="newy" type="int">4</Setting>
+    <Setting name="action" type="str">swapmap</Setting>
+    <Setting name="newmap" type="str">maps/zsc-test-5 (copy).xml</Setting>
   </Module>
 </Settings>

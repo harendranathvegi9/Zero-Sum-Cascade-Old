@@ -1,6 +1,6 @@
-<VBox size="400,800" name="container">
+<VBox size="400,800" opaque="0" name="container">
 	<Icon name="logo" image="gui/icons/logomenu.png" />
-	<VBox name="menu">
+	<VBox name="menu" opaque="0">
 		<Icon name="newbutton" image="gui/icons/buttons/new2.png" />
 		<Icon name="loadbutton" image="gui/icons/buttons/load2.png" />
 		<Icon name="savebutton" image="gui/icons/buttons/save2.png" />

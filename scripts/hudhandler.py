@@ -66,7 +66,7 @@ class HUDHandler():
 			self._hud.addChild(self._menuicons['zscicon'])
 		self._hud.show()
 		hud = self._hud.findChild(name="hud")
-		autoposition.placeWidget(hud, 'center:bottom-50')
+		autoposition.placeWidget(hud, 'center:bottom-25')
 
 	def hide(self):
 		self._hud.hide()

@@ -84,7 +84,7 @@ class MenuHandler():
 		self._world._gamestate = 'MENU'
 		self._hud.show()
 		menu = self._hud.findChild(name="container")
-		autoposition.placeWidget(menu, 'right:top')
+		autoposition.placeWidget(menu, 'right:center')
 
 	def hide(self):
 		self._hud.hide()

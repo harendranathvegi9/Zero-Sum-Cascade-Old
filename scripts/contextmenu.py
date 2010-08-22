@@ -110,6 +110,15 @@ class ContextMenu():
 							self._menu.addChild(self._dynamicbuttons['inspectButton'])
 						elif action == "beshot" and bool and (world._player._hasGun or world._player._hasPistol)  and target_distance <= 10:
 							self._menu.addChild(self._dynamicbuttons['shootButton'])
+					if object._hasdialogue:
+						topics = object._listAvailableTopics()
+						print topics
+						for index, topic in topics:
+							button = widgets.buttons.Button()
+							button.name = topic + "Button"
+							button.text = "Talk - " + topic
+							self._menu.addChild(button)
+							self._menu.mapEvents({ button.name : pychan.tools.callbackWithArguments(self._talk, index) })
 		else:
 			self._menu.addChild(self._dynamicbuttons['moveButton'])
 		self._menu.position = (clickpoint.x, clickpoint.y)
@@ -122,8 +131,9 @@ class ContextMenu():
 	def _shoot(self):
 		pass
 	
-	def _talk(self):
-		pass
+	def _talk(self, index):
+		self._hide()
+		self._currentObject._talk(index)
 	
 	def _use(self):
 		self._hide()
