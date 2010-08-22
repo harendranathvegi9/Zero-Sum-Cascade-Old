@@ -68,6 +68,8 @@ class Event():
 			self._ymax = self._file.get("event", "ymax", 0)
 		if self._type == "item":
 			self._item = self._file.get("event", "item", None)
+		if self._type == "dialogue":
+			self._dialogue = self._file.get("event", "dialogue")
 		if self._type == "plot":
 			self._subtype = self._file.get("event", "subtype", "dummy")
 			if self._subtype == "dummy":
@@ -85,6 +87,8 @@ class Event():
 				self._ymax = self._file.get("event", "ymax", 0)
 			if self._subtype == "item":
 				self._item = self._file.get("event", "item", None)
+			if self._subtype == "dialogue":
+				self._dialogue = self._file.get("event", "dialogue")
 		
 		action = self._file.get("event", "action", "none")
 		if action == "eventmusic":
@@ -178,7 +182,7 @@ class Event():
 				self._status = 'FULFILLED'
 				if self._activates != "none":
 					self._tracker._events[self._activates]._status = 'ACTIVE'
-		elif item == "item":
+		elif type == "item":
 			if item != None and item == self._item:
 				if self._noactioncallbacks == 0:
 					self._action()
@@ -191,6 +195,20 @@ class Event():
 				self._status = 'FULFILLED'
 				if self._activates != "none":
 					self._tracker._events[self._activates]._status = 'ACTIVE'
+		elif type == "dialogue":
+			if self._dialogue in self._tracker._world._player._plots:
+				if self._noactioncallbacks == 0:
+					self._action()
+				elif self._noactioncallbacks == 1:
+					self._action(self._actioncallbacks[0])
+				elif self._noactioncallbacks == 2:
+					self._action(self._actioncallbacks[0], self._actioncallbacks[1])
+				elif self._noactioncallbacks == 3:
+					self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
+				self._status = 'FULFILLED'
+				if self._activates != "none":
+					self._tracker._events[self._activates]._status = 'ACTIVE'
+
 
 class EventTracker():
 	def __init__(self, engine, model, musicmanager, world):
