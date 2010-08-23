@@ -196,7 +196,7 @@ class Event():
 				if self._activates != "none":
 					self._tracker._events[self._activates]._status = 'ACTIVE'
 		elif type == "dialogue":
-			if self._dialogue in self._tracker._world._player._plots:
+			if self._dialogue in self._tracker._world._player._plots:	
 				if self._noactioncallbacks == 0:
 					self._action()
 				elif self._noactioncallbacks == 1:

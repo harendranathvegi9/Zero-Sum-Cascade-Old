@@ -654,6 +654,10 @@
 			<i x="-2.0" o="actor:mrplaceholder" z="0.0" y="-1.0" r="0"></i>
 		</instances>
 	</layer>
+	<layer grid_type="square" id="waypoints" x_scale="1.0" x_offset="0.0" y_offset="0.0" pathing="cell_edges_and_diagonals" y_scale="1.0" rotation="0.0" transparency="0">
+		<instances>
+		</instances>
+	</layer>
 	<camera tilt="-54.8" id="main" ref_layer_id="ground" ref_cell_height="74" rotation="45.0" ref_cell_width="128" zoom="1.0">
 	</camera>
 </map>

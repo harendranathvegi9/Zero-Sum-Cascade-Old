@@ -8,6 +8,6 @@
     <Setting name="x" type="int">-2</Setting>
     <Setting name="y" type="int">6</Setting>
     <Setting name="action" type="str">swapmap</Setting>
-    <Setting name="newmap" type="str">maps/zsc-test-5 (copy).xml</Setting>
+    <Setting name="newmap" type="str">maps/zsc-test-4.xml</Setting>
   </Module>
 </Settings>

@@ -171,7 +171,7 @@ class mainApplication(ApplicationBase):
 		
 		# TODO: Add loading a map based on the settings file.
 		# Load a map
-		self._world._loadMap('maps/zsc-test-5.xml', 'LEVEL')
+		self._world._loadMap('maps/zsc-test-6.xml', 'MENU')
 		
 		self._world._sounds._loadClip("beep", "sounds/beep.ogg", False, False)
 		

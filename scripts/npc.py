@@ -136,7 +136,7 @@ class NPC(Agent):
 		return returninglist
 	
 	def _talk(self, index):
-		if index not in self._world._player._plots:
+		if self._world._gamestate == 'LEVEL' and index not in self._world._player._plots:
 			self._world._player._plots.append(index)
 		self._agent.say(self._dialogue[index]["text"], 5000)
 	

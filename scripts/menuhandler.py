@@ -92,7 +92,7 @@ class MenuHandler():
 
 
 	def _new(self):
-		pass
+		self._world._loadMap("maps/zsc-test-5.xml", 'LEVEL')
 	
 	def _load(self):
 		pass
