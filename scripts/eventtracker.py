@@ -244,6 +244,7 @@ class EventTracker():
 		for name, event in self._events.iteritems():
 			if event._status == 'ACTIVE' or all:
 				event._evaluate()
+	
 				
 	def _evaluateEvent(self, event, item=None):
 		if self._events[event]._status == 'ACTIVE':

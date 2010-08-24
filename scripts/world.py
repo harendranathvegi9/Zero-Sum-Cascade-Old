@@ -342,6 +342,20 @@ class World(EventListenerBase):
 			self._loadLevelMapCallback("", 0.95)
 		else:
 			self._loadMenuMapCallback("", 0.95)
+			
+		self._drift = {}
+		self._drift = self._mapsettings._deserializeDict(self._mapsettings.get("map", "drift", "use : False"))
+		if self._drift["use"] == "True":
+			self._drift["use"] = True
+			self._drift["x"] = float(self._drift["x"])
+			self._drift["y"] = float(self._drift["y"])
+
+			start = self._drift["start"].partition(",")
+			loc = fife.Location(self._map.getLayer('player'))
+			loc.setExactLayerCoordinates(fife.ExactModelCoordinate(float(start[0]), float(start[2])))
+			self._cameras['main'].setLocation(loc)
+		else:
+			self._drift["use"] = False
 		
 		self._gamestate = purpose
 			
@@ -408,3 +422,25 @@ class World(EventListenerBase):
 		self._cameras['main'].attach(self._map.getLayer('player').getInstance("actor-pc"))
 		if self._cameras['main'].getAttached() == None:
 			print "Attach Failed"
+	
+	def cameraDrift(self):
+		if self._drift["use"]:
+			oldloc = self._cameras['main'].getLocation().getExactLayerCoordinates()
+			border = self._drift["end"].partition(",")
+			if oldloc.x < float(border[0]):
+				self._drift["x"] = (self._drift["x"] + random.randint(-1, 1) * 0.025) * -1
+				print str(self._drift["x"]) + "," + str(self._drift["y"])
+			if oldloc.y < float(border[2]):
+				self._drift["y"] = (self._drift["y"] + random.randint(-1, 1) * 0.025) * -1
+				print str(self._drift["x"]) + "," + str(self._drift["y"])
+			border = self._drift["start"].partition(",")
+			if oldloc.x > float(border[0]):
+				self._drift["x"] = (self._drift["x"] + random.randint(-1, 1) * 0.025) * -1
+				print str(self._drift["x"]) + "," + str(self._drift["y"])
+			if oldloc.y > float(border[2]):
+				self._drift["y"] = (self._drift["y"] + random.randint(-1, 1) * 0.025) * -1
+				print str(self._drift["x"]) + "," + str(self._drift["y"])
+			delta = self._timemanager.getTimeDelta() / 100.0
+			loc = fife.Location(self._map.getLayer('player'))
+			loc.setExactLayerCoordinates(fife.ExactModelCoordinate(round(oldloc.x + self._drift["x"] * delta, 2), round(oldloc.y + self._drift["y"] * delta, 2)))
+			self._cameras['main'].setLocation(loc)

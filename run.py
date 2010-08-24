@@ -200,6 +200,7 @@ class mainApplication(ApplicationBase):
 		
 		self._world._eventtracker._evaluateEvents()
 		self._world._sounds._fade()
+		self._world.cameraDrift()
 		
 		if not self._world._mouseMoved:
 			self._world.mouseMoved(None, True, self.engine.getCursor())
