@@ -112,7 +112,6 @@ class ContextMenu():
 							self._menu.addChild(self._dynamicbuttons['shootButton'])
 					if object._hasdialogue:
 						topics = object._listAvailableTopics()
-						print topics
 						for index, topic in topics:
 							button = widgets.buttons.Button()
 							button.name = topic + "Button"

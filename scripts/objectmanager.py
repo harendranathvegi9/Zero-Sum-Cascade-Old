@@ -72,12 +72,10 @@ class InteractiveObject(fife.InstanceActionListener):
 		actionstr = self._objectFile.get("object", "actions", None)
 		actions = self._objectFile._deserializeDict(actionstr)
 		for action, bool in actions.iteritems():
-			print action + " = " + bool
 			if bool in ("True"):
 				self._availableactions[action] = True
 			else:
 				self._availableactions[action] = False
-			print action + " = " + str(self._availableactions[action])
 		self._description = self._objectFile.get("object", "description", "I can see something, but\n I can't tell what it is")
 		self._talk = self._objectFile.get("object", "talk", False)
 		self._message = self._objectFile._deserializeList(self._objectFile.get("object", "messages", ""))

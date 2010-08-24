@@ -414,14 +414,12 @@ class World(EventListenerBase):
 	def _keyPressed(self, evt):
 		keyval = evt.getKey().getValue()
 		keystr = evt.getKey().getAsString().lower()
-		#if keyval = 
 
 	def _startPlayerActor(self):
 		self._player = Player(self._setting, self._model, "actor-pc", self._map.getLayer('player'))
 		self._cameras['main'].setLocation(self._player._agent.getLocation())
 		self._cameras['main'].attach(self._map.getLayer('player').getInstance("actor-pc"))
 		if self._cameras['main'].getAttached() == None:
-			print "Attach Failed"
 	
 	def cameraDrift(self):
 		if self._drift["use"]:
@@ -429,17 +427,13 @@ class World(EventListenerBase):
 			border = self._drift["end"].partition(",")
 			if oldloc.x < float(border[0]):
 				self._drift["x"] = (self._drift["x"] + random.randint(-1, 1) * 0.025) * -1
-				print str(self._drift["x"]) + "," + str(self._drift["y"])
 			if oldloc.y < float(border[2]):
 				self._drift["y"] = (self._drift["y"] + random.randint(-1, 1) * 0.025) * -1
-				print str(self._drift["x"]) + "," + str(self._drift["y"])
 			border2 = self._drift["start"].partition(",")
 			if oldloc.x > float(border2[0]):
 				self._drift["x"] = (self._drift["x"] + random.randint(-1, 1) * 0.025) * -1
-				print str(self._drift["x"]) + "," + str(self._drift["y"])
 			if oldloc.y > float(border2[2]):
 				self._drift["y"] = (self._drift["y"] + random.randint(-1, 1) * 0.025) * -1
-				print str(self._drift["x"]) + "," + str(self._drift["y"])
 			delta = self._timemanager.getTimeDelta() / 100.0
 			loc = fife.Location(self._map.getLayer('player'))
 			deltax = round(oldloc.x + self._drift["x"] * delta, 2)
