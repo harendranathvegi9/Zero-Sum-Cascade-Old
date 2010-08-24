@@ -184,13 +184,11 @@ class World(EventListenerBase):
 		
 		# If it's loaded, hide the loading screen and load the HUD
 		if percentdone == 1:
-			self._gamestate = 'LOADED'
 			self._hideAllGuis()
 		# Otherwise set the loading screens percentage label
 		else:
-			print str(percentdone) + "% loaded"
 			loaded = self._loadingmenu.findChild(name="loading")
-			loaded.text = str(math.floor(percentdone * 100)) + '% Loaded'			
+			loaded.text = str(math.floor(percentdone * 100)) + u'% Loaded'			
 	
 	def _loadMenuMapCallback(self, action, percentdone):
 		"""
@@ -207,15 +205,13 @@ class World(EventListenerBase):
 		
 		# If it's loaded, hide the loading screen and load the menu
 		if percentdone == 1:
-			self._gamestate = 'LOADED'
 			self._hideAllGuis()
 			if self._mainmenu != None:
 				self._mainmenu.show()
 		# Otherwise set the loading screens percentage label
 		else:
-			print str(percentdone) + "% loaded"
 			loaded = self._loadingmenu.findChild(name="loading")
-			loaded.text = str(math.floor(percentdone * 100)) + '% Loaded'
+			loaded.text = str(math.floor(percentdone * 100)) + u'% Loaded'
 
 	def _loadMap(self, filename, purpose, port=False, location=None, direction=None):
 		"""

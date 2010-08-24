@@ -72,11 +72,11 @@ class MenuHandler():
 		self._menu.removeAllChildren()
 	
 	def show(self):
+		self._menu.addChild(self._menuicons['newbutton'])
 		if self._world._gamestate == 'LEVEL':
 			self._menu.addChild(self._menuicons['savebutton'])
 			self._menu.addChild(self._menuicons['loadbutton'])
 		else:	
-			self._menu.addChild(self._menuicons['newbutton'])
 			self._menu.addChild(self._menuicons['loadbutton'])
 			self._menu.addChild(self._menuicons['settingsbutton'])
 			self._menu.addChild(self._menuicons['aboutbutton'])

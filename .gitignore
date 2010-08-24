@@ -1,3 +1,5 @@
 /fife.log
 /screenshots/*
 *.pyc
+*~
+/settings.xml
