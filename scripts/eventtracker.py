@@ -50,7 +50,9 @@ class Event():
 		
 		if self._file.get("event", "active", False):
 			self._status = 'ACTIVE'
-			
+
+		self._repeating = self._file.get("event", "repeating", False)
+		
 		self._activates = self._file.get("event", "activates", "none")
 		
 		if self._type == "dummy":
@@ -166,7 +168,10 @@ class Event():
 					self._action(self._actioncallbacks[0], self._actioncallbacks[1])
 				elif self._noactioncallbacks == 3:
 					self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
-				self._status = 'FULFILLED'
+				if self._repeating:
+					self._status = 'ACTIVE'
+				else:
+					self._status = 'FULFILLED'
 				if self._activates != "none":
 					self._tracker._events[self._activates]._status = 'ACTIVE'
 		elif type == "areatrip":
@@ -179,7 +184,10 @@ class Event():
 					self._action(self._actioncallbacks[0], self._actioncallbacks[1])
 				elif self._noactioncallbacks == 3:
 					self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
-				self._status = 'FULFILLED'
+				if self._repeating:
+					self._status = 'ACTIVE'
+				else:
+					self._status = 'FULFILLED'
 				if self._activates != "none":
 					self._tracker._events[self._activates]._status = 'ACTIVE'
 		elif type == "item":
@@ -192,7 +200,10 @@ class Event():
 					self._action(self._actioncallbacks[0], self._actioncallbacks[1])
 				elif self._noactioncallbacks == 3:
 					self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
-				self._status = 'FULFILLED'
+				if self._repeating:
+					self._status = 'ACTIVE'
+				else:
+					self._status = 'FULFILLED'
 				if self._activates != "none":
 					self._tracker._events[self._activates]._status = 'ACTIVE'
 		elif type == "dialogue":
@@ -205,7 +216,10 @@ class Event():
 					self._action(self._actioncallbacks[0], self._actioncallbacks[1])
 				elif self._noactioncallbacks == 3:
 					self._action(self._actioncallbacks[0], self._actioncallbacks[1], self._actioncallbacks[2])
-				self._status = 'FULFILLED'
+				if self._repeating:
+					self._status = 'ACTIVE'
+				else:
+					self._status = 'FULFILLED'
 				if self._activates != "none":
 					self._tracker._events[self._activates]._status = 'ACTIVE'
 

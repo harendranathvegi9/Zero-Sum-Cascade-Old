@@ -1,0 +1,26 @@
+<Window title="Settings" >
+    <HBox>
+	<VBox min_size="250,120">
+	    <Label text="Resolution" />
+	    <Label text="Fullscreen" />
+	    <Label text="Graphics Backend" />
+	    <Label text="Play Sound" />
+	</VBox>
+	<VBox>
+	    <DropDown name="resolutionDrop" min_size="250,20" />
+	    <HBox>
+		<ToggleButton name="fullscreenButton" text="Fullscreen" group="fullscreen" min_size="125,20" />
+		<ToggleButton name="windowedButton" text="Windowed" group="fullscreen" min_size="125,20" />
+	    </HBox>
+	    <HBox>
+		<ToggleButton name="openGLButton" text="OpenGL" group="renderer" min_size="125,20" />
+		<ToggleButton name="SDLButton" text="SDL" group="renderer" min_size="125,20" />
+	    </HBox>
+	    <HBox>
+		<ToggleButton name="soundonButton" text="On" group="sound" min_size="125,20" />
+		<ToggleButton name="soundoffButton" text="Off" group="sound" min_size="125,20" />
+	    </HBox>
+	</VBox>
+    </HBox>
+    <Button name="closeButton" text="Apply and Close" min_size="250,20" />
+</Window>

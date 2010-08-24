@@ -1,0 +1,9 @@
+<Window title="Warning" >
+    <VBox>
+        <Label text="These changes require you to restart the game." />
+        <HBox>
+	    <Button name="okButton" text="Okay" min_size="250,20" />
+	    <Button name="closeButton" text="Cancel" min_size="250,20" />
+        </HBox>
+    </VBox>
+</Window>

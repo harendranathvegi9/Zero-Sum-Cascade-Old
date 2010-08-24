@@ -101,7 +101,8 @@ class MenuHandler():
 		pass
 	
 	def _settings(self):
-		pass
+		self._world._settingsmenu.show()
+		self.hide()
 	
 	def _about(self):
 		pass

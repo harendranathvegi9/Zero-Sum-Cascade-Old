@@ -166,6 +166,7 @@ class mainApplication(ApplicationBase):
 		self._world._loadGui('LOAD', 'loading-1', False)
 		self._world._loadGui('HUD', 'hud', False)
 		self._world._loadGui('MAIN', 'menu', False)
+		self._world._loadGui('SETTINGS', 'settings', False)
 		
 		
 		

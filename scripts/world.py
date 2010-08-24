@@ -46,7 +46,7 @@ from fife.extensions.fife_settings import Setting
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
 from scripts.agents.player import Player
-from scripts import musicmanager, npc, eventtracker, objectmanager, contextmenu, hudhandler, menuhandler
+from scripts import musicmanager, npc, eventtracker, objectmanager, contextmenu, hudhandler, menuhandler, settingshandler
 from fife.extensions.loaders import loadMapFile, loadImportFile
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 
@@ -112,6 +112,7 @@ class World(EventListenerBase):
 		self._mainmenu = None
 		self._pausemenu = None
 		self._loadingmenu = None
+		self._settingsmenu = None
 		
 		# Start the sound manager
 		self._soundmanager = SoundManager(self._engine)
@@ -131,6 +132,8 @@ class World(EventListenerBase):
 			self._mainmenu = menuhandler.MenuHandler(guifile, self)
 		elif type == 'HUD':
 			self._hud = hudhandler.HUDHandler(guifile, self)
+		elif type == 'SETTINGS':
+			self._settingsmenu = settingshandler.SettingsHandler(guifile, self)
 		elif type == 'PAUSE':
 			self._pause = pychan.loadXML('gui/' + guifile + '.xml')
 			if imports:
@@ -157,6 +160,8 @@ class World(EventListenerBase):
 			self._pausemenu.hide()
 		if self._loadingmenu != None:
 			self._loadingmenu.hide()
+		if self._settingsmenu != None:
+			self._settingsmenu.hide()
 
 	def _loadLevelMapCallback(self, action, percentdone):
 		"""
@@ -275,7 +280,9 @@ class World(EventListenerBase):
 			if direction != None:
 				self._player._agent.setFacingLocation(direction)
 			if self._hud != None:
-				self._hud.show()	
+				self._hud.show()
+			
+			self._loadLevelMapCallback("", 0.775)
 		
 		# Start the floating text renderer
 		renderer = fife.FloatingTextRenderer.getInstance(self._cameras['main'])
@@ -285,11 +292,21 @@ class World(EventListenerBase):
 		renderer.setDefaultBorder(0,0,0,0)
 		renderer.activateAllLayers(self._map)
 		renderer.setEnabled(True)
+		
+		if purpose == 'LEVEL':
+			self._loadLevelMapCallback("", 0.8)
+		else:
+			self._loadMenuMapCallback("", 0.8)
 	
 		if self._mapsettings.get("map", "usewaypoints", False):
 			self._waypoints = self._mapsettings._deserializeList(self._mapsettings.get("map", "waypoints", ""))
 		else:
 			self._waypoints = None
+
+		if purpose == 'LEVEL':
+			self._loadLevelMapCallback("", 0.825)
+		else:
+			self._loadMenuMapCallback("", 0.825)
 		
 		if self._mapsettings.get("map", "useobjects", False):
 			self._objects = objectmanager.ObjectManager(self)
@@ -297,11 +314,21 @@ class World(EventListenerBase):
 			for file in objlist:
 				self._objects._loadObjects(file)
 		
+		if purpose == 'LEVEL':
+			self._loadLevelMapCallback("", 0.85)
+		else:
+			self._loadMenuMapCallback("", 0.85)
+		
 		if self._mapsettings.get("map", "dynamicnpcs", False):
 			self._npclist = self._mapsettings._deserializeDict(self._mapsettings.get("map", "npclist", False))
 			if self._npclist != False:
 				for id, name in self._npclist.iteritems():
 					self._npcs[name] = npc.NPC(self._setting, self._model, id, self._map.getLayer('player'), self, True, name)
+		
+		if purpose == 'LEVEL':
+			self._loadLevelMapCallback("", 0.9)
+		else:
+			self._loadMenuMapCallback("", 0.9)
 		
 		self._eventtracker = eventtracker.EventTracker(self._engine, self._model, self._sounds, self)
 		if self._mapsettings.get("map", "useevents", False):
@@ -309,6 +336,11 @@ class World(EventListenerBase):
 			for file in eventlist:
 				self._eventtracker._addEvent(file)
 				
+		if purpose == 'LEVEL':
+			self._loadLevelMapCallback("", 0.95)
+		else:
+			self._loadMenuMapCallback("", 0.95)
+		
 		self._gamestate = purpose
 			
 	def _getLocationAt(self, clickpoint, layer):
