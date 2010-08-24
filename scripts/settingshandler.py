@@ -121,9 +121,9 @@ class SettingsHandler():
 		self._world._setting.set("FIFE", "PlaySounds", self._options["soundonButton"].toggled)
 		self._world._setting.set("FIFE", "FullScreen", self._options["fullscreenButton"].toggled)
 		if self._options["openGLButton"].toggled:
-			self._world._setting.set("FIFE", "RenderBackground", "OpenGL")
+			self._world._setting.set("FIFE", "RenderBackend", "OpenGL")
 		else:
-			self._world._setting.set("FIFE", "RenderBackground", "SDL")
+			self._world._setting.set("FIFE", "RenderBackend", "SDL")
 		self._world._setting.set("FIFE", "ScreenResolution", self._options["resolutionDrop"]._getSelectedItem())
 		self._world._setting.saveSettings()
 		self._world._quit = True

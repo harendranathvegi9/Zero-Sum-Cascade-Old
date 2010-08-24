@@ -78,8 +78,8 @@ class MenuHandler():
 		else:	
 			self._menu.addChild(self._menuicons['newbutton'])
 			self._menu.addChild(self._menuicons['loadbutton'])
-		self._menu.addChild(self._menuicons['settingsbutton'])
-		self._menu.addChild(self._menuicons['aboutbutton'])
+			self._menu.addChild(self._menuicons['settingsbutton'])
+			self._menu.addChild(self._menuicons['aboutbutton'])
 		self._menu.addChild(self._menuicons['exitbutton'])
 		self._world._gamestate = 'MENU'
 		self._hud.show()
@@ -105,7 +105,8 @@ class MenuHandler():
 		self.hide()
 	
 	def _about(self):
-		pass
+		self._world._aboutmenu.show()
+		self.hide()
 	
 	def _exit(self):
 		self._world._quit = True

@@ -46,7 +46,8 @@ from fife.extensions.fife_settings import Setting
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
 from scripts.agents.player import Player
-from scripts import musicmanager, npc, eventtracker, objectmanager, contextmenu, hudhandler, menuhandler, settingshandler
+from scripts import musicmanager, npc, eventtracker, objectmanager, contextmenu
+from scripts import hudhandler, menuhandler, settingshandler, abouthandler
 from fife.extensions.loaders import loadMapFile, loadImportFile
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 
@@ -113,6 +114,7 @@ class World(EventListenerBase):
 		self._pausemenu = None
 		self._loadingmenu = None
 		self._settingsmenu = None
+		self._aboutmenu = None
 		
 		# Start the sound manager
 		self._soundmanager = SoundManager(self._engine)
@@ -134,6 +136,8 @@ class World(EventListenerBase):
 			self._hud = hudhandler.HUDHandler(guifile, self)
 		elif type == 'SETTINGS':
 			self._settingsmenu = settingshandler.SettingsHandler(guifile, self)
+		elif type == 'ABOUT':
+			self._aboutmenu = abouthandler.AboutHandler(guifile, self)
 		elif type == 'PAUSE':
 			self._pause = pychan.loadXML('gui/' + guifile + '.xml')
 			if imports:
@@ -162,6 +166,8 @@ class World(EventListenerBase):
 			self._loadingmenu.hide()
 		if self._settingsmenu != None:
 			self._settingsmenu.hide()
+		if self._aboutmenu != None:
+			self._aboutmenu.hide()
 
 	def _loadLevelMapCallback(self, action, percentdone):
 		"""
