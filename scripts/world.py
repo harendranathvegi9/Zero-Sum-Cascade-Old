@@ -433,14 +433,16 @@ class World(EventListenerBase):
 			if oldloc.y < float(border[2]):
 				self._drift["y"] = (self._drift["y"] + random.randint(-1, 1) * 0.025) * -1
 				print str(self._drift["x"]) + "," + str(self._drift["y"])
-			border = self._drift["start"].partition(",")
-			if oldloc.x > float(border[0]):
+			border2 = self._drift["start"].partition(",")
+			if oldloc.x > float(border2[0]):
 				self._drift["x"] = (self._drift["x"] + random.randint(-1, 1) * 0.025) * -1
 				print str(self._drift["x"]) + "," + str(self._drift["y"])
-			if oldloc.y > float(border[2]):
+			if oldloc.y > float(border2[2]):
 				self._drift["y"] = (self._drift["y"] + random.randint(-1, 1) * 0.025) * -1
 				print str(self._drift["x"]) + "," + str(self._drift["y"])
 			delta = self._timemanager.getTimeDelta() / 100.0
 			loc = fife.Location(self._map.getLayer('player'))
-			loc.setExactLayerCoordinates(fife.ExactModelCoordinate(round(oldloc.x + self._drift["x"] * delta, 2), round(oldloc.y + self._drift["y"] * delta, 2)))
+			deltax = round(oldloc.x + self._drift["x"] * delta, 2)
+			deltay = round(oldloc.y + self._drift["y"] * delta, 2)
+			loc.setExactLayerCoordinates(fife.ExactModelCoordinate(deltax, deltay))
 			self._cameras['main'].setLocation(loc)
