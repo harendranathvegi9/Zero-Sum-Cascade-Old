@@ -67,3 +67,7 @@ class Player(Agent):
 	def run(self, location):
 		self._state = _STATE_RUN
 		self._agent.move('walk', location, 0.75)
+	
+class SaveDataStorage(dict):
+	def __missing__(self, key):
+		return None

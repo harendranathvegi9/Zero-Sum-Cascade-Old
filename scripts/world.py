@@ -25,6 +25,14 @@
 #  <http://www.gnu.org/licenses/>.
 # ####################################################################
 
+# ####################################################################
+# The NewFileBrowser class contains code from the original FileBrowser
+# class to overwrite some functions so it can avoid showing a
+# directory listing.
+#
+# Code from fife is copyright the FIFE team.
+# ####################################################################
+
 import sys, os, re
 
 # Import the engine
@@ -45,11 +53,12 @@ from fife.extensions.fife_settings import Setting
 # Import eventListenerBase, agentbase and the maploader
 from scripts.common.eventlistenerbase import EventListenerBase
 from scripts import agentbase
-from scripts.agents.player import Player
+from scripts.agents.player import Player, SaveDataStorage
 from scripts import musicmanager, npc, eventtracker, objectmanager, contextmenu
 from scripts import hudhandler, menuhandler, settingshandler, abouthandler
 from fife.extensions.loaders import loadMapFile, loadImportFile
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
+from fife.extensions.filebrowser import FileBrowser
 
 # World class. Starts the world.
 class World(EventListenerBase):
@@ -93,6 +102,7 @@ class World(EventListenerBase):
 		self._npclist = None
 		self._pump_ctr = 0
 		self._map = None
+		self._mapsettings = None
 		self._scene = None
 		self._paused = True
 		self._pausedtime = 0
@@ -104,6 +114,13 @@ class World(EventListenerBase):
 		self._objects = {}
 		self._contextmenu = contextmenu.ContextMenu('rightclickmenu', self)
 		self._mouseMoved = False
+		self._isusingobjects = False
+		self._isusingnpcs = False
+		
+		# Start the save game
+		self._saveGame = SaveDataStorage()
+		self._saveFile = None
+		self._saveFileName = ''
 		
 		# Start pychan
 		pychan.init(self._engine)
@@ -213,7 +230,7 @@ class World(EventListenerBase):
 			loaded = self._loadingmenu.findChild(name="loading")
 			loaded.text = str(math.floor(percentdone * 100)) + u'% Loaded'
 
-	def _loadMap(self, filename, purpose, port=False, location=None, direction=None):
+	def _loadMap(self, filename, purpose, port=False, x=0, y=0):
 		"""
 		_loadMap Function
 		Deletes the old map and loads a new one. Also initilises cameras.
@@ -226,7 +243,12 @@ class World(EventListenerBase):
 		self._map = None
 		self._npcs = {}
 		self._npclist = False
+		if self._mapsettings != None and purpose == 'LEVEL':
+			if self._mapsettings.get("map", "useevents", False):
+				for eventid, event in self._eventtracker._events.iteritems():
+					self._saveGame[self._mapfile][eventid] = event._status
 		self._mapsettings = SimpleXMLSerializer(filename=filename +".config")
+		self._mapfile = filename
 		self._eventtracker = None
 		
 		
@@ -245,6 +267,9 @@ class World(EventListenerBase):
 			
 			# Load the map
 			self._map = loadMapFile(filename, self._engine, self._loadLevelMapCallback)
+			
+			# Start the level's save game
+			self._saveGame[filename] = {}
 			
 		elif purpose == 'MENU':
 			# Hide any active GUIs
@@ -277,10 +302,10 @@ class World(EventListenerBase):
 		if purpose == 'LEVEL':
 			# Start the player character
 			self._startPlayerActor()
-			if location != None:
-				self._player._agent.setLocation(location)
-			if direction != None:
-				self._player._agent.setFacingLocation(direction)
+			if port:
+				loc = fife.Location(self._map.getLayer('player'))
+				loc.setExactLayerCoordinates(fife.ExactModelCoordinate(float(x), float(y)))
+				self._player._agent.setLocation(loc)
 			if self._hud != None:
 				self._hud.show()
 			
@@ -310,7 +335,8 @@ class World(EventListenerBase):
 		else:
 			self._loadMenuMapCallback("", 0.825)
 		
-		if self._mapsettings.get("map", "useobjects", False):
+		self._isusingobjects = self._mapsettings.get("map", "useobjects", False)
+		if self._isusingobjects:
 			self._objects = objectmanager.ObjectManager(self)
 			objlist = self._mapsettings._deserializeList(self._mapsettings.get("map", "objectlist", False))
 			for file in objlist:
@@ -321,7 +347,8 @@ class World(EventListenerBase):
 		else:
 			self._loadMenuMapCallback("", 0.85)
 		
-		if self._mapsettings.get("map", "dynamicnpcs", False):
+		self._isusingnpcs = self._mapsettings.get("map", "dynamicnpcs", False)
+		if self._isusingnpcs:
 			self._npclist = self._mapsettings._deserializeDict(self._mapsettings.get("map", "npclist", False))
 			if self._npclist != False:
 				for id, name in self._npclist.iteritems():
@@ -337,6 +364,9 @@ class World(EventListenerBase):
 			eventlist = self._mapsettings._deserializeList(self._mapsettings.get("map", "eventslist", ""))
 			for file in eventlist:
 				self._eventtracker._addEvent(file)
+			if self._saveGame[self._mapfile] != None:
+				for eventid, status in self._saveGame[self._mapfile].iteritems():
+					self._eventtracker._events[eventid]._status = status
 				
 		if purpose == 'LEVEL':
 			self._loadLevelMapCallback("", 0.95)
@@ -404,12 +434,14 @@ class World(EventListenerBase):
 		instances = self._getInstancesAt(pt, self._map.getLayer('player'))
 		instances = instances + self._getInstancesAt(pt, self._map.getLayer('waypoints'))
 		for i in instances:
-			for name, object in self._objects._objects.iteritems():
-				if i.getId() == name:
-					renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
-			for name, object in self._npcs.iteritems():
-				if i.getId() == object._agentName:
-					renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
+			if self._isusingobjects:
+				for name, object in self._objects._objects.iteritems():
+					if i.getId() == name:
+						renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
+			if self._isusingnpcs:
+				for name, object in self._npcs.iteritems():
+					if i.getId() == object._agentName:
+						renderer.addOutlined(i, random.randint(20,255), random.randint(20,255), random.randint(20,255), 1)
 
 	def _keyPressed(self, evt):
 		keyval = evt.getKey().getValue()
@@ -446,3 +478,120 @@ class World(EventListenerBase):
 			deltay = round(oldloc.y + self._drift["y"] * delta, 2)
 			loc.setExactLayerCoordinates(fife.ExactModelCoordinate(deltax, deltay))
 			self._cameras['main'].setLocation(loc)
+
+	def saveGame(self):
+		if self._saveFileName == '':
+			filebrowser = NewFileBrowser(self._engine, self._save, True, False, ('sav',), world=self)
+			filebrowser.setDirectory('./saves')
+			filebrowser.showBrowser()
+		else:
+			self._save(filename=self._saveFileName)
+	
+	def loadGame(self):
+		filebrowser = NewFileBrowser(self._engine, self._load, False, False, ('sav',), world=self, load=True)
+		filebrowser.setDirectory('./saves')
+		filebrowser.showBrowser()
+		
+
+	def _save(self, path='', filename=''):
+		self._saveFileName = filename
+		self._saveFile = SimpleXMLSerializer('saves/' + filename)
+		loc = self._player._agent.getLocation()
+		coord = loc.getExactLayerCoordinates()
+		self._saveFile.set("meta", "location", str(coord.x) + "," + str(coord.y))
+		self._saveFile.set("meta", "map", self._mapfile)
+		maplist = []
+		for map, events in self._saveGame.iteritems():
+			maplist.append(map)
+			eventlist = []
+			for event, status in events.iteritems():
+				self._saveFile.set(map, event, status)
+				eventlist.append(event)
+			self._saveFile.set(map, "meta", self._saveFile._serializeList(eventlist))
+		self._saveFile.set("meta", "maplist", self._saveFile._serializeList(maplist))
+		self._saveFile.save()
+		self._gamestate = 'LEVEL'
+		self._hud.show()
+
+	def _load(self, path='', filename=''):
+		self._saveFileName = filename
+		self._saveFile = SimpleXMLSerializer('saves/' + filename)
+		for map in self._saveFile._serializeList(self._saveFile.get("meta", "maplist", "")):
+			for event in self._saveFile._serializeList(self._saveFile.get(map, "meta", "")):
+				self._saveGame[map][event] = self._saveFile.get(map, event, 'ACTIVE')
+		coord = self._saveFile.get("meta", "location", "0,0")
+		coord = coord.partition(",")
+		map = self._saveFile.get("meta", "map", "")
+		self._loadMap(map, 'LEVEL', True, coord[0], coord[2])
+
+class NewFileBrowser(FileBrowser):
+	def __init__(self, engine, fileSelected, savefile=False, selectdir=False, extensions=('xml',), guixmlpath="gui/filebrowser.xml", world=None, load = False):
+		super(NewFileBrowser, self).__init__(engine, fileSelected, savefile, selectdir, extensions, guixmlpath)
+		self._world = world
+		self._load = load
+	
+	def setDirectory(self, path):
+		path_copy = self.path
+		self.path = path
+		if not self._widget: return
+		
+		def decodeList(list):
+			fs_encoding = sys.getfilesystemencoding()
+			if fs_encoding is None: fs_encoding = "ascii"
+		
+			newList = []
+			for i in list:
+				try: newList.append(unicode(i, fs_encoding))
+				except:
+					newList.append(unicode(i, fs_encoding, 'replace'))
+					print "WARNING: Could not decode item:", i
+			return newList
+	
+		dir_list_copy = list(self.dir_list)
+		file_list_copy = list(self.file_list)
+
+		self.dir_list = []
+		self.file_list = []
+		
+		try:
+			dir_list = ('..',) + filter(lambda d: not d.startswith('.'), self.engine.getVFS().listDirectories(self.path))
+			file_list = filter(lambda f: f.split('.')[-1] in self.extensions, self.engine.getVFS().listFiles(self.path))
+			self.dir_list = decodeList(dir_list)
+			self.file_list = decodeList(file_list)
+		except:
+			self.path = path_copy
+			self.dir_list = list(dir_list_copy)
+			self.file_list = list(file_list_copy)
+			print "WARNING: Tried to browse to directory that is not accessible!"
+
+		self._widget.distributeInitialData({
+			'fileList' : self.file_list
+		})
+		
+		self._widget.adaptLayout()
+
+	def showBrowser(self):
+		if self._widget:
+			self.setDirectory(self.path)
+			self._widget.show()
+			return
+		
+		self._widget = pychan.loadXML(self.guixmlpath)
+		self._widget.mapEvents({
+			'selectButton'  : self._selectFile,
+			'closeButton'   : self._hide
+		})
+		if self.savefile:
+			self._file_entry = widgets.TextField(name='saveField', text=u'')	
+			self._widget.findChild(name="fileColumn").addChild(self._file_entry)
+			
+		self.setDirectory(self.path)
+		self._widget.show()
+	
+	def _hide(self):
+		self._widget.hide()
+		if self._load:
+			self._world._mainmenu.show()
+		else:
+			self._world._gamestate = 'LEVEL'
+			self._world._hud.show()

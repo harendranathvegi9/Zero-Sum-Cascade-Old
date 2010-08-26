@@ -95,10 +95,12 @@ class MenuHandler():
 		self._world._loadMap("maps/zsc-test-5.xml", 'LEVEL')
 	
 	def _load(self):
-		pass
+		self._world.loadGame()
+		self.hide()
 	
 	def _save(self):
-		pass
+		self._world.saveGame()
+		self.hide()
 	
 	def _settings(self):
 		self._world._settingsmenu.show()
