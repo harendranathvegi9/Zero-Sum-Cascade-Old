@@ -10,8 +10,8 @@
     <Setting name="SDLRemoveFakeAlpha" type="int"> 1 </Setting>
     <Setting name="WindowTitle" type="str"> Zero Sum Cascade </Setting>
     <Setting name="WindowIcon" type="str" />
-    <Setting name="Font" type="str"> fonts/FreeSans.ttf </Setting>
-    <Setting name="FontGlyphs" strip="0" type="str"> abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&amp;`'*#=[]\"</Setting>
+    <Setting name="Font" type="str"> fonts/rpgfont2.png</Setting>
+    <Setting name="FontGlyphs" strip="0" type="str"> abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&amp;`'*#=[]^L</Setting>
     <Setting name="DefaultFontSize" type="int"> 16 </Setting>
     <Setting name="PychanDebug" type="bool"> False </Setting>
     <Setting name="LogToPrompt" type="int"> 1 </Setting>

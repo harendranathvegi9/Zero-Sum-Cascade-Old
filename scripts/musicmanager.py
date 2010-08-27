@@ -110,8 +110,6 @@ class MusicManager():
 				self._emitters[clip]._setGain(self._emitters[clip]._getGain() + dgain)
 				if self._emitters[clip]._getGain() == 255:
 					self._emitterstatus[clip] = 'PLAYING'
-				print clip + " delta gain: " + str(dgain)
-				print clip + " gain: " + str(self._emitters[clip]._getGain())
 			elif status == 'FADEOUT':
 				dgain = -255.0/(10000/self._timemanager.getTimeDelta())
 				if self._emitters[clip]._getGain() + dgain < 0:
@@ -120,10 +118,10 @@ class MusicManager():
 				if self._emitters[clip]._getGain() == 0:
 					self._emitterstatus[clip] = 'STOPPED'
 					self._emitters[clip].stop()
-				print clip + " delta gain: " + str(dgain)
-				print clip + " gain: " + str(self._emitters[clip]._getGain())
 			else:
 				pass
+			if not self._world._setting.get("FIFE", "PlaySounds", True):
+				self._emitters[clip]._setGain(0)
 	
 class ThreePartMusic():
 	def __init__(self, intro, loop, end, load, soundmanager):

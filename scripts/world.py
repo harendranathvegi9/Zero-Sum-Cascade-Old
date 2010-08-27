@@ -206,6 +206,7 @@ class World(EventListenerBase):
 		else:
 			loaded = self._loadingmenu.findChild(name="loading")
 			loaded.text = str(math.floor(percentdone * 100)) + u'% Loaded'			
+			self._loadingmenu.adaptLayout()
 	
 	def _loadMenuMapCallback(self, action, percentdone):
 		"""
@@ -229,6 +230,7 @@ class World(EventListenerBase):
 		else:
 			loaded = self._loadingmenu.findChild(name="loading")
 			loaded.text = str(math.floor(percentdone * 100)) + u'% Loaded'
+			self._loadingmenu.adaptLayout()
 
 	def _loadMap(self, filename, purpose, port=False, x=0, y=0):
 		"""

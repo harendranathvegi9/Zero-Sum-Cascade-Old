@@ -1,5 +1,5 @@
 <Window title="Loading" name="loadwindow">
-    <HBox min_size="120,10">
+    <HBox min_size="140,10">
 	<Label name="loading" text=""/>
     </HBox>
 </Window>
