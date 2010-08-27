@@ -1,5 +1,10 @@
-<Window title="Loading" name="loadwindow">
-    <HBox min_size="140,10">
-	<Label name="loading" text=""/>
+<VBox opaque="0" name="loadwindow" min_size="170,114" background_image="gui/icons/loadbg.png">
+    <HBox min_size="1,35" opaque="0" />
+    <HBox opaque="0" >
+	<VBox min_size="15,10" opaque="0" />
+	<VBox opaque="0" >
+	    <Label text="Loading" background_color="0,0,0,0"/>
+	    <Label name="loading" text="" background_color="0,0,0,0"/>
+	</VBox>
     </HBox>
-</Window>
+</VBox>

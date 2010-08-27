@@ -135,7 +135,7 @@ class World(EventListenerBase):
 		
 		# Start the sound manager
 		self._soundmanager = SoundManager(self._engine)
-		self._sounds = musicmanager.MusicManager(self._engine, self._soundmanager, self._timemanager)
+		self._sounds = musicmanager.MusicManager(self._engine, self._soundmanager, self._timemanager, self)
 		
 	def _loadGui(self, type, guifile, imports):
 		"""
@@ -496,6 +496,8 @@ class World(EventListenerBase):
 		
 
 	def _save(self, path='', filename=''):
+		if not filename.endswith('.sav'):
+			filename = filename + '.sav'
 		self._saveFileName = filename
 		self._saveFile = SimpleXMLSerializer('saves/' + filename)
 		loc = self._player._agent.getLocation()

@@ -18,4 +18,14 @@
 		<animation id="walk" source="walk/180/animation.xml" direction="180" />
 		<animation id="walk" source="walk/270/animation.xml" direction="270" />
 	</action>
+	<action id="stand">
+		<animation id="stand" source="stand/45/animation.xml" direction="45" />
+		<animation id="stand" source="stand/135/animation.xml" direction="135" />
+		<animation id="stand" source="stand/225/animation.xml" direction="225" />
+		<animation id="stand" source="stand/315/animation.xml" direction="315" />
+		<animation id="stand" source="stand/0/animation.xml" direction="0" />
+		<animation id="stand" source="stand/90/animation.xml" direction="90" />
+		<animation id="stand" source="stand/180/animation.xml" direction="180" />
+		<animation id="stand" source="stand/270/animation.xml" direction="270" />
+	</action>
 </object>

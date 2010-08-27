@@ -41,9 +41,10 @@ from fife import fife
 #from fife.extensions.soundmanager import SoundManager
 
 class MusicManager():
-	def __init__(self, engine, soundmanager, clock):
+	def __init__(self, engine, soundmanager, clock, world):
 		self._soundmanager = soundmanager
 		self._timemanager = clock
+		self._world = world
 		
 		self._emitters = {}
 		self._emitterstatus = {}

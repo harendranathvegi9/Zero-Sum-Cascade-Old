@@ -150,7 +150,7 @@ class NPC(Agent):
 			if chance < self._actionchance:
 				self._waypointmove()
 			else:
-				self._agent.act('walk', self._agent.getFacingLocation())
+				self._agent.act('stand', self._agent.getFacingLocation())
 			chance = random.randint(0,100)
 			if chance < self._actionchance / 2 and self._hasdialogue:
 				self.talk()

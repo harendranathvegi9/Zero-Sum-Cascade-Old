@@ -3,4 +3,6 @@
 *.pyc
 *~
 *.sav
+*.xcf
+*.psd
 /settings.xml
