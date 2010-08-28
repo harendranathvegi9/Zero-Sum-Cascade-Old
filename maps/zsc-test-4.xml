@@ -3,6 +3,7 @@
 	<import file="../objects/groundtiles/Grass/object.xml"></import>
 	<import file="../objects/groundtiles/Road/1/object.xml"></import>
 	<import file="../objects/items/buildings/houses/1/object.xml"></import>
+	<import file="../objects/items/buildings/city/sw1/object.xml"></import>
 	<import file="../objects/groundtiles/Non-Visible/object.xml"></import>
 	<import file="../objects/items/foliage/trees/4fur/object.xml"></import>
 	<import file="../objects/items/foliage/trees/fir/1/object.xml"></import>
@@ -457,7 +458,7 @@
 	<layer grid_type="square" id="player" x_scale="1.0" x_offset="0.0" y_offset="0.0" pathing="cell_edges_only" y_scale="1.0" rotation="0.0" transparency="0">
 		<instances>
 			<i r="0" z="0.0" x="0.0" o="house-1" y="1.0" ns="zsc"></i>
-			<i x="0.0" o="house-1" z="0.0" y="-4.0" r="0"></i>
+			<i x="0.0" o="city-sw1" z="0.0" y="-4.0" r="0" ns="zsc"></i>
 			<i r="0" z="0.0" x="-1.0" o="blocking:001" y="0.0" ns="zsc-tiles"></i>
 			<i x="-1.0" o="blocking:001" z="0.0" y="1.0" r="0"></i>
 			<i x="-1.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>

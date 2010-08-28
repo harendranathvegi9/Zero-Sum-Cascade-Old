@@ -116,7 +116,7 @@ class ContextMenu():
 						for index, topic in topics:
 							button = widgets.buttons.Button()
 							button.name = topic + "Button"
-							button.text = "Talk - " + topic
+							button.text = u"Talk - " + topic
 							self._menu.addChild(button)
 							self._menu.mapEvents({ button.name : pychan.tools.callbackWithArguments(self._talk, index) })
 		else:
