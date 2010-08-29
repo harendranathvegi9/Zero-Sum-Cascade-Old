@@ -80,11 +80,10 @@ class MusicManager():
 	
 	def _stopClip(self, clip, fade=False, startgain=255):
 		if self._emitters[clip] != None and self._emitterstatus[clip] != 'STOPPED' and not fade:
-			self._emitters[clip].play()
+			self._emitters[clip].stop()
 			self._emitterstatus[clip] = 'STOPPED'
 			self._emitters[clip]._setGain(255)
 		elif self._emitters[clip] != None and (self._emitterstatus[clip] != 'STOPPED' or self._emitterstatus[clip] != 'FADEOUT') and fade:
-			self._emitters[clip].play()
 			self._emitterstatus[clip] = 'FADEOUT'
 			self._emitters[clip]._setGain(startgain)
 		
@@ -125,8 +124,9 @@ class MusicManager():
 				self._emitters[clip]._setGain(0)
 	
 class ThreePartMusic():
-	def __init__(self, intro, loop, end, load, soundmanager):
+	def __init__(self, intro, loop, end, load, soundmanager, world):
 		self._soundmanager = soundmanager
+		self._world = world
 		if load:
 			self._intro = self._soundmanager.createSoundEmitter(intro)
 			self._intro._setCallback(self._startLoop)
@@ -140,7 +140,12 @@ class ThreePartMusic():
 			self._loop = loop
 			self._loop._setLooping(True) 
 			self._end = end
-			
+		
+		if not self._world._setting.get("FIFE", "PlaySounds", True):
+			self._intro._setGain(0)
+			self._loop._setGain(0)
+			self._end._setGain(0)
+		
 		self._status = 'STOPPED'
 		
 	def _start(self):

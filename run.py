@@ -180,7 +180,7 @@ class mainApplication(ApplicationBase):
 		#self._world._sounds._loadClip('ambient', 'music/forestAmbient1.ogg', True, False)
 		#self._world._sounds._startClip('ambient', True)
 		
-		self._world._titlemusic = ThreePartMusic('music/other/title/start.ogg', 'music/other/title/loop.ogg', 'music/other/title/end.ogg', True, self._world._soundmanager)
+		self._world._titlemusic = ThreePartMusic('music/other/title/start.ogg', 'music/other/title/loop.ogg', 'music/other/title/end.ogg', True, self._world._soundmanager, self._world)
 		self._world._titlemusic._start()
 		
 

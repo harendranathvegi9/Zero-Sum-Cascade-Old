@@ -242,6 +242,7 @@ class World(EventListenerBase):
 		filename - String, path to the map file
 		purpose - String, LEVEL or MENU
 		"""
+		self._sounds._stopAllClips()
 		self._model.deleteMap(self._map)
 		self._map = None
 		self._npcs = {}
@@ -385,8 +386,10 @@ class World(EventListenerBase):
 				for eventid, status in self._saveGame[self._mapfile].iteritems():
 					self._eventtracker._events[eventid]._status = status
 		
-		if self._mapsettings.get("map", "loadsonds", False):
+		if self._mapsettings.get("map", "loadsounds", False):
+			print "Loading sounds"
 			soundList = self._mapsettings._deserializeList(self._mapsettings.get("map", "sounds", ""))
+			print soundList
 			for clip in soundList:
 				sound = self._mapsettings._deserializeDict(self._mapsettings.get("sounds", clip, ""))
 				for key, value in sound.iteritems():
@@ -394,9 +397,11 @@ class World(EventListenerBase):
 						sound[key] = True
 					elif value == "False":
 						sound[key] = False
-				self._sounds._loadClip(clip, sound['file'], sound['looping'])
+				self._sounds._loadClip(clip, sound['file'], sound['looping'], False)
+				print "Loaded " + clip
 				if sound['play']:
 					self._sounds._startClip(clip, sound['fade'])
+					print "Playing " + clip + " with fade set to " + str(sound['fade'])
 		
 		if purpose == 'LEVEL':
 			self._loadLevelMapCallback("", 0.95)

@@ -5,8 +5,6 @@
     <Setting name="PlaySounds" type="bool">True</Setting>
     <Setting name="RenderBackend" type="str">OpenGL</Setting>
     <Setting name="ScreenResolution" type="str">1024x600</Setting>
-    <Setting name="BitsPerPixel" type="int"> 0 </Setting>
-    <Setting name="InitialVolume" type="float"> 5.0 </Setting>
     <Setting name="SDLRemoveFakeAlpha" type="int"> 1 </Setting>
     <Setting name="WindowTitle" type="str"> Zero Sum Cascade </Setting>
     <Setting name="WindowIcon" type="str" />
