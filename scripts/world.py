@@ -136,6 +136,7 @@ class World(EventListenerBase):
 		# Start the sound manager
 		self._soundmanager = SoundManager(self._engine)
 		self._sounds = musicmanager.MusicManager(self._engine, self._soundmanager, self._timemanager, self)
+		self._titlemusic = None
 		
 	def _loadGui(self, type, guifile, imports):
 		"""
@@ -301,6 +302,20 @@ class World(EventListenerBase):
 			# Reset the camera
 			cam.resetRenderers()
 			
+		self._drift = {}
+		self._drift = self._mapsettings._deserializeDict(self._mapsettings.get("map", "drift", "use : False"))
+		if self._drift["use"] == "True":
+			self._drift["use"] = True
+			self._drift["x"] = float(self._drift["x"])
+			self._drift["y"] = float(self._drift["y"])
+
+			start = self._drift["start"].partition(",")
+			loc = fife.Location(self._map.getLayer('player'))
+			loc.setExactLayerCoordinates(fife.ExactModelCoordinate(float(start[0]), float(start[2])))
+			self._cameras['main'].setLocation(loc)
+		else:
+			self._drift["use"] = False
+			
 		if purpose == 'LEVEL':
 			# Start the player character
 			self._startPlayerActor()
@@ -369,25 +384,25 @@ class World(EventListenerBase):
 			if self._saveGame[self._mapfile] != None:
 				for eventid, status in self._saveGame[self._mapfile].iteritems():
 					self._eventtracker._events[eventid]._status = status
-				
+		
+		if self._mapsettings.get("map", "loadsonds", False):
+			soundList = self._mapsettings._deserializeList(self._mapsettings.get("map", "sounds", ""))
+			for clip in soundList:
+				sound = self._mapsettings._deserializeDict(self._mapsettings.get("sounds", clip, ""))
+				for key, value in sound.iteritems():
+					if value == "True":
+						sound[key] = True
+					elif value == "False":
+						sound[key] = False
+				self._sounds._loadClip(clip, sound['file'], sound['looping'])
+				if sound['play']:
+					self._sounds._startClip(clip, sound['fade'])
+		
 		if purpose == 'LEVEL':
 			self._loadLevelMapCallback("", 0.95)
 		else:
 			self._loadMenuMapCallback("", 0.95)
 			
-		self._drift = {}
-		self._drift = self._mapsettings._deserializeDict(self._mapsettings.get("map", "drift", "use : False"))
-		if self._drift["use"] == "True":
-			self._drift["use"] = True
-			self._drift["x"] = float(self._drift["x"])
-			self._drift["y"] = float(self._drift["y"])
-
-			start = self._drift["start"].partition(",")
-			loc = fife.Location(self._map.getLayer('player'))
-			loc.setExactLayerCoordinates(fife.ExactModelCoordinate(float(start[0]), float(start[2])))
-			self._cameras['main'].setLocation(loc)
-		else:
-			self._drift["use"] = False
 		
 		self._gamestate = purpose
 			
@@ -526,6 +541,8 @@ class World(EventListenerBase):
 		coord = self._saveFile.get("meta", "location", "0,0")
 		coord = coord.partition(",")
 		map = self._saveFile.get("meta", "map", "")
+		if self._titlemusic._status in ('INTRO', 'LOOP'):
+			self._titlemusic._startEnd()
 		self._loadMap(map, 'LEVEL', True, coord[0], coord[2])
 
 class NewFileBrowser(FileBrowser):

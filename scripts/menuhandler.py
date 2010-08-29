@@ -92,6 +92,7 @@ class MenuHandler():
 
 
 	def _new(self):
+		self._world._titlemusic._startEnd()
 		self._world._loadMap("maps/zsc-test-5.xml", 'LEVEL')
 	
 	def _load(self):

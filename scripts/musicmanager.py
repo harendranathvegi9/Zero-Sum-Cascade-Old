@@ -151,6 +151,12 @@ class ThreePartMusic():
 		self._intro.stop()
 		self._loop.play()
 		self._status = 'LOOP'
+			
+	def _startEnd(self):
+		self._intro.stop()
+		self._loop.stop()
+		self._end.play()
+		self._status = 'END'
 		
 	def _stop(self, stop):
 		if stop:
