@@ -1,0 +1,3 @@
+<VBox name="imageviewer" opaque="0" >
+    <Icon name="image" image="" />
+</VBox>

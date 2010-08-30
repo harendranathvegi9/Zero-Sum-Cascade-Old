@@ -56,6 +56,7 @@ from scripts import agentbase
 from scripts.agents.player import Player, SaveDataStorage
 from scripts import musicmanager, npc, eventtracker, objectmanager, contextmenu
 from scripts import hudhandler, menuhandler, settingshandler, abouthandler
+from scripts import imagehandler
 from fife.extensions.loaders import loadMapFile, loadImportFile
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
 from fife.extensions.filebrowser import FileBrowser
@@ -102,6 +103,7 @@ class World(EventListenerBase):
 		self._npclist = None
 		self._pump_ctr = 0
 		self._map = None
+		self._mapimage = ""
 		self._mapsettings = None
 		self._scene = None
 		self._paused = True
@@ -116,6 +118,7 @@ class World(EventListenerBase):
 		self._mouseMoved = False
 		self._isusingobjects = False
 		self._isusingnpcs = False
+		self._drift = {}
 		
 		# Start the save game
 		self._saveGame = SaveDataStorage()
@@ -132,6 +135,7 @@ class World(EventListenerBase):
 		self._loadingmenu = None
 		self._settingsmenu = None
 		self._aboutmenu = None
+		self._imageviewer = imagehandler.ImageHandler("", self)
 		
 		# Start the sound manager
 		self._soundmanager = SoundManager(self._engine)
@@ -243,6 +247,7 @@ class World(EventListenerBase):
 		purpose - String, LEVEL or MENU
 		"""
 		self._sounds._stopAllClips()
+		self._drift["use"] = False
 		self._model.deleteMap(self._map)
 		self._map = None
 		self._npcs = {}
@@ -320,6 +325,8 @@ class World(EventListenerBase):
 		if purpose == 'LEVEL':
 			# Start the player character
 			self._startPlayerActor()
+			self._player._hasMap = self._mapsettings.get("map", "hasmap", False)
+			self._mapimage = self._mapsettings.get("map", "map", "")
 			if port:
 				loc = fife.Location(self._map.getLayer('player'))
 				loc.setExactLayerCoordinates(fife.ExactModelCoordinate(float(x), float(y)))

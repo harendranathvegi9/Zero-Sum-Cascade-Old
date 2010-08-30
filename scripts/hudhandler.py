@@ -77,7 +77,9 @@ class HUDHandler():
 		self._world._mainmenu.show()
 	
 	def _showmap(self):
-		pass
+		if self._world._player._hasMap:
+			self._world._imageviewer.show(self._world._mapimage)
+			self.hide()
 	
 	def _togglezsc(self):
 		pass
