@@ -1684,6 +1684,10 @@ class SoundManager(_object):
         """setVolume(self, float vol)"""
         return _fife.SoundManager_setVolume(self, *args)
 
+    def getVolume(self):
+        """getVolume(self) -> float"""
+        return _fife.SoundManager_getVolume(self)
+
     def mute(self):
         """mute(self)"""
         return _fife.SoundManager_mute(self)
@@ -4589,583 +4593,6 @@ class Icon(Widget):
 Icon_swigregister = _fife.Icon_swigregister
 Icon_swigregister(Icon)
 
-class AbstractPather(_object):
-    """Proxy of C++ FIFE::AbstractPather class"""
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, AbstractPather, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, AbstractPather, name)
-    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _fife.delete_AbstractPather
-    __del__ = lambda self : None;
-    def getName(self):
-        """getName(self) -> string"""
-        return _fife.AbstractPather_getName(self)
-
-AbstractPather_swigregister = _fife.AbstractPather_swigregister
-AbstractPather_swigregister(AbstractPather)
-
-class AbstractVisual(_object):
-    """Proxy of C++ FIFE::AbstractVisual class"""
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, AbstractVisual, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, AbstractVisual, name)
-    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _fife.delete_AbstractVisual
-    __del__ = lambda self : None;
-AbstractVisual_swigregister = _fife.AbstractVisual_swigregister
-AbstractVisual_swigregister(AbstractVisual)
-
-class Exception(_object):
-    """Proxy of C++ FIFE::Exception class"""
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Exception, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Exception, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> Exception"""
-        this = _fife.new_Exception(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    __swig_destroy__ = _fife.delete_Exception
-    __del__ = lambda self : None;
-    def getMessage(self):
-        """getMessage(self) -> string"""
-        return _fife.Exception_getMessage(self)
-
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.Exception_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.Exception_getDescription(self)
-
-Exception_swigregister = _fife.Exception_swigregister
-Exception_swigregister(Exception)
-
-class SDLException(Exception):
-    """Proxy of C++ FIFE::SDLException class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SDLException, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SDLException, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> SDLException"""
-        this = _fife.new_SDLException(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.SDLException_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.SDLException_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_SDLException
-    __del__ = lambda self : None;
-SDLException_swigregister = _fife.SDLException_swigregister
-SDLException_swigregister(SDLException)
-
-class NotFound(Exception):
-    """Proxy of C++ FIFE::NotFound class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, NotFound, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, NotFound, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> NotFound"""
-        this = _fife.new_NotFound(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.NotFound_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.NotFound_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_NotFound
-    __del__ = lambda self : None;
-NotFound_swigregister = _fife.NotFound_swigregister
-NotFound_swigregister(NotFound)
-
-class NotSet(Exception):
-    """Proxy of C++ FIFE::NotSet class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, NotSet, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, NotSet, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> NotSet"""
-        this = _fife.new_NotSet(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.NotSet_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.NotSet_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_NotSet
-    __del__ = lambda self : None;
-NotSet_swigregister = _fife.NotSet_swigregister
-NotSet_swigregister(NotSet)
-
-class IndexOverflow(Exception):
-    """Proxy of C++ FIFE::IndexOverflow class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IndexOverflow, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IndexOverflow, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> IndexOverflow"""
-        this = _fife.new_IndexOverflow(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.IndexOverflow_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.IndexOverflow_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_IndexOverflow
-    __del__ = lambda self : None;
-IndexOverflow_swigregister = _fife.IndexOverflow_swigregister
-IndexOverflow_swigregister(IndexOverflow)
-
-class InvalidFormat(Exception):
-    """Proxy of C++ FIFE::InvalidFormat class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InvalidFormat, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, InvalidFormat, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> InvalidFormat"""
-        this = _fife.new_InvalidFormat(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.InvalidFormat_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.InvalidFormat_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_InvalidFormat
-    __del__ = lambda self : None;
-InvalidFormat_swigregister = _fife.InvalidFormat_swigregister
-InvalidFormat_swigregister(InvalidFormat)
-
-class CannotOpenFile(Exception):
-    """Proxy of C++ FIFE::CannotOpenFile class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, CannotOpenFile, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, CannotOpenFile, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> CannotOpenFile"""
-        this = _fife.new_CannotOpenFile(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.CannotOpenFile_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.CannotOpenFile_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_CannotOpenFile
-    __del__ = lambda self : None;
-CannotOpenFile_swigregister = _fife.CannotOpenFile_swigregister
-CannotOpenFile_swigregister(CannotOpenFile)
-
-class InvalidConversion(Exception):
-    """Proxy of C++ FIFE::InvalidConversion class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InvalidConversion, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, InvalidConversion, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> InvalidConversion"""
-        this = _fife.new_InvalidConversion(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.InvalidConversion_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.InvalidConversion_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_InvalidConversion
-    __del__ = lambda self : None;
-InvalidConversion_swigregister = _fife.InvalidConversion_swigregister
-InvalidConversion_swigregister(InvalidConversion)
-
-class NotSupported(Exception):
-    """Proxy of C++ FIFE::NotSupported class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, NotSupported, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, NotSupported, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> NotSupported"""
-        this = _fife.new_NotSupported(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.NotSupported_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.NotSupported_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_NotSupported
-    __del__ = lambda self : None;
-NotSupported_swigregister = _fife.NotSupported_swigregister
-NotSupported_swigregister(NotSupported)
-
-class NameClash(Exception):
-    """Proxy of C++ FIFE::NameClash class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, NameClash, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, NameClash, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> NameClash"""
-        this = _fife.new_NameClash(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.NameClash_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.NameClash_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_NameClash
-    __del__ = lambda self : None;
-NameClash_swigregister = _fife.NameClash_swigregister
-NameClash_swigregister(NameClash)
-
-class Duplicate(Exception):
-    """Proxy of C++ FIFE::Duplicate class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Duplicate, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, Duplicate, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> Duplicate"""
-        this = _fife.new_Duplicate(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.Duplicate_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.Duplicate_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_Duplicate
-    __del__ = lambda self : None;
-Duplicate_swigregister = _fife.Duplicate_swigregister
-Duplicate_swigregister(Duplicate)
-
-class ScriptException(Exception):
-    """Proxy of C++ FIFE::ScriptException class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ScriptException, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, ScriptException, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> ScriptException"""
-        this = _fife.new_ScriptException(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.ScriptException_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.ScriptException_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_ScriptException
-    __del__ = lambda self : None;
-ScriptException_swigregister = _fife.ScriptException_swigregister
-ScriptException_swigregister(ScriptException)
-
-class EventException(Exception):
-    """Proxy of C++ FIFE::EventException class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, EventException, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, EventException, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> EventException"""
-        this = _fife.new_EventException(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.EventException_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.EventException_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_EventException
-    __del__ = lambda self : None;
-EventException_swigregister = _fife.EventException_swigregister
-EventException_swigregister(EventException)
-
-class GuiException(Exception):
-    """Proxy of C++ FIFE::GuiException class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, GuiException, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, GuiException, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> GuiException"""
-        this = _fife.new_GuiException(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.GuiException_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.GuiException_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_GuiException
-    __del__ = lambda self : None;
-GuiException_swigregister = _fife.GuiException_swigregister
-GuiException_swigregister(GuiException)
-
-class InconsistencyDetected(Exception):
-    """Proxy of C++ FIFE::InconsistencyDetected class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InconsistencyDetected, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, InconsistencyDetected, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> InconsistencyDetected"""
-        this = _fife.new_InconsistencyDetected(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.InconsistencyDetected_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.InconsistencyDetected_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_InconsistencyDetected
-    __del__ = lambda self : None;
-InconsistencyDetected_swigregister = _fife.InconsistencyDetected_swigregister
-InconsistencyDetected_swigregister(InconsistencyDetected)
-
-class OutOfMemory(Exception):
-    """Proxy of C++ FIFE::OutOfMemory class"""
-    __swig_setmethods__ = {}
-    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, OutOfMemory, name, value)
-    __swig_getmethods__ = {}
-    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, OutOfMemory, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string msg) -> OutOfMemory"""
-        this = _fife.new_OutOfMemory(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def getTypeStr(self):
-        """getTypeStr(self) -> string"""
-        return _fife.OutOfMemory_getTypeStr(self)
-
-    def getDescription(self):
-        """getDescription(self) -> string"""
-        return _fife.OutOfMemory_getDescription(self)
-
-    __swig_destroy__ = _fife.delete_OutOfMemory
-    __del__ = lambda self : None;
-OutOfMemory_swigregister = _fife.OutOfMemory_swigregister
-OutOfMemory_swigregister(OutOfMemory)
-
-class FifeClass(IReferenceCounted):
-    """Proxy of C++ FIFE::FifeClass class"""
-    __swig_setmethods__ = {}
-    for _s in [IReferenceCounted]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FifeClass, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IReferenceCounted]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FifeClass, name)
-    __repr__ = _swig_repr
-    __swig_destroy__ = _fife.delete_FifeClass
-    __del__ = lambda self : None;
-    def getFifeId(self):
-        """getFifeId(self) -> fifeid_t"""
-        return _fife.FifeClass_getFifeId(self)
-
-    def addRef(self):
-        """addRef(self)"""
-        return _fife.FifeClass_addRef(self)
-
-    def decRef(self):
-        """decRef(self)"""
-        return _fife.FifeClass_decRef(self)
-
-    def getRefCount(self):
-        """getRefCount(self) -> unsigned int"""
-        return _fife.FifeClass_getRefCount(self)
-
-    def __init__(self): 
-        """__init__(self) -> FifeClass"""
-        this = _fife.new_FifeClass()
-        try: self.this.append(this)
-        except: self.this = this
-FifeClass_swigregister = _fife.FifeClass_swigregister
-FifeClass_swigregister(FifeClass)
-
-class ResourceClass(FifeClass,IResource):
-    """Proxy of C++ FIFE::ResourceClass class"""
-    __swig_setmethods__ = {}
-    for _s in [FifeClass,IResource]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ResourceClass, name, value)
-    __swig_getmethods__ = {}
-    for _s in [FifeClass,IResource]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, ResourceClass, name)
-    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _fife.delete_ResourceClass
-    __del__ = lambda self : None;
-    def getResourceLocation(self):
-        """getResourceLocation(self) -> ResourceLocation"""
-        return _fife.ResourceClass_getResourceLocation(self)
-
-    def getResourceFile(self):
-        """getResourceFile(self) -> string"""
-        return _fife.ResourceClass_getResourceFile(self)
-
-    def setResourceLocation(self, *args):
-        """setResourceLocation(self, ResourceLocation location)"""
-        return _fife.ResourceClass_setResourceLocation(self, *args)
-
-    def setResourceFile(self, *args):
-        """setResourceFile(self, string filename)"""
-        return _fife.ResourceClass_setResourceFile(self, *args)
-
-    def getPoolId(self):
-        """getPoolId(self) -> int"""
-        return _fife.ResourceClass_getPoolId(self)
-
-    def setPoolId(self, *args):
-        """setPoolId(self, int poolid)"""
-        return _fife.ResourceClass_setPoolId(self, *args)
-
-ResourceClass_swigregister = _fife.ResourceClass_swigregister
-ResourceClass_swigregister(ResourceClass)
-
-class Action(ResourceClass):
-    """Proxy of C++ FIFE::Action class"""
-    __swig_setmethods__ = {}
-    for _s in [ResourceClass]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Action, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ResourceClass]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, Action, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """__init__(self, string identifier) -> Action"""
-        this = _fife.new_Action(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    __swig_destroy__ = _fife.delete_Action
-    __del__ = lambda self : None;
-    def getId(self):
-        """getId(self) -> string"""
-        return _fife.Action_getId(self)
-
-    def adoptVisual(self, *args):
-        """adoptVisual(self, AbstractVisual visual)"""
-        return _fife.Action_adoptVisual(self, *args)
-
-    def setDuration(self, *args):
-        """setDuration(self, unsigned int duration)"""
-        return _fife.Action_setDuration(self, *args)
-
-    def getDuration(self):
-        """getDuration(self) -> unsigned int"""
-        return _fife.Action_getDuration(self)
-
-    def get2dGfxVisual(self):
-        """get2dGfxVisual(self) -> ActionVisual"""
-        return _fife.Action_get2dGfxVisual(self)
-
-Action_swigregister = _fife.Action_swigregister
-Action_swigregister(Action)
-
 class Point(_object):
     """Proxy of C++ FIFE::PointType2D<(int)> class"""
     __swig_setmethods__ = {}
@@ -5698,6 +5125,1265 @@ class ExactModelCoordinate(_object):
     __del__ = lambda self : None;
 ExactModelCoordinate_swigregister = _fife.ExactModelCoordinate_swigregister
 ExactModelCoordinate_swigregister(ExactModelCoordinate)
+
+class AbstractVisual(_object):
+    """Proxy of C++ FIFE::AbstractVisual class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AbstractVisual, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, AbstractVisual, name)
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _fife.delete_AbstractVisual
+    __del__ = lambda self : None;
+AbstractVisual_swigregister = _fife.AbstractVisual_swigregister
+AbstractVisual_swigregister(AbstractVisual)
+
+class Exception(_object):
+    """Proxy of C++ FIFE::Exception class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Exception, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Exception, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> Exception"""
+        this = _fife.new_Exception(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _fife.delete_Exception
+    __del__ = lambda self : None;
+    def getMessage(self):
+        """getMessage(self) -> string"""
+        return _fife.Exception_getMessage(self)
+
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.Exception_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.Exception_getDescription(self)
+
+Exception_swigregister = _fife.Exception_swigregister
+Exception_swigregister(Exception)
+
+class SDLException(Exception):
+    """Proxy of C++ FIFE::SDLException class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SDLException, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SDLException, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> SDLException"""
+        this = _fife.new_SDLException(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.SDLException_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.SDLException_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_SDLException
+    __del__ = lambda self : None;
+SDLException_swigregister = _fife.SDLException_swigregister
+SDLException_swigregister(SDLException)
+
+class NotFound(Exception):
+    """Proxy of C++ FIFE::NotFound class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, NotFound, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, NotFound, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> NotFound"""
+        this = _fife.new_NotFound(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.NotFound_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.NotFound_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_NotFound
+    __del__ = lambda self : None;
+NotFound_swigregister = _fife.NotFound_swigregister
+NotFound_swigregister(NotFound)
+
+class NotSet(Exception):
+    """Proxy of C++ FIFE::NotSet class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, NotSet, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, NotSet, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> NotSet"""
+        this = _fife.new_NotSet(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.NotSet_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.NotSet_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_NotSet
+    __del__ = lambda self : None;
+NotSet_swigregister = _fife.NotSet_swigregister
+NotSet_swigregister(NotSet)
+
+class IndexOverflow(Exception):
+    """Proxy of C++ FIFE::IndexOverflow class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IndexOverflow, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IndexOverflow, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> IndexOverflow"""
+        this = _fife.new_IndexOverflow(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.IndexOverflow_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.IndexOverflow_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_IndexOverflow
+    __del__ = lambda self : None;
+IndexOverflow_swigregister = _fife.IndexOverflow_swigregister
+IndexOverflow_swigregister(IndexOverflow)
+
+class InvalidFormat(Exception):
+    """Proxy of C++ FIFE::InvalidFormat class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InvalidFormat, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InvalidFormat, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> InvalidFormat"""
+        this = _fife.new_InvalidFormat(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.InvalidFormat_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.InvalidFormat_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_InvalidFormat
+    __del__ = lambda self : None;
+InvalidFormat_swigregister = _fife.InvalidFormat_swigregister
+InvalidFormat_swigregister(InvalidFormat)
+
+class CannotOpenFile(Exception):
+    """Proxy of C++ FIFE::CannotOpenFile class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, CannotOpenFile, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, CannotOpenFile, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> CannotOpenFile"""
+        this = _fife.new_CannotOpenFile(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.CannotOpenFile_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.CannotOpenFile_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_CannotOpenFile
+    __del__ = lambda self : None;
+CannotOpenFile_swigregister = _fife.CannotOpenFile_swigregister
+CannotOpenFile_swigregister(CannotOpenFile)
+
+class InvalidConversion(Exception):
+    """Proxy of C++ FIFE::InvalidConversion class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InvalidConversion, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InvalidConversion, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> InvalidConversion"""
+        this = _fife.new_InvalidConversion(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.InvalidConversion_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.InvalidConversion_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_InvalidConversion
+    __del__ = lambda self : None;
+InvalidConversion_swigregister = _fife.InvalidConversion_swigregister
+InvalidConversion_swigregister(InvalidConversion)
+
+class NotSupported(Exception):
+    """Proxy of C++ FIFE::NotSupported class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, NotSupported, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, NotSupported, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> NotSupported"""
+        this = _fife.new_NotSupported(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.NotSupported_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.NotSupported_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_NotSupported
+    __del__ = lambda self : None;
+NotSupported_swigregister = _fife.NotSupported_swigregister
+NotSupported_swigregister(NotSupported)
+
+class NameClash(Exception):
+    """Proxy of C++ FIFE::NameClash class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, NameClash, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, NameClash, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> NameClash"""
+        this = _fife.new_NameClash(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.NameClash_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.NameClash_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_NameClash
+    __del__ = lambda self : None;
+NameClash_swigregister = _fife.NameClash_swigregister
+NameClash_swigregister(NameClash)
+
+class Duplicate(Exception):
+    """Proxy of C++ FIFE::Duplicate class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Duplicate, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, Duplicate, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> Duplicate"""
+        this = _fife.new_Duplicate(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.Duplicate_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.Duplicate_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_Duplicate
+    __del__ = lambda self : None;
+Duplicate_swigregister = _fife.Duplicate_swigregister
+Duplicate_swigregister(Duplicate)
+
+class ScriptException(Exception):
+    """Proxy of C++ FIFE::ScriptException class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ScriptException, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, ScriptException, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> ScriptException"""
+        this = _fife.new_ScriptException(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.ScriptException_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.ScriptException_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_ScriptException
+    __del__ = lambda self : None;
+ScriptException_swigregister = _fife.ScriptException_swigregister
+ScriptException_swigregister(ScriptException)
+
+class EventException(Exception):
+    """Proxy of C++ FIFE::EventException class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, EventException, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, EventException, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> EventException"""
+        this = _fife.new_EventException(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.EventException_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.EventException_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_EventException
+    __del__ = lambda self : None;
+EventException_swigregister = _fife.EventException_swigregister
+EventException_swigregister(EventException)
+
+class GuiException(Exception):
+    """Proxy of C++ FIFE::GuiException class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, GuiException, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, GuiException, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> GuiException"""
+        this = _fife.new_GuiException(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.GuiException_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.GuiException_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_GuiException
+    __del__ = lambda self : None;
+GuiException_swigregister = _fife.GuiException_swigregister
+GuiException_swigregister(GuiException)
+
+class InconsistencyDetected(Exception):
+    """Proxy of C++ FIFE::InconsistencyDetected class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InconsistencyDetected, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InconsistencyDetected, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> InconsistencyDetected"""
+        this = _fife.new_InconsistencyDetected(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.InconsistencyDetected_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.InconsistencyDetected_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_InconsistencyDetected
+    __del__ = lambda self : None;
+InconsistencyDetected_swigregister = _fife.InconsistencyDetected_swigregister
+InconsistencyDetected_swigregister(InconsistencyDetected)
+
+class OutOfMemory(Exception):
+    """Proxy of C++ FIFE::OutOfMemory class"""
+    __swig_setmethods__ = {}
+    for _s in [Exception]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, OutOfMemory, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Exception]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, OutOfMemory, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string msg) -> OutOfMemory"""
+        this = _fife.new_OutOfMemory(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def getTypeStr(self):
+        """getTypeStr(self) -> string"""
+        return _fife.OutOfMemory_getTypeStr(self)
+
+    def getDescription(self):
+        """getDescription(self) -> string"""
+        return _fife.OutOfMemory_getDescription(self)
+
+    __swig_destroy__ = _fife.delete_OutOfMemory
+    __del__ = lambda self : None;
+OutOfMemory_swigregister = _fife.OutOfMemory_swigregister
+OutOfMemory_swigregister(OutOfMemory)
+
+class FifeClass(IReferenceCounted):
+    """Proxy of C++ FIFE::FifeClass class"""
+    __swig_setmethods__ = {}
+    for _s in [IReferenceCounted]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FifeClass, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IReferenceCounted]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FifeClass, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _fife.delete_FifeClass
+    __del__ = lambda self : None;
+    def getFifeId(self):
+        """getFifeId(self) -> fifeid_t"""
+        return _fife.FifeClass_getFifeId(self)
+
+    def addRef(self):
+        """addRef(self)"""
+        return _fife.FifeClass_addRef(self)
+
+    def decRef(self):
+        """decRef(self)"""
+        return _fife.FifeClass_decRef(self)
+
+    def getRefCount(self):
+        """getRefCount(self) -> unsigned int"""
+        return _fife.FifeClass_getRefCount(self)
+
+    def __init__(self): 
+        """__init__(self) -> FifeClass"""
+        this = _fife.new_FifeClass()
+        try: self.this.append(this)
+        except: self.this = this
+FifeClass_swigregister = _fife.FifeClass_swigregister
+FifeClass_swigregister(FifeClass)
+
+class ResourceClass(FifeClass,IResource):
+    """Proxy of C++ FIFE::ResourceClass class"""
+    __swig_setmethods__ = {}
+    for _s in [FifeClass,IResource]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ResourceClass, name, value)
+    __swig_getmethods__ = {}
+    for _s in [FifeClass,IResource]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, ResourceClass, name)
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _fife.delete_ResourceClass
+    __del__ = lambda self : None;
+    def getResourceLocation(self):
+        """getResourceLocation(self) -> ResourceLocation"""
+        return _fife.ResourceClass_getResourceLocation(self)
+
+    def getResourceFile(self):
+        """getResourceFile(self) -> string"""
+        return _fife.ResourceClass_getResourceFile(self)
+
+    def setResourceLocation(self, *args):
+        """setResourceLocation(self, ResourceLocation location)"""
+        return _fife.ResourceClass_setResourceLocation(self, *args)
+
+    def setResourceFile(self, *args):
+        """setResourceFile(self, string filename)"""
+        return _fife.ResourceClass_setResourceFile(self, *args)
+
+    def getPoolId(self):
+        """getPoolId(self) -> int"""
+        return _fife.ResourceClass_getPoolId(self)
+
+    def setPoolId(self, *args):
+        """setPoolId(self, int poolid)"""
+        return _fife.ResourceClass_setPoolId(self, *args)
+
+ResourceClass_swigregister = _fife.ResourceClass_swigregister
+ResourceClass_swigregister(ResourceClass)
+
+class Location(_object):
+    """Proxy of C++ FIFE::Location class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Location, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Location, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(self) -> Location
+        __init__(self, Location loc) -> Location
+        __init__(self, Layer layer) -> Location
+        """
+        this = _fife.new_Location(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _fife.delete_Location
+    __del__ = lambda self : None;
+    def reset(self):
+        """reset(self)"""
+        return _fife.Location_reset(self)
+
+    def __eq__(self, *args):
+        """__eq__(self, Location loc) -> bool"""
+        return _fife.Location___eq__(self, *args)
+
+    def getMap(self):
+        """getMap(self) -> Map"""
+        return _fife.Location_getMap(self)
+
+    def setLayer(self, *args):
+        """setLayer(self, Layer layer)"""
+        return _fife.Location_setLayer(self, *args)
+
+    def getLayer(self):
+        """getLayer(self) -> Layer"""
+        return _fife.Location_getLayer(self)
+
+    def setExactLayerCoordinates(self, *args):
+        """setExactLayerCoordinates(self, ExactModelCoordinate coordinates)"""
+        return _fife.Location_setExactLayerCoordinates(self, *args)
+
+    def setLayerCoordinates(self, *args):
+        """setLayerCoordinates(self, ModelCoordinate coordinates)"""
+        return _fife.Location_setLayerCoordinates(self, *args)
+
+    def setMapCoordinates(self, *args):
+        """setMapCoordinates(self, ExactModelCoordinate coordinates)"""
+        return _fife.Location_setMapCoordinates(self, *args)
+
+    def getExactLayerCoordinatesRef(self):
+        """getExactLayerCoordinatesRef(self) -> ExactModelCoordinate"""
+        return _fife.Location_getExactLayerCoordinatesRef(self)
+
+    def getExactLayerCoordinates(self, *args):
+        """
+        getExactLayerCoordinates(self) -> ExactModelCoordinate
+        getExactLayerCoordinates(self, Layer layer) -> ExactModelCoordinate
+        """
+        return _fife.Location_getExactLayerCoordinates(self, *args)
+
+    def getLayerCoordinates(self, *args):
+        """
+        getLayerCoordinates(self) -> ModelCoordinate
+        getLayerCoordinates(self, Layer layer) -> ModelCoordinate
+        """
+        return _fife.Location_getLayerCoordinates(self, *args)
+
+    def getMapCoordinates(self):
+        """getMapCoordinates(self) -> ExactModelCoordinate"""
+        return _fife.Location_getMapCoordinates(self)
+
+    def isValid(self):
+        """isValid(self) -> bool"""
+        return _fife.Location_isValid(self)
+
+    def getCellOffsetDistance(self):
+        """getCellOffsetDistance(self) -> double"""
+        return _fife.Location_getCellOffsetDistance(self)
+
+    def getMapDistanceTo(self, *args):
+        """getMapDistanceTo(self, Location location) -> double"""
+        return _fife.Location_getMapDistanceTo(self, *args)
+
+    def getLayerDistanceTo(self, *args):
+        """getLayerDistanceTo(self, Location location) -> double"""
+        return _fife.Location_getLayerDistanceTo(self, *args)
+
+Location_swigregister = _fife.Location_swigregister
+Location_swigregister(Location)
+
+class InstanceActionListener(_object):
+    """Proxy of C++ FIFE::InstanceActionListener class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InstanceActionListener, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, InstanceActionListener, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _fife.delete_InstanceActionListener
+    __del__ = lambda self : None;
+    def onInstanceActionFinished(self, *args):
+        """onInstanceActionFinished(self, Instance instance, Action action)"""
+        return _fife.InstanceActionListener_onInstanceActionFinished(self, *args)
+
+    def __init__(self): 
+        """__init__(self) -> InstanceActionListener"""
+        if self.__class__ == InstanceActionListener:
+            _self = None
+        else:
+            _self = self
+        this = _fife.new_InstanceActionListener(_self, )
+        try: self.this.append(this)
+        except: self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _fife.disown_InstanceActionListener(self)
+        return weakref_proxy(self)
+InstanceActionListener_swigregister = _fife.InstanceActionListener_swigregister
+InstanceActionListener_swigregister(InstanceActionListener)
+
+def __lshift__(*args):
+  """
+    __lshift__(std::ostream arg0, Rect arg1) -> std::ostream
+    __lshift__(std::ostream os, Location l) -> std::ostream
+    """
+  return _fife.__lshift__(*args)
+
+ICHANGE_NO_CHANGES = _fife.ICHANGE_NO_CHANGES
+ICHANGE_LOC = _fife.ICHANGE_LOC
+ICHANGE_FACING_LOC = _fife.ICHANGE_FACING_LOC
+ICHANGE_SPEED = _fife.ICHANGE_SPEED
+ICHANGE_ACTION = _fife.ICHANGE_ACTION
+ICHANGE_TIME_MULTIPLIER = _fife.ICHANGE_TIME_MULTIPLIER
+ICHANGE_SAYTEXT = _fife.ICHANGE_SAYTEXT
+ICHANGE_ROTATION = _fife.ICHANGE_ROTATION
+class InstanceChangeListener(_object):
+    """Proxy of C++ FIFE::InstanceChangeListener class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InstanceChangeListener, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, InstanceChangeListener, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _fife.delete_InstanceChangeListener
+    __del__ = lambda self : None;
+    def onInstanceChanged(self, *args):
+        """onInstanceChanged(self, Instance instance, InstanceChangeInfo info)"""
+        return _fife.InstanceChangeListener_onInstanceChanged(self, *args)
+
+    def __init__(self): 
+        """__init__(self) -> InstanceChangeListener"""
+        if self.__class__ == InstanceChangeListener:
+            _self = None
+        else:
+            _self = self
+        this = _fife.new_InstanceChangeListener(_self, )
+        try: self.this.append(this)
+        except: self.this = this
+    def __disown__(self):
+        self.this.disown()
+        _fife.disown_InstanceChangeListener(self)
+        return weakref_proxy(self)
+InstanceChangeListener_swigregister = _fife.InstanceChangeListener_swigregister
+InstanceChangeListener_swigregister(InstanceChangeListener)
+
+class Instance(FifeClass):
+    """Proxy of C++ FIFE::Instance class"""
+    __swig_setmethods__ = {}
+    for _s in [FifeClass]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Instance, name, value)
+    __swig_getmethods__ = {}
+    for _s in [FifeClass]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, Instance, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(self, Object object, Location location, string identifier = "") -> Instance
+        __init__(self, Object object, Location location) -> Instance
+        """
+        this = _fife.new_Instance(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _fife.delete_Instance
+    __del__ = lambda self : None;
+    def getId(self):
+        """getId(self) -> string"""
+        return _fife.Instance_getId(self)
+
+    def setId(self, identifier = ""):
+        """
+        setId(self, string identifier = "")
+        setId(self)
+        """
+        return _fife.Instance_setId(self, identifier)
+
+    def getObject(self):
+        """getObject(self) -> Object"""
+        return _fife.Instance_getObject(self)
+
+    def setLocation(self, *args):
+        """setLocation(self, Location loc)"""
+        return _fife.Instance_setLocation(self, *args)
+
+    def getLocation(self):
+        """getLocation(self) -> Location"""
+        return _fife.Instance_getLocation(self)
+
+    def getLocationRef(self):
+        """getLocationRef(self) -> Location"""
+        return _fife.Instance_getLocationRef(self)
+
+    def getTargetLocation(self):
+        """getTargetLocation(self) -> Location"""
+        return _fife.Instance_getTargetLocation(self)
+
+    def setRotation(self, *args):
+        """setRotation(self, int arg0)"""
+        return _fife.Instance_setRotation(self, *args)
+
+    def getRotation(self):
+        """getRotation(self) -> int"""
+        return _fife.Instance_getRotation(self)
+
+    def addActionListener(self, *args):
+        """addActionListener(self, InstanceActionListener listener)"""
+        return _fife.Instance_addActionListener(self, *args)
+
+    def removeActionListener(self, *args):
+        """removeActionListener(self, InstanceActionListener listener)"""
+        return _fife.Instance_removeActionListener(self, *args)
+
+    def addChangeListener(self, *args):
+        """addChangeListener(self, InstanceChangeListener listener)"""
+        return _fife.Instance_addChangeListener(self, *args)
+
+    def removeChangeListener(self, *args):
+        """removeChangeListener(self, InstanceChangeListener listener)"""
+        return _fife.Instance_removeChangeListener(self, *args)
+
+    def getCurrentAction(self):
+        """getCurrentAction(self) -> Action"""
+        return _fife.Instance_getCurrentAction(self)
+
+    def getMovementSpeed(self):
+        """getMovementSpeed(self) -> double"""
+        return _fife.Instance_getMovementSpeed(self)
+
+    def setFacingLocation(self, *args):
+        """setFacingLocation(self, Location loc)"""
+        return _fife.Instance_setFacingLocation(self, *args)
+
+    def getFacingLocation(self):
+        """getFacingLocation(self) -> Location"""
+        return _fife.Instance_getFacingLocation(self)
+
+    def getFacingLocationRef(self):
+        """getFacingLocationRef(self) -> Location"""
+        return _fife.Instance_getFacingLocationRef(self)
+
+    def getActionRuntime(self):
+        """getActionRuntime(self) -> unsigned int"""
+        return _fife.Instance_getActionRuntime(self)
+
+    def setActionRuntime(self, *args):
+        """setActionRuntime(self, unsigned int time_offset)"""
+        return _fife.Instance_setActionRuntime(self, *args)
+
+    def move(self, *args):
+        """move(self, string action_name, Location target, double speed)"""
+        return _fife.Instance_move(self, *args)
+
+    def act(self, *args):
+        """
+        act(self, string action_name, Location direction, bool repeating = False)
+        act(self, string action_name, Location direction)
+        """
+        return _fife.Instance_act(self, *args)
+
+    def follow(self, *args):
+        """follow(self, string action_name, Instance leader, double speed)"""
+        return _fife.Instance_follow(self, *args)
+
+    def say(self, *args):
+        """
+        say(self, string text, unsigned int duration = 0)
+        say(self, string text)
+        """
+        return _fife.Instance_say(self, *args)
+
+    def setTimeMultiplier(self, *args):
+        """setTimeMultiplier(self, float multip)"""
+        return _fife.Instance_setTimeMultiplier(self, *args)
+
+    def getTimeMultiplier(self):
+        """getTimeMultiplier(self) -> float"""
+        return _fife.Instance_getTimeMultiplier(self)
+
+    def getRuntime(self):
+        """getRuntime(self) -> unsigned int"""
+        return _fife.Instance_getRuntime(self)
+
+    def refresh(self):
+        """refresh(self)"""
+        return _fife.Instance_refresh(self)
+
+    def getChangeInfo(self):
+        """getChangeInfo(self) -> InstanceChangeInfo"""
+        return _fife.Instance_getChangeInfo(self)
+
+    def setVisual(self, *args):
+        """setVisual(self, AbstractVisual visual)"""
+        return _fife.Instance_setVisual(self, *args)
+
+    def get2dGfxVisual(self):
+        """get2dGfxVisual(self) -> InstanceVisual"""
+        return _fife.Instance_get2dGfxVisual(self)
+
+Instance_swigregister = _fife.Instance_swigregister
+Instance_swigregister(Instance)
+
+class InstanceVector(_object):
+    """Proxy of C++ std::vector<(p.FIFE::Instance)> class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InstanceVector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, InstanceVector, name)
+    __repr__ = _swig_repr
+    def iterator(self):
+        """iterator(self) -> SwigPyIterator"""
+        return _fife.InstanceVector_iterator(self)
+
+    def __iter__(self): return self.iterator()
+    def __nonzero__(self):
+        """__nonzero__(self) -> bool"""
+        return _fife.InstanceVector___nonzero__(self)
+
+    def __bool__(self):
+        """__bool__(self) -> bool"""
+        return _fife.InstanceVector___bool__(self)
+
+    def __len__(self):
+        """__len__(self) -> size_type"""
+        return _fife.InstanceVector___len__(self)
+
+    def pop(self):
+        """pop(self) -> value_type"""
+        return _fife.InstanceVector_pop(self)
+
+    def __getslice__(self, *args):
+        """__getslice__(self, difference_type i, difference_type j) -> InstanceVector"""
+        return _fife.InstanceVector___getslice__(self, *args)
+
+    def __setslice__(self, *args):
+        """__setslice__(self, difference_type i, difference_type j, InstanceVector v)"""
+        return _fife.InstanceVector___setslice__(self, *args)
+
+    def __delslice__(self, *args):
+        """__delslice__(self, difference_type i, difference_type j)"""
+        return _fife.InstanceVector___delslice__(self, *args)
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(self, difference_type i)
+        __delitem__(self, PySliceObject slice)
+        """
+        return _fife.InstanceVector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(self, PySliceObject slice) -> InstanceVector
+        __getitem__(self, difference_type i) -> value_type
+        """
+        return _fife.InstanceVector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(self, PySliceObject slice, InstanceVector v)
+        __setitem__(self, difference_type i, value_type x)
+        """
+        return _fife.InstanceVector___setitem__(self, *args)
+
+    def append(self, *args):
+        """append(self, value_type x)"""
+        return _fife.InstanceVector_append(self, *args)
+
+    def empty(self):
+        """empty(self) -> bool"""
+        return _fife.InstanceVector_empty(self)
+
+    def size(self):
+        """size(self) -> size_type"""
+        return _fife.InstanceVector_size(self)
+
+    def clear(self):
+        """clear(self)"""
+        return _fife.InstanceVector_clear(self)
+
+    def swap(self, *args):
+        """swap(self, InstanceVector v)"""
+        return _fife.InstanceVector_swap(self, *args)
+
+    def get_allocator(self):
+        """get_allocator(self) -> allocator_type"""
+        return _fife.InstanceVector_get_allocator(self)
+
+    def begin(self):
+        """begin(self) -> const_iterator"""
+        return _fife.InstanceVector_begin(self)
+
+    def end(self):
+        """end(self) -> const_iterator"""
+        return _fife.InstanceVector_end(self)
+
+    def rbegin(self):
+        """rbegin(self) -> const_reverse_iterator"""
+        return _fife.InstanceVector_rbegin(self)
+
+    def rend(self):
+        """rend(self) -> const_reverse_iterator"""
+        return _fife.InstanceVector_rend(self)
+
+    def pop_back(self):
+        """pop_back(self)"""
+        return _fife.InstanceVector_pop_back(self)
+
+    def erase(self, *args):
+        """
+        erase(self, iterator pos) -> iterator
+        erase(self, iterator first, iterator last) -> iterator
+        """
+        return _fife.InstanceVector_erase(self, *args)
+
+    def __init__(self, *args): 
+        """
+        __init__(self) -> InstanceVector
+        __init__(self, InstanceVector arg0) -> InstanceVector
+        __init__(self, size_type size) -> InstanceVector
+        __init__(self, size_type size, value_type value) -> InstanceVector
+        """
+        this = _fife.new_InstanceVector(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def push_back(self, *args):
+        """push_back(self, value_type x)"""
+        return _fife.InstanceVector_push_back(self, *args)
+
+    def front(self):
+        """front(self) -> value_type"""
+        return _fife.InstanceVector_front(self)
+
+    def back(self):
+        """back(self) -> value_type"""
+        return _fife.InstanceVector_back(self)
+
+    def assign(self, *args):
+        """assign(self, size_type n, value_type x)"""
+        return _fife.InstanceVector_assign(self, *args)
+
+    def resize(self, *args):
+        """
+        resize(self, size_type new_size)
+        resize(self, size_type new_size, value_type x)
+        """
+        return _fife.InstanceVector_resize(self, *args)
+
+    def insert(self, *args):
+        """
+        insert(self, iterator pos, value_type x) -> iterator
+        insert(self, iterator pos, size_type n, value_type x)
+        """
+        return _fife.InstanceVector_insert(self, *args)
+
+    def reserve(self, *args):
+        """reserve(self, size_type n)"""
+        return _fife.InstanceVector_reserve(self, *args)
+
+    def capacity(self):
+        """capacity(self) -> size_type"""
+        return _fife.InstanceVector_capacity(self)
+
+    __swig_destroy__ = _fife.delete_InstanceVector
+    __del__ = lambda self : None;
+InstanceVector_swigregister = _fife.InstanceVector_swigregister
+InstanceVector_swigregister(InstanceVector)
+
+class InstanceList(_object):
+    """Proxy of C++ std::list<(p.FIFE::Instance)> class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InstanceList, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, InstanceList, name)
+    __repr__ = _swig_repr
+    def iterator(self):
+        """iterator(self) -> SwigPyIterator"""
+        return _fife.InstanceList_iterator(self)
+
+    def __iter__(self): return self.iterator()
+    def __nonzero__(self):
+        """__nonzero__(self) -> bool"""
+        return _fife.InstanceList___nonzero__(self)
+
+    def __bool__(self):
+        """__bool__(self) -> bool"""
+        return _fife.InstanceList___bool__(self)
+
+    def __len__(self):
+        """__len__(self) -> size_type"""
+        return _fife.InstanceList___len__(self)
+
+    def pop(self):
+        """pop(self) -> value_type"""
+        return _fife.InstanceList_pop(self)
+
+    def __getslice__(self, *args):
+        """__getslice__(self, difference_type i, difference_type j) -> InstanceList"""
+        return _fife.InstanceList___getslice__(self, *args)
+
+    def __setslice__(self, *args):
+        """__setslice__(self, difference_type i, difference_type j, InstanceList v)"""
+        return _fife.InstanceList___setslice__(self, *args)
+
+    def __delslice__(self, *args):
+        """__delslice__(self, difference_type i, difference_type j)"""
+        return _fife.InstanceList___delslice__(self, *args)
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(self, difference_type i)
+        __delitem__(self, PySliceObject slice)
+        """
+        return _fife.InstanceList___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(self, PySliceObject slice) -> InstanceList
+        __getitem__(self, difference_type i) -> value_type
+        """
+        return _fife.InstanceList___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(self, PySliceObject slice, InstanceList v)
+        __setitem__(self, difference_type i, value_type x)
+        """
+        return _fife.InstanceList___setitem__(self, *args)
+
+    def append(self, *args):
+        """append(self, value_type x)"""
+        return _fife.InstanceList_append(self, *args)
+
+    def empty(self):
+        """empty(self) -> bool"""
+        return _fife.InstanceList_empty(self)
+
+    def size(self):
+        """size(self) -> size_type"""
+        return _fife.InstanceList_size(self)
+
+    def clear(self):
+        """clear(self)"""
+        return _fife.InstanceList_clear(self)
+
+    def swap(self, *args):
+        """swap(self, InstanceList v)"""
+        return _fife.InstanceList_swap(self, *args)
+
+    def get_allocator(self):
+        """get_allocator(self) -> allocator_type"""
+        return _fife.InstanceList_get_allocator(self)
+
+    def begin(self):
+        """begin(self) -> const_iterator"""
+        return _fife.InstanceList_begin(self)
+
+    def end(self):
+        """end(self) -> const_iterator"""
+        return _fife.InstanceList_end(self)
+
+    def rbegin(self):
+        """rbegin(self) -> const_reverse_iterator"""
+        return _fife.InstanceList_rbegin(self)
+
+    def rend(self):
+        """rend(self) -> const_reverse_iterator"""
+        return _fife.InstanceList_rend(self)
+
+    def pop_back(self):
+        """pop_back(self)"""
+        return _fife.InstanceList_pop_back(self)
+
+    def erase(self, *args):
+        """
+        erase(self, iterator pos) -> iterator
+        erase(self, iterator first, iterator last) -> iterator
+        """
+        return _fife.InstanceList_erase(self, *args)
+
+    def __init__(self, *args): 
+        """
+        __init__(self) -> InstanceList
+        __init__(self, InstanceList arg0) -> InstanceList
+        __init__(self, size_type size) -> InstanceList
+        __init__(self, size_type size, value_type value) -> InstanceList
+        """
+        this = _fife.new_InstanceList(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def push_back(self, *args):
+        """push_back(self, value_type x)"""
+        return _fife.InstanceList_push_back(self, *args)
+
+    def front(self):
+        """front(self) -> value_type"""
+        return _fife.InstanceList_front(self)
+
+    def back(self):
+        """back(self) -> value_type"""
+        return _fife.InstanceList_back(self)
+
+    def assign(self, *args):
+        """assign(self, size_type n, value_type x)"""
+        return _fife.InstanceList_assign(self, *args)
+
+    def resize(self, *args):
+        """
+        resize(self, size_type new_size)
+        resize(self, size_type new_size, value_type x)
+        """
+        return _fife.InstanceList_resize(self, *args)
+
+    def insert(self, *args):
+        """
+        insert(self, iterator pos, value_type x) -> iterator
+        insert(self, iterator pos, size_type n, value_type x)
+        """
+        return _fife.InstanceList_insert(self, *args)
+
+    def pop_front(self):
+        """pop_front(self)"""
+        return _fife.InstanceList_pop_front(self)
+
+    def push_front(self, *args):
+        """push_front(self, value_type x)"""
+        return _fife.InstanceList_push_front(self, *args)
+
+    def remove(self, *args):
+        """remove(self, value_type x)"""
+        return _fife.InstanceList_remove(self, *args)
+
+    def unique(self):
+        """unique(self)"""
+        return _fife.InstanceList_unique(self)
+
+    def reverse(self):
+        """reverse(self)"""
+        return _fife.InstanceList_reverse(self)
+
+    def sort(self):
+        """sort(self)"""
+        return _fife.InstanceList_sort(self)
+
+    def merge(self, *args):
+        """merge(self, InstanceList x)"""
+        return _fife.InstanceList_merge(self, *args)
+
+    __swig_destroy__ = _fife.delete_InstanceList
+    __del__ = lambda self : None;
+InstanceList_swigregister = _fife.InstanceList_swigregister
+InstanceList_swigregister(InstanceList)
+
+class AbstractPather(_object):
+    """Proxy of C++ FIFE::AbstractPather class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AbstractPather, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, AbstractPather, name)
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _fife.delete_AbstractPather
+    __del__ = lambda self : None;
+    def getNextLocation(self, *args):
+        """
+        getNextLocation(self, Instance instance, Location target, double distance_to_travel, 
+            Location nextLocation, Location facingLocation, 
+            int session_id = -1, int priority = MEDIUM_PRIORITY) -> int
+        getNextLocation(self, Instance instance, Location target, double distance_to_travel, 
+            Location nextLocation, Location facingLocation, 
+            int session_id = -1) -> int
+        getNextLocation(self, Instance instance, Location target, double distance_to_travel, 
+            Location nextLocation, Location facingLocation) -> int
+        """
+        return _fife.AbstractPather_getNextLocation(self, *args)
+
+    def getName(self):
+        """getName(self) -> string"""
+        return _fife.AbstractPather_getName(self)
+
+AbstractPather_swigregister = _fife.AbstractPather_swigregister
+AbstractPather_swigregister(AbstractPather)
+
+class Action(ResourceClass):
+    """Proxy of C++ FIFE::Action class"""
+    __swig_setmethods__ = {}
+    for _s in [ResourceClass]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Action, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ResourceClass]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
+    __getattr__ = lambda self, name: _swig_getattr(self, Action, name)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """__init__(self, string identifier) -> Action"""
+        this = _fife.new_Action(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _fife.delete_Action
+    __del__ = lambda self : None;
+    def getId(self):
+        """getId(self) -> string"""
+        return _fife.Action_getId(self)
+
+    def adoptVisual(self, *args):
+        """adoptVisual(self, AbstractVisual visual)"""
+        return _fife.Action_adoptVisual(self, *args)
+
+    def setDuration(self, *args):
+        """setDuration(self, unsigned int duration)"""
+        return _fife.Action_setDuration(self, *args)
+
+    def getDuration(self):
+        """getDuration(self) -> unsigned int"""
+        return _fife.Action_getDuration(self)
+
+    def get2dGfxVisual(self):
+        """get2dGfxVisual(self) -> ActionVisual"""
+        return _fife.Action_get2dGfxVisual(self)
+
+Action_swigregister = _fife.Action_swigregister
+Action_swigregister(Action)
 
 class ModelCoordinateVector(_object):
     """Proxy of C++ std::vector<(FIFE::ModelCoordinate)> class"""
@@ -6863,675 +7549,6 @@ class Model(FifeClass):
 
 Model_swigregister = _fife.Model_swigregister
 Model_swigregister(Model)
-
-class Location(_object):
-    """Proxy of C++ FIFE::Location class"""
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Location, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Location, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """
-        __init__(self) -> Location
-        __init__(self, Location loc) -> Location
-        __init__(self, Layer layer) -> Location
-        """
-        this = _fife.new_Location(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    __swig_destroy__ = _fife.delete_Location
-    __del__ = lambda self : None;
-    def reset(self):
-        """reset(self)"""
-        return _fife.Location_reset(self)
-
-    def __eq__(self, *args):
-        """__eq__(self, Location loc) -> bool"""
-        return _fife.Location___eq__(self, *args)
-
-    def getMap(self):
-        """getMap(self) -> Map"""
-        return _fife.Location_getMap(self)
-
-    def setLayer(self, *args):
-        """setLayer(self, Layer layer)"""
-        return _fife.Location_setLayer(self, *args)
-
-    def getLayer(self):
-        """getLayer(self) -> Layer"""
-        return _fife.Location_getLayer(self)
-
-    def setExactLayerCoordinates(self, *args):
-        """setExactLayerCoordinates(self, ExactModelCoordinate coordinates)"""
-        return _fife.Location_setExactLayerCoordinates(self, *args)
-
-    def setLayerCoordinates(self, *args):
-        """setLayerCoordinates(self, ModelCoordinate coordinates)"""
-        return _fife.Location_setLayerCoordinates(self, *args)
-
-    def setMapCoordinates(self, *args):
-        """setMapCoordinates(self, ExactModelCoordinate coordinates)"""
-        return _fife.Location_setMapCoordinates(self, *args)
-
-    def getExactLayerCoordinatesRef(self):
-        """getExactLayerCoordinatesRef(self) -> ExactModelCoordinate"""
-        return _fife.Location_getExactLayerCoordinatesRef(self)
-
-    def getExactLayerCoordinates(self, *args):
-        """
-        getExactLayerCoordinates(self) -> ExactModelCoordinate
-        getExactLayerCoordinates(self, Layer layer) -> ExactModelCoordinate
-        """
-        return _fife.Location_getExactLayerCoordinates(self, *args)
-
-    def getLayerCoordinates(self, *args):
-        """
-        getLayerCoordinates(self) -> ModelCoordinate
-        getLayerCoordinates(self, Layer layer) -> ModelCoordinate
-        """
-        return _fife.Location_getLayerCoordinates(self, *args)
-
-    def getMapCoordinates(self):
-        """getMapCoordinates(self) -> ExactModelCoordinate"""
-        return _fife.Location_getMapCoordinates(self)
-
-    def isValid(self):
-        """isValid(self) -> bool"""
-        return _fife.Location_isValid(self)
-
-    def getCellOffsetDistance(self):
-        """getCellOffsetDistance(self) -> double"""
-        return _fife.Location_getCellOffsetDistance(self)
-
-    def getMapDistanceTo(self, *args):
-        """getMapDistanceTo(self, Location location) -> double"""
-        return _fife.Location_getMapDistanceTo(self, *args)
-
-    def getLayerDistanceTo(self, *args):
-        """getLayerDistanceTo(self, Location location) -> double"""
-        return _fife.Location_getLayerDistanceTo(self, *args)
-
-Location_swigregister = _fife.Location_swigregister
-Location_swigregister(Location)
-
-class InstanceActionListener(_object):
-    """Proxy of C++ FIFE::InstanceActionListener class"""
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InstanceActionListener, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, InstanceActionListener, name)
-    __repr__ = _swig_repr
-    __swig_destroy__ = _fife.delete_InstanceActionListener
-    __del__ = lambda self : None;
-    def onInstanceActionFinished(self, *args):
-        """onInstanceActionFinished(self, Instance instance, Action action)"""
-        return _fife.InstanceActionListener_onInstanceActionFinished(self, *args)
-
-    def __init__(self): 
-        """__init__(self) -> InstanceActionListener"""
-        if self.__class__ == InstanceActionListener:
-            _self = None
-        else:
-            _self = self
-        this = _fife.new_InstanceActionListener(_self, )
-        try: self.this.append(this)
-        except: self.this = this
-    def __disown__(self):
-        self.this.disown()
-        _fife.disown_InstanceActionListener(self)
-        return weakref_proxy(self)
-InstanceActionListener_swigregister = _fife.InstanceActionListener_swigregister
-InstanceActionListener_swigregister(InstanceActionListener)
-
-def __lshift__(*args):
-  """
-    __lshift__(std::ostream arg0, Rect arg1) -> std::ostream
-    __lshift__(std::ostream os, Location l) -> std::ostream
-    """
-  return _fife.__lshift__(*args)
-
-ICHANGE_NO_CHANGES = _fife.ICHANGE_NO_CHANGES
-ICHANGE_LOC = _fife.ICHANGE_LOC
-ICHANGE_FACING_LOC = _fife.ICHANGE_FACING_LOC
-ICHANGE_SPEED = _fife.ICHANGE_SPEED
-ICHANGE_ACTION = _fife.ICHANGE_ACTION
-ICHANGE_TIME_MULTIPLIER = _fife.ICHANGE_TIME_MULTIPLIER
-ICHANGE_SAYTEXT = _fife.ICHANGE_SAYTEXT
-ICHANGE_ROTATION = _fife.ICHANGE_ROTATION
-class InstanceChangeListener(_object):
-    """Proxy of C++ FIFE::InstanceChangeListener class"""
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InstanceChangeListener, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, InstanceChangeListener, name)
-    __repr__ = _swig_repr
-    __swig_destroy__ = _fife.delete_InstanceChangeListener
-    __del__ = lambda self : None;
-    def onInstanceChanged(self, *args):
-        """onInstanceChanged(self, Instance instance, InstanceChangeInfo info)"""
-        return _fife.InstanceChangeListener_onInstanceChanged(self, *args)
-
-    def __init__(self): 
-        """__init__(self) -> InstanceChangeListener"""
-        if self.__class__ == InstanceChangeListener:
-            _self = None
-        else:
-            _self = self
-        this = _fife.new_InstanceChangeListener(_self, )
-        try: self.this.append(this)
-        except: self.this = this
-    def __disown__(self):
-        self.this.disown()
-        _fife.disown_InstanceChangeListener(self)
-        return weakref_proxy(self)
-InstanceChangeListener_swigregister = _fife.InstanceChangeListener_swigregister
-InstanceChangeListener_swigregister(InstanceChangeListener)
-
-class Instance(ResourceClass):
-    """Proxy of C++ FIFE::Instance class"""
-    __swig_setmethods__ = {}
-    for _s in [ResourceClass]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Instance, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ResourceClass]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
-    __getattr__ = lambda self, name: _swig_getattr(self, Instance, name)
-    __repr__ = _swig_repr
-    def __init__(self, *args): 
-        """
-        __init__(self, Object object, Location location, string identifier = "") -> Instance
-        __init__(self, Object object, Location location) -> Instance
-        """
-        this = _fife.new_Instance(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    __swig_destroy__ = _fife.delete_Instance
-    __del__ = lambda self : None;
-    def getId(self):
-        """getId(self) -> string"""
-        return _fife.Instance_getId(self)
-
-    def setId(self, identifier = ""):
-        """
-        setId(self, string identifier = "")
-        setId(self)
-        """
-        return _fife.Instance_setId(self, identifier)
-
-    def getObject(self):
-        """getObject(self) -> Object"""
-        return _fife.Instance_getObject(self)
-
-    def setLocation(self, *args):
-        """setLocation(self, Location loc)"""
-        return _fife.Instance_setLocation(self, *args)
-
-    def getLocation(self):
-        """getLocation(self) -> Location"""
-        return _fife.Instance_getLocation(self)
-
-    def getLocationRef(self):
-        """getLocationRef(self) -> Location"""
-        return _fife.Instance_getLocationRef(self)
-
-    def getTargetLocation(self):
-        """getTargetLocation(self) -> Location"""
-        return _fife.Instance_getTargetLocation(self)
-
-    def setRotation(self, *args):
-        """setRotation(self, int arg0)"""
-        return _fife.Instance_setRotation(self, *args)
-
-    def getRotation(self):
-        """getRotation(self) -> int"""
-        return _fife.Instance_getRotation(self)
-
-    def addActionListener(self, *args):
-        """addActionListener(self, InstanceActionListener listener)"""
-        return _fife.Instance_addActionListener(self, *args)
-
-    def removeActionListener(self, *args):
-        """removeActionListener(self, InstanceActionListener listener)"""
-        return _fife.Instance_removeActionListener(self, *args)
-
-    def addChangeListener(self, *args):
-        """addChangeListener(self, InstanceChangeListener listener)"""
-        return _fife.Instance_addChangeListener(self, *args)
-
-    def removeChangeListener(self, *args):
-        """removeChangeListener(self, InstanceChangeListener listener)"""
-        return _fife.Instance_removeChangeListener(self, *args)
-
-    def getCurrentAction(self):
-        """getCurrentAction(self) -> Action"""
-        return _fife.Instance_getCurrentAction(self)
-
-    def getMovementSpeed(self):
-        """getMovementSpeed(self) -> double"""
-        return _fife.Instance_getMovementSpeed(self)
-
-    def setFacingLocation(self, *args):
-        """setFacingLocation(self, Location loc)"""
-        return _fife.Instance_setFacingLocation(self, *args)
-
-    def getFacingLocation(self):
-        """getFacingLocation(self) -> Location"""
-        return _fife.Instance_getFacingLocation(self)
-
-    def getFacingLocationRef(self):
-        """getFacingLocationRef(self) -> Location"""
-        return _fife.Instance_getFacingLocationRef(self)
-
-    def getActionRuntime(self):
-        """getActionRuntime(self) -> unsigned int"""
-        return _fife.Instance_getActionRuntime(self)
-
-    def setActionRuntime(self, *args):
-        """setActionRuntime(self, unsigned int time_offset)"""
-        return _fife.Instance_setActionRuntime(self, *args)
-
-    def move(self, *args):
-        """move(self, string action_name, Location target, double speed)"""
-        return _fife.Instance_move(self, *args)
-
-    def act(self, *args):
-        """
-        act(self, string action_name, Location direction, bool repeating = False)
-        act(self, string action_name, Location direction)
-        """
-        return _fife.Instance_act(self, *args)
-
-    def follow(self, *args):
-        """follow(self, string action_name, Instance leader, double speed)"""
-        return _fife.Instance_follow(self, *args)
-
-    def say(self, *args):
-        """
-        say(self, string text, unsigned int duration = 0)
-        say(self, string text)
-        """
-        return _fife.Instance_say(self, *args)
-
-    def setTimeMultiplier(self, *args):
-        """setTimeMultiplier(self, float multip)"""
-        return _fife.Instance_setTimeMultiplier(self, *args)
-
-    def getTimeMultiplier(self):
-        """getTimeMultiplier(self) -> float"""
-        return _fife.Instance_getTimeMultiplier(self)
-
-    def getRuntime(self):
-        """getRuntime(self) -> unsigned int"""
-        return _fife.Instance_getRuntime(self)
-
-    def refresh(self):
-        """refresh(self)"""
-        return _fife.Instance_refresh(self)
-
-    def getChangeInfo(self):
-        """getChangeInfo(self) -> InstanceChangeInfo"""
-        return _fife.Instance_getChangeInfo(self)
-
-    def setVisual(self, *args):
-        """setVisual(self, AbstractVisual visual)"""
-        return _fife.Instance_setVisual(self, *args)
-
-    def get2dGfxVisual(self):
-        """get2dGfxVisual(self) -> InstanceVisual"""
-        return _fife.Instance_get2dGfxVisual(self)
-
-Instance_swigregister = _fife.Instance_swigregister
-Instance_swigregister(Instance)
-
-class InstanceVector(_object):
-    """Proxy of C++ std::vector<(p.FIFE::Instance)> class"""
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InstanceVector, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, InstanceVector, name)
-    __repr__ = _swig_repr
-    def iterator(self):
-        """iterator(self) -> SwigPyIterator"""
-        return _fife.InstanceVector_iterator(self)
-
-    def __iter__(self): return self.iterator()
-    def __nonzero__(self):
-        """__nonzero__(self) -> bool"""
-        return _fife.InstanceVector___nonzero__(self)
-
-    def __bool__(self):
-        """__bool__(self) -> bool"""
-        return _fife.InstanceVector___bool__(self)
-
-    def __len__(self):
-        """__len__(self) -> size_type"""
-        return _fife.InstanceVector___len__(self)
-
-    def pop(self):
-        """pop(self) -> value_type"""
-        return _fife.InstanceVector_pop(self)
-
-    def __getslice__(self, *args):
-        """__getslice__(self, difference_type i, difference_type j) -> InstanceVector"""
-        return _fife.InstanceVector___getslice__(self, *args)
-
-    def __setslice__(self, *args):
-        """__setslice__(self, difference_type i, difference_type j, InstanceVector v)"""
-        return _fife.InstanceVector___setslice__(self, *args)
-
-    def __delslice__(self, *args):
-        """__delslice__(self, difference_type i, difference_type j)"""
-        return _fife.InstanceVector___delslice__(self, *args)
-
-    def __delitem__(self, *args):
-        """
-        __delitem__(self, difference_type i)
-        __delitem__(self, PySliceObject slice)
-        """
-        return _fife.InstanceVector___delitem__(self, *args)
-
-    def __getitem__(self, *args):
-        """
-        __getitem__(self, PySliceObject slice) -> InstanceVector
-        __getitem__(self, difference_type i) -> value_type
-        """
-        return _fife.InstanceVector___getitem__(self, *args)
-
-    def __setitem__(self, *args):
-        """
-        __setitem__(self, PySliceObject slice, InstanceVector v)
-        __setitem__(self, difference_type i, value_type x)
-        """
-        return _fife.InstanceVector___setitem__(self, *args)
-
-    def append(self, *args):
-        """append(self, value_type x)"""
-        return _fife.InstanceVector_append(self, *args)
-
-    def empty(self):
-        """empty(self) -> bool"""
-        return _fife.InstanceVector_empty(self)
-
-    def size(self):
-        """size(self) -> size_type"""
-        return _fife.InstanceVector_size(self)
-
-    def clear(self):
-        """clear(self)"""
-        return _fife.InstanceVector_clear(self)
-
-    def swap(self, *args):
-        """swap(self, InstanceVector v)"""
-        return _fife.InstanceVector_swap(self, *args)
-
-    def get_allocator(self):
-        """get_allocator(self) -> allocator_type"""
-        return _fife.InstanceVector_get_allocator(self)
-
-    def begin(self):
-        """begin(self) -> const_iterator"""
-        return _fife.InstanceVector_begin(self)
-
-    def end(self):
-        """end(self) -> const_iterator"""
-        return _fife.InstanceVector_end(self)
-
-    def rbegin(self):
-        """rbegin(self) -> const_reverse_iterator"""
-        return _fife.InstanceVector_rbegin(self)
-
-    def rend(self):
-        """rend(self) -> const_reverse_iterator"""
-        return _fife.InstanceVector_rend(self)
-
-    def pop_back(self):
-        """pop_back(self)"""
-        return _fife.InstanceVector_pop_back(self)
-
-    def erase(self, *args):
-        """
-        erase(self, iterator pos) -> iterator
-        erase(self, iterator first, iterator last) -> iterator
-        """
-        return _fife.InstanceVector_erase(self, *args)
-
-    def __init__(self, *args): 
-        """
-        __init__(self) -> InstanceVector
-        __init__(self, InstanceVector arg0) -> InstanceVector
-        __init__(self, size_type size) -> InstanceVector
-        __init__(self, size_type size, value_type value) -> InstanceVector
-        """
-        this = _fife.new_InstanceVector(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def push_back(self, *args):
-        """push_back(self, value_type x)"""
-        return _fife.InstanceVector_push_back(self, *args)
-
-    def front(self):
-        """front(self) -> value_type"""
-        return _fife.InstanceVector_front(self)
-
-    def back(self):
-        """back(self) -> value_type"""
-        return _fife.InstanceVector_back(self)
-
-    def assign(self, *args):
-        """assign(self, size_type n, value_type x)"""
-        return _fife.InstanceVector_assign(self, *args)
-
-    def resize(self, *args):
-        """
-        resize(self, size_type new_size)
-        resize(self, size_type new_size, value_type x)
-        """
-        return _fife.InstanceVector_resize(self, *args)
-
-    def insert(self, *args):
-        """
-        insert(self, iterator pos, value_type x) -> iterator
-        insert(self, iterator pos, size_type n, value_type x)
-        """
-        return _fife.InstanceVector_insert(self, *args)
-
-    def reserve(self, *args):
-        """reserve(self, size_type n)"""
-        return _fife.InstanceVector_reserve(self, *args)
-
-    def capacity(self):
-        """capacity(self) -> size_type"""
-        return _fife.InstanceVector_capacity(self)
-
-    __swig_destroy__ = _fife.delete_InstanceVector
-    __del__ = lambda self : None;
-InstanceVector_swigregister = _fife.InstanceVector_swigregister
-InstanceVector_swigregister(InstanceVector)
-
-class InstanceList(_object):
-    """Proxy of C++ std::list<(p.FIFE::Instance)> class"""
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InstanceList, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, InstanceList, name)
-    __repr__ = _swig_repr
-    def iterator(self):
-        """iterator(self) -> SwigPyIterator"""
-        return _fife.InstanceList_iterator(self)
-
-    def __iter__(self): return self.iterator()
-    def __nonzero__(self):
-        """__nonzero__(self) -> bool"""
-        return _fife.InstanceList___nonzero__(self)
-
-    def __bool__(self):
-        """__bool__(self) -> bool"""
-        return _fife.InstanceList___bool__(self)
-
-    def __len__(self):
-        """__len__(self) -> size_type"""
-        return _fife.InstanceList___len__(self)
-
-    def pop(self):
-        """pop(self) -> value_type"""
-        return _fife.InstanceList_pop(self)
-
-    def __getslice__(self, *args):
-        """__getslice__(self, difference_type i, difference_type j) -> InstanceList"""
-        return _fife.InstanceList___getslice__(self, *args)
-
-    def __setslice__(self, *args):
-        """__setslice__(self, difference_type i, difference_type j, InstanceList v)"""
-        return _fife.InstanceList___setslice__(self, *args)
-
-    def __delslice__(self, *args):
-        """__delslice__(self, difference_type i, difference_type j)"""
-        return _fife.InstanceList___delslice__(self, *args)
-
-    def __delitem__(self, *args):
-        """
-        __delitem__(self, difference_type i)
-        __delitem__(self, PySliceObject slice)
-        """
-        return _fife.InstanceList___delitem__(self, *args)
-
-    def __getitem__(self, *args):
-        """
-        __getitem__(self, PySliceObject slice) -> InstanceList
-        __getitem__(self, difference_type i) -> value_type
-        """
-        return _fife.InstanceList___getitem__(self, *args)
-
-    def __setitem__(self, *args):
-        """
-        __setitem__(self, PySliceObject slice, InstanceList v)
-        __setitem__(self, difference_type i, value_type x)
-        """
-        return _fife.InstanceList___setitem__(self, *args)
-
-    def append(self, *args):
-        """append(self, value_type x)"""
-        return _fife.InstanceList_append(self, *args)
-
-    def empty(self):
-        """empty(self) -> bool"""
-        return _fife.InstanceList_empty(self)
-
-    def size(self):
-        """size(self) -> size_type"""
-        return _fife.InstanceList_size(self)
-
-    def clear(self):
-        """clear(self)"""
-        return _fife.InstanceList_clear(self)
-
-    def swap(self, *args):
-        """swap(self, InstanceList v)"""
-        return _fife.InstanceList_swap(self, *args)
-
-    def get_allocator(self):
-        """get_allocator(self) -> allocator_type"""
-        return _fife.InstanceList_get_allocator(self)
-
-    def begin(self):
-        """begin(self) -> const_iterator"""
-        return _fife.InstanceList_begin(self)
-
-    def end(self):
-        """end(self) -> const_iterator"""
-        return _fife.InstanceList_end(self)
-
-    def rbegin(self):
-        """rbegin(self) -> const_reverse_iterator"""
-        return _fife.InstanceList_rbegin(self)
-
-    def rend(self):
-        """rend(self) -> const_reverse_iterator"""
-        return _fife.InstanceList_rend(self)
-
-    def pop_back(self):
-        """pop_back(self)"""
-        return _fife.InstanceList_pop_back(self)
-
-    def erase(self, *args):
-        """
-        erase(self, iterator pos) -> iterator
-        erase(self, iterator first, iterator last) -> iterator
-        """
-        return _fife.InstanceList_erase(self, *args)
-
-    def __init__(self, *args): 
-        """
-        __init__(self) -> InstanceList
-        __init__(self, InstanceList arg0) -> InstanceList
-        __init__(self, size_type size) -> InstanceList
-        __init__(self, size_type size, value_type value) -> InstanceList
-        """
-        this = _fife.new_InstanceList(*args)
-        try: self.this.append(this)
-        except: self.this = this
-    def push_back(self, *args):
-        """push_back(self, value_type x)"""
-        return _fife.InstanceList_push_back(self, *args)
-
-    def front(self):
-        """front(self) -> value_type"""
-        return _fife.InstanceList_front(self)
-
-    def back(self):
-        """back(self) -> value_type"""
-        return _fife.InstanceList_back(self)
-
-    def assign(self, *args):
-        """assign(self, size_type n, value_type x)"""
-        return _fife.InstanceList_assign(self, *args)
-
-    def resize(self, *args):
-        """
-        resize(self, size_type new_size)
-        resize(self, size_type new_size, value_type x)
-        """
-        return _fife.InstanceList_resize(self, *args)
-
-    def insert(self, *args):
-        """
-        insert(self, iterator pos, value_type x) -> iterator
-        insert(self, iterator pos, size_type n, value_type x)
-        """
-        return _fife.InstanceList_insert(self, *args)
-
-    def pop_front(self):
-        """pop_front(self)"""
-        return _fife.InstanceList_pop_front(self)
-
-    def push_front(self, *args):
-        """push_front(self, value_type x)"""
-        return _fife.InstanceList_push_front(self, *args)
-
-    def remove(self, *args):
-        """remove(self, value_type x)"""
-        return _fife.InstanceList_remove(self, *args)
-
-    def unique(self):
-        """unique(self)"""
-        return _fife.InstanceList_unique(self)
-
-    def reverse(self):
-        """reverse(self)"""
-        return _fife.InstanceList_reverse(self)
-
-    def sort(self):
-        """sort(self)"""
-        return _fife.InstanceList_sort(self)
-
-    def merge(self, *args):
-        """merge(self, InstanceList x)"""
-        return _fife.InstanceList_merge(self, *args)
-
-    __swig_destroy__ = _fife.delete_InstanceList
-    __del__ = lambda self : None;
-InstanceList_swigregister = _fife.InstanceList_swigregister
-InstanceList_swigregister(InstanceList)
 
 CELL_EDGES_ONLY = _fife.CELL_EDGES_ONLY
 CELL_EDGES_AND_DIAGONALS = _fife.CELL_EDGES_AND_DIAGONALS
@@ -9990,27 +10007,27 @@ class FloatingTextRenderer(RendererBase):
         """
         return _fife.FloatingTextRenderer_setColor(self, *args)
 
-    def setDefaultBackground(self, *args):
+    def setBackground(self, *args):
         """
-        setDefaultBackground(self, Uint8 br, Uint8 bg, Uint8 bb, Uint8 ba = 255)
-        setDefaultBackground(self, Uint8 br, Uint8 bg, Uint8 bb)
+        setBackground(self, Uint8 br, Uint8 bg, Uint8 bb, Uint8 ba = 255)
+        setBackground(self, Uint8 br, Uint8 bg, Uint8 bb)
         """
-        return _fife.FloatingTextRenderer_setDefaultBackground(self, *args)
+        return _fife.FloatingTextRenderer_setBackground(self, *args)
 
-    def setDefaultBorder(self, *args):
+    def setBorder(self, *args):
         """
-        setDefaultBorder(self, Uint8 bbr, Uint8 bbg, Uint8 bbb, Uint8 bba = 255)
-        setDefaultBorder(self, Uint8 bbr, Uint8 bbg, Uint8 bbb)
+        setBorder(self, Uint8 bbr, Uint8 bbg, Uint8 bbb, Uint8 bba = 255)
+        setBorder(self, Uint8 bbr, Uint8 bbg, Uint8 bbb)
         """
-        return _fife.FloatingTextRenderer_setDefaultBorder(self, *args)
+        return _fife.FloatingTextRenderer_setBorder(self, *args)
 
-    def resetDefaultBackground(self):
-        """resetDefaultBackground(self)"""
-        return _fife.FloatingTextRenderer_resetDefaultBackground(self)
+    def resetBackground(self):
+        """resetBackground(self)"""
+        return _fife.FloatingTextRenderer_resetBackground(self)
 
-    def resetDefaultBorder(self):
-        """resetDefaultBorder(self)"""
-        return _fife.FloatingTextRenderer_resetDefaultBorder(self)
+    def resetBorder(self):
+        """resetBorder(self)"""
+        return _fife.FloatingTextRenderer_resetBorder(self)
 
     def getInstance(*args):
         """getInstance(IRendererContainer cnt) -> FloatingTextRenderer"""
@@ -10490,6 +10507,23 @@ class InstanceRenderer(RendererBase):
     def removeAllColored(self):
         """removeAllColored(self)"""
         return _fife.InstanceRenderer_removeAllColored(self)
+
+    def addTransparentArea(self, *args):
+        """
+        addTransparentArea(self, Instance instance, StringList groups, unsigned int w, 
+            unsigned int h, unsigned char trans, bool front = True)
+        addTransparentArea(self, Instance instance, StringList groups, unsigned int w, 
+            unsigned int h, unsigned char trans)
+        """
+        return _fife.InstanceRenderer_addTransparentArea(self, *args)
+
+    def removeTransparentArea(self, *args):
+        """removeTransparentArea(self, Instance instance)"""
+        return _fife.InstanceRenderer_removeTransparentArea(self, *args)
+
+    def removeAllTransparentAreas(self):
+        """removeAllTransparentAreas(self)"""
+        return _fife.InstanceRenderer_removeAllTransparentAreas(self)
 
     def getInstance(*args):
         """getInstance(IRendererContainer cnt) -> InstanceRenderer"""
