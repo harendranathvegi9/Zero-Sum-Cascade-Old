@@ -151,4 +151,6 @@ class ContextMenu():
 	
 	def _follow(self):
 		self._hide()
+		loc = fife.Location(self._map.getLayer('player'))
+		loc.setExactLayerCoordinates(self._currentObject._agent.getLocation().getExactLayerCoordinates())
 		self._world._player._agent.follow('walk', self._currentObject._agent, 0.75)

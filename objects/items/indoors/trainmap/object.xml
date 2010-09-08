@@ -1,0 +1,4 @@
+<?fife type="object"?>
+<object id="trainmap" namespace="zsc" blocking="0" static="1">
+	<image source="0.png" direction="0" x_offset="-0" y_offset="-60" />
+</object>

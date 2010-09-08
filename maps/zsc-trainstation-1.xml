@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ascii"?>
+<map id="trainstation-1" format="1.0">
+	<import file="../objects/groundtiles/buildings/small-trainstation/object.xml"></import>
+	<import file="../objects/groundtiles/entrances/object.xml"></import>
+	<import file="../objects/sprites/mrplaceholder/object.xml"></import>
+	<import file="../objects/items/indoors/ticketmachine/object.xml"></import>
+	<import file="../objects/items/indoors/trainmap/object.xml"></import>
+	<import file="../objects/items/indoors/desk1-3/object.xml"></import>
+	<import file="../objects/items/indoors/desk1-2/object.xml"></import>
+	<import file="../objects/items/indoors/desk1-1/object.xml"></import>
+	<import file="../objects/groundtiles/Non-Visible/object.xml"></import>
+	<import file="../objects/items/indoors/desk2/object.xml"></import>
+	<import file="../objects/items/indoors/door/object.xml"></import>
+	<layer grid_type="square" id="ground" x_scale="1.0" x_offset="0.0" y_offset="0.0" pathing="cell_edges_and_diagonals" y_scale="1.0" rotation="0.0" transparency="0">
+		<instances>
+			<i r="0" z="0.0" x="1.0" o="small-trainstation" y="-1.0" ns="zsc-tiles"></i>
+		</instances>
+	</layer>
+	<layer grid_type="square" id="waypoints" x_scale="0.5" x_offset="0.25" y_offset="0.25" pathing="cell_edges_and_diagonals" y_scale="0.5" rotation="0.0" transparency="0">
+		<instances>
+			<i r="45" id="door-exit-1" z="0.0" x="-3.0" o="waypoint:entrance" y="1.0"></i>
+			<i r="45" id="door-exit-2" z="0.0" x="5.0" o="waypoint:entrance" y="1.0"></i>
+			<i r="225" id="train-exit-1" z="0.0" x="-3.0" o="waypoint:entrance" y="-5.0"></i>
+			<i r="225" id="train-exit-2" z="0.0" x="-2.0" o="waypoint:entrance" y="-5.0"></i>
+		</instances>
+	</layer>
+	<layer grid_type="square" id="player" x_scale="0.5" x_offset="0.25" y_offset="0.25" pathing="cell_edges_only" y_scale="0.5" rotation="0.0" transparency="0">
+		<instances>
+			<i r="0" id="actor-pc" z="0.0" x="3.0" o="actor:mrplaceholder" y="-2.0" ns="zsc-people"></i>
+			<i r="0" z="0.0" x="8.0" o="ticketmachine" y="-1.0" ns="zsc"></i>
+			<i x="2.0" o="trainmap" z="0.0" y="-5.0" r="0"></i>
+			<i x="6.0" o="desk1-3" z="0.0" y="-4.0" r="0"></i>
+			<i x="3.0" o="desk1-2" z="0.0" y="-4.0" r="0"></i>
+			<i x="0.0" o="desk1-1" z="0.0" y="-4.0" r="0"></i>
+			<i r="0" z="0.0" x="8.0" o="blocking:001" y="0.0" ns="zsc-tiles"></i>
+			<i x="8.0" o="blocking:001" z="0.0" y="-2.0" r="0"></i>
+			<i x="5.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
+			<i x="4.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
+			<i x="2.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
+			<i x="1.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
+			<i x="0.0" o="blocking:001" z="0.0" y="-5.0" r="0"></i>
+			<i r="0" z="0.0" x="-5.0" o="desk2" y="-4.0" ns="zsc"></i>
+			<i r="0" z="0.0" x="7.0" o="blocking:001" y="-5.0" ns="zsc-tiles"></i>
+			<i x="7.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
+			<i x="7.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="6.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="5.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="4.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="3.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="2.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="1.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="0.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="-1.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="-2.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="-3.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="-4.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="-5.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="-6.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="-6.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="-5.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="-3.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="-2.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="-1.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="0.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="1.0" r="0"></i>
+			<i x="8.0" o="blocking:001" z="0.0" y="-3.0" r="0"></i>
+			<i x="9.0" o="blocking:001" z="0.0" y="-3.0" r="0"></i>
+			<i x="9.0" o="blocking:001" z="0.0" y="-2.0" r="0"></i>
+			<i x="9.0" o="blocking:001" z="0.0" y="-1.0" r="0"></i>
+			<i x="9.0" o="blocking:001" z="0.0" y="0.0" r="0"></i>
+			<i x="9.0" o="blocking:001" z="0.0" y="1.0" r="0"></i>
+			<i x="9.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="8.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="7.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="6.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="5.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="4.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="3.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="2.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="1.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="0.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="-1.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="-2.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="-3.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="-4.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="-6.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="-5.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="-7.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
+			<i x="8.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
+			<i r="0" z="0.0" x="7.0" o="door" y="-3.0" ns="zsc"></i>
+		</instances>
+	</layer>
+	<camera tilt="-54.8" id="main" ref_layer_id="ground" ref_cell_height="74" rotation="45.0" ref_cell_width="128" zoom="1.0">
+	</camera>
+</map>

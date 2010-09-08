@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ascii"?>
 <map id="test5" format="1.0">
 	<import file="../objects/groundtiles/Grass/object.xml"></import>
-        <import file="../objects/items/street objects/parking meter/object.xml"></import>
 	<import file="../objects/groundtiles/Tarmac/object.xml"></import>
 	<import file="../objects/groundtiles/Road/1/object.xml"></import>
 	<import file="../objects/groundtiles/Train1/object.xml"></import>
@@ -15,6 +14,7 @@
 	<import file="../objects/groundtiles/Non-Visible/object.xml"></import>
 	<import file="../objects/sprites/mrplaceholder/object.xml"></import>
 	<import file="../objects/sprites/zsc/object.xml"></import>
+	<import file="../objects/items/street objects/parking meter/object.xml"></import>
 	<layer grid_type="square" id="ground" x_scale="1.0" x_offset="0.0" y_offset="0.0" pathing="cell_edges_only" y_scale="1.0" rotation="0.0" transparency="0">
 		<instances>
 			<i r="0" z="0.0" x="2.0" o="grass:001" y="0.0" ns="zsc-tiles"></i>
@@ -1227,8 +1227,8 @@
 	</layer>
 	<layer grid_type="square" id="waypoints" x_scale="0.5" x_offset="0.0" y_offset="0.0" pathing="cell_edges_only" y_scale="0.5" rotation="0.0" transparency="100">
 		<instances>
-			<i x="1.0" o="waypoint:entrance" z="0.0" y="2.0" r="315"></i>
-			<i x="11.0" o="waypoint:entrance" z="0.0" y="2.0" r="315"></i>
+			<i r="315" id="train-door-1" z="0.0" x="1.0" o="waypoint:entrance" y="2.0"></i>
+			<i r="315" id="train-door-2" z="0.0" x="11.0" o="waypoint:entrance" y="2.0"></i>
 			<i x="-2.0" o="waypoint:entrance" z="0.0" y="-13.0" r="135"></i>
 			<i x="-2.0" o="waypoint:entrance" z="0.0" y="-21.0" r="135"></i>
 		</instances>
@@ -1581,8 +1581,8 @@
 			<i r="45" id="actor-mark" z="0.0" x="-2.0" o="actor:mrplaceholder" y="-21.0"></i>
 			<i r="45" id="actor-sam" z="0.0" x="-9.0" o="actor:mrplaceholder" y="-16.0"></i>
 			<i r="45" id="actor-will" z="0.0" x="1.0" o="actor:mrplaceholder" y="2.0"></i>
-			<i r="45" id="obj-zsc" z="0.0" x="6.0" o="zsc-1" y="3.0" ns="zsc"></i>
-			<i r="225" id="obj-parkingmeter-1" z="0.0" x="-1.0" o="object:parkingmeter" y="-12.0" ns="zsc"></i>
+			<i r="45" id="obj-zsc" z="0.0" x="21.0" o="zsc-1" y="4.0" ns="zsc"></i>
+			<i r="225" id="obj-parkingmeter-1" z="0.0" x="-1.0" o="object:parkingmeter" y="-12.0"></i>
 			<i r="225" id="obj-parkingmeter-2" z="0.0" x="-1.0" o="object:parkingmeter" y="-20.0"></i>
 		</instances>
 	</layer>

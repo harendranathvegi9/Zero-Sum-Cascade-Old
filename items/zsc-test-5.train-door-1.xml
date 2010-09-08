@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Settings>
+  <Module name="object">
+    <Setting name="agentname" type="str">train-door-1</Setting>
+    <Setting name="layer" type="str">waypoints</Setting>
+    <Setting name="status" type="str">ACTIVE</Setting>
+    <Setting name="action" type="str">door</Setting>
+    <Setting name="mapfile" type="str">maps/zsc-trainstation-1.xml</Setting>
+    <Setting name="newx" type="int">2</Setting>
+    <Setting name="newy" type="int">2</Setting>
+    <Setting name="actions" type="str">use : True</Setting>
+    <Setting name="description" type="str">The Trainstation</Setting>
+    <Setting name="talk" type="bool">True</Setting>
+ </Module>
+</Settings>

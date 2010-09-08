@@ -1,0 +1,4 @@
+<?fife type="object"?>
+<object id="small-trainstation" namespace="zsc-tiles" blocking="0" static="1">
+	<image source="0.png" direction="0" x_offset="-6" y_offset="-3" />
+</object>

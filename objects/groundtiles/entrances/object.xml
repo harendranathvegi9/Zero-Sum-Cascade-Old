@@ -5,9 +5,9 @@
 	<image direction="225" source="3.png" x_offset="0" y_offset="0" />
 	<image direction="315" source="4.png" x_offset="0" y_offset="0" />
 	<action id="walk">
-		<animation id="active" source="active/animation1.xml" direction="45" />
-		<animation id="active" source="active/animation2.xml" direction="135" />
-		<animation id="active" source="active/animation3.xml" direction="225" />
-		<animation id="active" source="active/animation4.xml" direction="315" />
+		<animation direction="45" id="active" source="active/animation1.xml" />
+		<animation direction="135" id="active" source="active/animation2.xml" />
+		<animation direction="225" id="active" source="active/animation3.xml" />
+		<animation direction="315" id="active" source="active/animation4.xml" />
 	</action>
 </object>

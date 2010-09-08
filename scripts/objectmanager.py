@@ -90,7 +90,10 @@ class InteractiveObject(fife.InstanceActionListener):
 	
 	def onInstanceActionFinished(self, instance, action):
 		if self._status == 'ACTIVE':
-			self._agent.act('on', self._agent.getFacingLocation())
+			if self._objectFile.get("object", "action", "none") == 'door':
+				pass
+			else:
+				self._agent.act('on', self._agent.getFacingLocation())
 		elif self._status == 'INACTIVE':
 			self._agent.act('off', self._agent.getFacingLocation())
 		elif self._status == 'DESTROYED':
@@ -100,7 +103,10 @@ class InteractiveObject(fife.InstanceActionListener):
 	
 	def use(self):
 		if self._status == 'ACTIVE':
-			self._agent.act('use', self._agent.getFacingLocation())
+			if self._objectFile.get("object", "action", "none") == 'door':
+				pass
+			else:
+				self._agent.act('use', self._agent.getFacingLocation())
 			self._manager._world._player._agent.setFacingLocation(self._agent.getLocation())
 			if self._noactioncallbacks == 0:
 				self._action()
@@ -154,21 +160,13 @@ class InteractiveObject(fife.InstanceActionListener):
 			self._noactioncallbacks = 0
 			self._actioncallbacks = {}
 		elif action == "door":
-			loc1 = fife.Location()
-			loc1.setLayer(self._manager._world._map.getLayer('player'))
-			loc1.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "newx", 0), self._file.get("event", "newy", 0)))
-			
-			loc2 = fife.Location()
-			loc2.setLayer(self._manager._world._map.getLayer('player'))
-			loc2.setExactLayerCoordinates(fife.ExactModelCoordinate(self._file.get("event", "refx", 0), self._file.get("event", "refy", 0)))
-			
 			self._action = self._manager._world._loadMap
 			self._noactioncallbacks = 5
-			self._actioncallbakcs = { 0 : self._objectFile.get("object", "mapfile", "") ,
+			self._actioncallbacks = { 0 : self._objectFile.get("object", "mapfile", "") ,
 						  1 : 'LEVEL' ,
 						  2 : True ,
-						  3 : loc1 ,
-						  4 : loc2 }
+						  3 : self._objectFile.get("event", "newx", 0) ,
+						  4 : self._objectFile.get("event", "newy", 0) }
 		elif action == "plot":
 			self._action = self._manager._world._eventtracker._evaluateItem
 			self._noactioncallbacks = 1

@@ -1,0 +1,4 @@
+<?fife type="object"?>
+<object blocking="1" id="desk2" namespace="zsc" static="1">
+	<image direction="0" source="0.png" x_offset="-24" y_offset="-14" />
+</object>
