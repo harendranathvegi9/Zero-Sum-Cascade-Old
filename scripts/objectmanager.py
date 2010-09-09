@@ -165,8 +165,8 @@ class InteractiveObject(fife.InstanceActionListener):
 			self._actioncallbacks = { 0 : self._objectFile.get("object", "mapfile", "") ,
 						  1 : 'LEVEL' ,
 						  2 : True ,
-						  3 : self._objectFile.get("event", "newx", 0) ,
-						  4 : self._objectFile.get("event", "newy", 0) }
+						  3 : self._objectFile.get("object", "x", 0) ,
+						  4 : self._objectFile.get("object", "y", 0) }
 		elif action == "plot":
 			self._action = self._manager._world._eventtracker._evaluateItem
 			self._noactioncallbacks = 1
