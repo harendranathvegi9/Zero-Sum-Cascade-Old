@@ -11,6 +11,7 @@
 	<import file="../objects/groundtiles/Non-Visible/object.xml"></import>
 	<import file="../objects/items/indoors/desk2/object.xml"></import>
 	<import file="../objects/items/indoors/door/object.xml"></import>
+	<import file="../objects/sprites/servicepeople/female-static/1/object.xml"></import>
 	<layer grid_type="square" id="ground" x_scale="1.0" x_offset="0.0" y_offset="0.0" pathing="cell_edges_and_diagonals" y_scale="1.0" rotation="0.0" transparency="0">
 		<instances>
 			<i r="0" z="0.0" x="1.0" o="small-trainstation" y="-1.0" ns="zsc-tiles"></i>
@@ -89,6 +90,10 @@
 			<i x="-7.0" o="blocking:001" z="0.0" y="2.0" r="0"></i>
 			<i x="8.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
 			<i r="0" z="0.0" x="7.0" o="door" y="-3.0" ns="zsc"></i>
+			<i r="0" id="actor-stewardess-1" z="0.0" x="1.0" o="actor:service-female-static-1" y="-5.0" ns="zsc-people"></i>
+			<i r="0" id="actor-stewardess-2" z="0.0" x="4.0" o="actor:service-female-static-1" y="-5.0"></i>
+			<i r="0" z="0.0" x="-5.0" o="blocking:001" y="-5.0" ns="zsc-tiles"></i>
+			<i x="-6.0" o="blocking:001" z="0.0" y="-4.0" r="0"></i>
 		</instances>
 	</layer>
 	<camera tilt="-54.8" id="main" ref_layer_id="ground" ref_cell_height="74" rotation="45.0" ref_cell_width="128" zoom="1.0">

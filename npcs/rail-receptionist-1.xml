@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Settings>
+  <Module name="npc">
+    <Setting name="actionchance" type="int">10</Setting>
+    <Setting name="hasdialogue" type="bool">True</Setting>
+    <Setting name="autowalk" type="bool">False</Setting>
+    <Setting name="description" type="str">A pretty railway receptionist.</Setting>
+  </Module>
+  <Module name="dialogue">
+    <Setting name="index" type="str">6 ; 7 ; 8 ; 9 ; 10</Setting>
+    <Setting name="idleindex" type="str">6 ; 7 ; 8 </Setting>
+    <Setting name="6" type="str">index : 6 ; topic : idle ; text : Welcome to the Alband General Railway ; requires : 0</Setting>
+    <Setting name="7" type="str">index : 7 ; topic : idle ; text : The next train will be leaving in five minutes ; requires : 0</Setting>
+    <Setting name="8" type="str">index : 8 ; topic : idle ; text : Please do not wait on the platform ; requires : 0</Setting>
+    <Setting name="9" type="str">index : 9 ; topic : Where do the trains go? ; text : Please check the ticket machine for the trains currently running. ; requires : 0</Setting>
+    <Setting name="10" type="str">index : 10 ; topic : Where do I go to catch a train? ; text : The left side of the door is for westbound trains. The right is for eastbound trains. ; requires : 0</Setting>
+  </Module>
+</Settings>

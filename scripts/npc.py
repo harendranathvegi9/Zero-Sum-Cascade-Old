@@ -98,7 +98,7 @@ class NPC(Agent):
 		
 	def _loadNPC(self, name):
 		self._npcFile = SimpleXMLSerializer(filename="npcs/" + name + ".xml")
-		actionstr = self._npcFile.get("npc", "actions", None)
+		actionstr = self._npcFile.get("npc", "actions", "glitch : True")
 		actions = self._npcFile._deserializeDict(actionstr)
 		for action, bool in actions.iteritems():
 			if bool == "True":
@@ -107,7 +107,6 @@ class NPC(Agent):
 				self._availableActions[action] = False
 		self._actionchance = self._npcFile.get("npc", "actionchance", 0)
 		self._description = self._npcFile.get("npc", "description", "I can see a mysterious figure,\n but I can't quite make them out.")
-		self._autowalk = self._npcFile.get("npc", "autowalk", True)
 		self._hasdialogue = self._npcFile.get("npc", "hasdialogue", False)
 		self._autowalk = self._npcFile.get("npc", "autowalk", True)
 		self._loadDialogue()
@@ -151,9 +150,9 @@ class NPC(Agent):
 				self._waypointmove()
 			else:
 				self._agent.act('stand', self._agent.getFacingLocation())
-			chance = random.randint(0,100)
-			if chance < self._actionchance / 2 and self._hasdialogue:
-				self.talk()
+		chance = random.randint(0,100)
+		if chance < self._actionchance / 2 and self._hasdialogue:
+			self.talk()
 		
 	def _waypointmove(self):
 		no = random.randint(0, len(self._world._waypoints) - 1)

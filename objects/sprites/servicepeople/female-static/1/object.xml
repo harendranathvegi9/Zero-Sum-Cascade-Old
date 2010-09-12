@@ -1,0 +1,7 @@
+<?fife type="object"?>
+<object blocking="1" id="actor:service-female-static-1" namespace="zsc-people" static="0">
+	<image direction="0" source="1.png" x_offset="0" y_offset="-20" />
+	<action id="stand">
+		<animation id="stand" source="stand/animation.xml" direction="0" />
+	</action>
+</object>

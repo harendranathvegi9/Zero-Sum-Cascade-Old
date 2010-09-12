@@ -1,7 +1,4 @@
 <?fife type="object"?>
-<object id="road:002" namespace="zsc-tiles" blocking="0" static="1">
+<object id="road:002:1" namespace="zsc-tiles" blocking="0" static="1">
 	<image source="1.png" direction="0" />
-	<image source="2.png" direction="90" />
-	<image source="3.png" direction="180" />
-	<image source="4.png" direction="270" />
 </object>
